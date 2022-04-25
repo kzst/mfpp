@@ -1,0 +1,14 @@
+citHeader("To cite mfpp in publications use:")
+citEntry(
+    entry      = "article",
+    title        = "mfpp: an R package for matrix-based project planning",
+    author       = personList(person(given="Zsolt T.", family="Kosztyan", email="kzst@gtk.uni-pannon.hu"),person(given="Aamir", family="Saghir")),
+    journal      = "Journal of Statistical Softwares",
+    year         = 2022,
+    pages        = "Submitted",
+    volume       = "",
+    url          = "https://github.com/kzst/mfpp/",
+    textVersion  =
+    paste("Kosztyan, Saghir (2022).",
+          "mfpp: an R package for matrix-based project planning")
+)

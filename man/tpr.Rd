@@ -1,0 +1,71 @@
+\name{tpr}
+\alias{tpr}
+\title{ Function to calculate maximum resource demands of a project.
+%%  ~~function to do ... ~~
+}
+\description{ Calculate maximum resource demands of a project scenario.
+%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+}
+\usage{
+tpr (SST,DSM,TD, RD)
+}
+%- maybe also 'usage' for other objects documented here.
+\arguments{
+ \item{SST}{N by 1 vector of Scheduled Start Time (a numeric vector).}
+  \item{DSM}{N by N binary upper triangular matrix of the logic domain (a numeric matrix).}
+  \item{TD}{ N by 1 vector of task durations (a numeric vector).}
+  \item{RD}{ N by nR matrix of resource demands (a numeric matrix).}
+}
+
+\value{
+ \item{rMAX}{an nR by 1 vector of maximum resource demands (a scalar vector).}
+
+%%  \item{comp2 }{Description of 'comp2'}
+%% ...
+}
+\references{
+Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
+}
+\author{ Zsolt T. Kosztyan*, Aamir Saghir
+
+e-mail: kzst@gtk.uni-pannon.hu
+%%  ~~who you are~~
+}
+
+
+%% ~Make other sections like Warning with \section{Warning }{....} ~
+
+\seealso{\code{\link{tpc}}, \code{\link{tpq}}, \code{\link{tpt}}, \code{\link{maxscore_PEM}}.}
+\examples{
+
+# Calculatation of maximum resource demands of a project scenario using MFPP package.
+
+library(pracma)
+
+# Generate a 10 by 10 upper triangular binary matrix (DSM) of logic domain of a project.
+
+DSM <- triu(round(rand(10)))
+
+# Generate a 10 by 1 vector of task durations of a project.
+TD <- rand(10,1)*20
+
+# Define a 10 by 1 vector of Scheduled Start Time using tpt function.
+SST <- tpt(DSM,TD)[["EST"]]
+
+# Generate a 10 by 3 matrix of resource demands of a project.
+RD <- rand(10,3)*5
+
+# Calculation of maximum resource demands of a project using MFPP package.
+ tpr(SST,DSM,TD, RD)
+
+
+}
+% Add one or more standard keywords, see file 'KEYWORDS' in the
+% R documentation directory (show via RShowDoc("KEYWORDS")):
+% \keyword{ ~kwd1 }
+% \keyword{ ~kwd2 }
+% Use only one keyword per line.
+% For non-standard keywords, use \concept instead of \keyword:
+\concept{project planning}
+% \concept{ ~cpt2 }
+% Use only one concept per line.

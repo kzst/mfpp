@@ -1,0 +1,20 @@
+Package: mfpp
+Type: Package
+Title: Matrix-based Flexible Project Planning
+Version: 0.0.1
+Author: c(
+    person("Zsolt","Tibor","Kosztyan",email="kzst@gtk.uni-pannon.hu", role = c("aut", "cre")),
+    person("Aamir", "Sagir", role = "aut"))
+Maintainer: Zsolt T. Kosztyan <kzst@gtk.uni-pannon.hu>
+Description: Matrix-based Flexible Project Planning. Calculate demands.
+License: GPL (>= 2)
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/kzst/mfpp
+Depends: 
+    R (>= 3.10)
+Imports: 
+    Matrix,
+    pracma,
+    Rfast
+RoxygenNote: 7.1.1
