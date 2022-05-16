@@ -9,47 +9,34 @@
 #                                                                             #
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
-
 #' @export
-tpq<- function(DSM,PEM, q, QD=NULL)
-{
+phase3<- function(PDM,p=0.05,s=2.0){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
       "Package \"pracma\" must be installed to use this function.",
       call. = FALSE
     )
   }
-  if (!requireNamespace("Rfast", quietly = TRUE)) {
-    stop(
-      "Package \"Rfast\" must be installed to use this function.",
-      call. = FALSE
-    )
-  }
+  n=pracma::size(PDM,1)
+  m=pracma::size(PDM,2)
+  PDMout=PDM
+  PDMout[1:n,1:n]=pmax(pmin(pracma::ones(n),PDM[1:n,1:n]+s*pracma::triu(((pracma::rand(n)<p)*1)*pracma::rand(n))),pracma::zeros(n))
 
-  TPQ <- 0  # Total Project Quality
-  TPS <- 0  # Total Project Score (additive scores are assumed)
-
-  for (i in 1:ncol(DSM))
-  {
-    if (DSM[i,i]>0)
-    {TPS <- TPS+PEM[i,i]}
-    if (TPQ==0)
-    {TPQ=1}
-
-    TPQ <- TPQ*(q[i]^PEM[i,i])
+  if (m>n){                #occurances is generated with probability value p
+    Z=pracma::zeros(n,(m-n))
+    PDMout[,(n+1):m]=PDMout[,(n+1):m]+((PDM[,(n+1):m]==Z)*1)*pracma::rand(n,m-n)*pracma::repmat(colMeans(PDM[diag(PDM)!=0,(n+1):m]),n,1)  #is generated then
+    for (i in 1:n){                   #demands will be similar to the other demands
+      for (j in ((n+1):m)){
+        if ((PDM[i,j]>0) && (PDM[i,j]<=1) && (PDMout[i,j]>1))
+          PDMout[i,j]=1                  # %Quality should not be greater than 1
+      }
+    }
+    PDMout[diag(PDMout)==0,] <- 0          #Exluded task demands are also excluded
+    PDMout[1:n, (diag(PDMout)==0)*c(1:n)]<- 0       #Exluded task demands are also excluded
   }
-  if (TPS>0)
-    TPQ <- maxscore_PEM(DSM,PEM,(pracma::ones(pracma::size(PEM,2))-PEM))*(TPQ^{1/TPS})
-  if (is.null(QD)){
-    output <- TPQ
-  }else{
-    ## CONT
-    pem <- matrix(diag(PEM))
-    dsm <- matrix(diag(DSM))
-    TPQ <- 0
-    if (sum(Rfast::rowMaxs(QD[pem>0,], value = TRUE))>0)
-    TPQ <- sum(q[dsm>0])/sum(Rfast::rowMaxs(QD[pem>0,], value = TRUE))
-    output <-TPQ
-  }
-  return(output)
+  return(PDMout)
 }
+
+
+
+

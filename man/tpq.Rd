@@ -7,7 +7,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-tpq (DSM,PEM,q)
+tpq (DSM,PEM,q,QD=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,6 +15,7 @@ tpq (DSM,PEM,q)
 of a PEM matrix)(a numeric matrix).}
   \item{PEM}{N by N Upper triangular binary matrix of logic domain (a numeric matrix).}
   \item{q}{N by 1 vector of quality parameters (a numeric vector).}
+  \item{QD}{N by w Quality Domain to calculate relative TPQ. The default value is QD=NULL}
 }
 
 \value{

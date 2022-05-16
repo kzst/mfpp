@@ -31,35 +31,33 @@ tpr<- function(SST,DSM,TD,RD)
       call. = FALSE
     )
   }
-  N <-pracma::numel(SST)                         #Number of tasks
-  DSM <-round(pracma::triu(DSM)) #DSM must be an upper triangular binary matrix.
+  N <-pracma::numel(SST)               #Number of tasks
+  DSM <-round(pracma::triu(DSM))       #DSM must be an upper triangular binary matrix.
   DSM[(matrix(diag(DSM)==0)*1),]<-0    #Excluded task has no dependency
   DSM[,(matrix(diag(DSM)==0)*1)]<-0    #Excluded task has no dependency
-  TD[matrix(diag(DSM)==0)*1]<-0         #Excluded task has no time demands
-  RD[(matrix(diag(DSM)==0)*1),]<-0      #Excluded task has no resources
+  TD[matrix(diag(DSM)==0)*1]<-0        #Excluded task has no time demands
+  RD[(matrix(diag(DSM)==0)*1),]<-0     #Excluded task has no resources
   RD[is.nan(RD)]<-0
   SST[matrix(diag(DSM)==0)*1]<-0       #Excluded task's start time is zero
-  SST<-matrix(SST)                      #SST should be a column vector
-  n<-pracma::numel(TD)                           #Number of elements in vector T
-  SFT<-SST+TD                                  #Initialisation
+  SST<-matrix(SST)                     #SST should be a column vector
+  n<-pracma::numel(TD)                 #Number of elements in vector T
+  SFT<-SST+TD                          #Initialisation
   for (i in 1: (n-1)) {
     for (j in (i+1):n) {
       if (DSM[i,i]> 0)
         if (DSM[j,j]> 0)
-          if (DSM[i,j]> 0) #If there is a dependency between task i and task j.
+          if (DSM[i,j]> 0)             #If there is a dependency between task i and task j.
             if (SST[j] < SFT[i])
               SST[j]= SFT[i]
       SFT[j]= SST[j]+TD[j]
     }
   }
-  BP<- sort(matrix(union(SST,SFT))) # Breakpoints, where the resource demands
-                                                     # should be recalculated
-  b <- pracma::numel(BP)                                      # Number of breakpoints
+  BP<- sort(matrix(union(SST,SFT)))    #Breakpoints, where the resource demands should be recalculated
+  b <- pracma::numel(BP)               # Number of breakpoints
   B<- t((pracma::repmat(SST,1,b)<=
            pracma::repmat(BP, N,1))& (pracma::repmat(SFT,1,b)>
                                         pracma::repmat(BP, N,1)))*1
-  RESFUNC<- matrix(as.double(B), b, b)%*% RD
-  #RESFUNC=mtimes(B,R); %Calculate resource function
+  RESFUNC<- matrix(as.double(B), dim(B)[1], dim(B)[2])%*% RD       #RESFUNC=mtimes(B,R); %Calculate resource function
   rMAX<- Rfast::colMaxs(RESFUNC, value=TRUE)
   H<-t(rMAX)
   colnames(H)<-paste("R",1:ncol(H),sep="_")

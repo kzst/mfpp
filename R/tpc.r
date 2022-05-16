@@ -16,5 +16,5 @@ tpc = function (DSM, C)
   TPC<-t(diag(ceiling(DSM)))%*%C
   rownames(TPC)<-"TPC"
   colnames(TPC)<-"TPC"
-  return(TPC)
+  return(as.numeric(TPC))
 }

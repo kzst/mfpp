@@ -11,7 +11,7 @@
 #-----------------------------------------------------------------------------#
 
 #' @export
-maxscore_PEM<- function(PEM,P, Q)
+maxscore_PEM<- function(PEM,P=PEM, Q=1-PEM)
 {
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
@@ -33,6 +33,6 @@ maxscore_PEM<- function(PEM,P, Q)
   pqmax=Rfast::rowMaxs(matrix(c(p,q),ncol=2),value=TRUE)
   if (N>0)
     #The score of the project scenario is the geometric mean of maximum
-    score=prod(cbind(p[pem==1], q[pem==1], pqmax[pem>0 & pem<1]))^{1/N}
+    score=prod(matrix(c(p[pem==1], q[pem==0], pqmax[pem>0 & pem<1])))^{1/N}
   return(score)
 }

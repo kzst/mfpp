@@ -1,3 +1,16 @@
+Version 0.0.3
+
+   o fixed some bugs
+   o new function to generate PDM
+   o new function to calculate absolute constraints
+
+
+Version 0.0.2
+
+   o fixed some bugs
+   o improvement of TPT calculation
+
+
 Version 0.0.1
 
    o package release on GitHub.

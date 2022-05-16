@@ -7,13 +7,13 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-maxscore_PEM(PEM, P, Q)
+maxscore_PEM(PEM, P=PEM, Q=1-PEM)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{PEM}{N by N upper triangular adjacency matrix of logic network (a numeric matrix).}
-  \item{P}{N by N score matrix of task/dependency inclusion (a numeric matrix).}
-  \item{Q}{N by N score matrix of task/dependency exclusion (a numeric matrix).}
+  \item{P}{N by N score matrix of task/dependency inclusion (a numeric matrix). The default P matrix is P=PEM}
+  \item{Q}{N by N score matrix of task/dependency exclusion (a numeric matrix). The default Q matrix is Q=1-PEM}
 }
 
 \value{
@@ -41,13 +41,15 @@ e-mail: kzst@gtk.uni-pannon.hu
 
 # Define a 3 by 3 upper triangular adjacency matrix (PEM) of logic domain of a project.
 
-PEM <- rbind(c(0.8,0.4,0.8), c(0.0,0.7,0.7), c(0.0,0.0,0.4))
+PEM <- rbind(c(0.8,0.4,0.8),
+             c(0.0,0.7,0.7),
+             c(0.0,0.0,0.4))
 
 # Define a 3 by 3 score matrix of task/dependency inclusion.
 P <- PEM
 
 # Define a 3 by 3 score matrix of task/dependency exclusion.
-Q <- matrix(1,nrow(PEM), ncol(PEM))-P
+Q <- 1-P
 
 # Calculation of the maximal score value of the project using MFPP package.
 maxscore_PEM(PEM,P, Q)

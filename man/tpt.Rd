@@ -7,12 +7,13 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-tpt(DSM,TD)
+tpt(DSM,TD,SST=NULL)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DSM}{N by N Upper triangular binary matrix of logic domain (a numeric matrix).}
   \item{TD}{N by 1 vector of time duration (a numeric vector).}
+  \item{SST}{N by 1 vector of scheduled start time (a numeric vector).}
 }
 
 \value{
@@ -21,6 +22,8 @@ tpt(DSM,TD)
  \item{EFT}{ Early Finish Time (a vector).}
  \item{LST}{ Latest Start Time (a vector).}
  \item{LFT}{ Latest Finish Time (a vector).}
+ \item{SST}{ Scheduled Start Time (a vector).}
+ \item{SFT}{ Scheduled Finish Time (a vector).}
 %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
@@ -30,7 +33,6 @@ Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX
 \author{ Zsolt T. Kosztyan*, Aamir Saghir
 
 e-mail: kzst@gtk.uni-pannon.hu
-%%  ~~who you are~~
 }
 
 
@@ -51,6 +53,14 @@ TD <- matrix(c(3,4,5))
 
 # Calculation of times activities using MFPP package.
 tpt(DSM,TD)
+
+# Specify initial scheduled start time, where the delay is 1.
+SST <- matrix(c(1,1,1))
+
+# Calculation of times activities using MFPP package
+# (including scheduled starts and finishes).
+
+tpt(DSM,TD,SST)
 
 
 }

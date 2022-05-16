@@ -9,10 +9,10 @@
 #                                                                             #
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
-
 #' @export
-tpq<- function(DSM,PEM, q, QD=NULL)
-{
+
+paretores<- function(DSM,TD,RD){
+  output=list()
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
       "Package \"pracma\" must be installed to use this function.",
@@ -25,31 +25,31 @@ tpq<- function(DSM,PEM, q, QD=NULL)
       call. = FALSE
     )
   }
-
-  TPQ <- 0  # Total Project Quality
-  TPS <- 0  # Total Project Score (additive scores are assumed)
-
-  for (i in 1:ncol(DSM))
-  {
-    if (DSM[i,i]>0)
-    {TPS <- TPS+PEM[i,i]}
-    if (TPQ==0)
-    {TPQ=1}
-
-    TPQ <- TPQ*(q[i]^PEM[i,i])
+  if (!requireNamespace("nsga2R", quietly = TRUE)) {
+    stop(
+      "Package \"nsga2R\" must be installed to use this function.",
+      call. = FALSE
+    )
   }
-  if (TPS>0)
-    TPQ <- maxscore_PEM(DSM,PEM,(pracma::ones(pracma::size(PEM,2))-PEM))*(TPQ^{1/TPS})
-  if (is.null(QD)){
-    output <- TPQ
-  }else{
-    ## CONT
-    pem <- matrix(diag(PEM))
-    dsm <- matrix(diag(DSM))
-    TPQ <- 0
-    if (sum(Rfast::rowMaxs(QD[pem>0,], value = TRUE))>0)
-    TPQ <- sum(q[dsm>0])/sum(Rfast::rowMaxs(QD[pem>0,], value = TRUE))
-    output <-TPQ
-  }
+  DSM<-pracma::triu(round(DSM)) #DSM must be an upper triangular binary matrix
+  T<-TD
+  R<-RD
+  N=pracma::numel(TD)
+  st<-tpt(DSM,TD)
+  EST<-st$EST
+  LST<-st$LST
+  maxresfun<-function(SST){tpr(as.matrix(SST)[1:pracma::numel(TD)],DSM,
+                               TD,as.matrix(RD))}
+  results<-nsga2R::nsga2R(fn=maxresfun,dim(RD)[1],dim(RD)[2],
+                          lowerBounds = EST,upperBounds = LST)
+  rd<-tail(results$objectives,n=1)
+
+  colnames(rd)<-paste("R",1:ncol(rd),sep="_")
+  rownames(rd)<-"TPR"
+  SST<-t(as.matrix(tail(results$parameters,n=1)))
+  colnames(SST)<-"SST"
+  output$RD<-rd
+  output$SST<-SST
   return(output)
 }
+

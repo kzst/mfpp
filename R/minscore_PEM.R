@@ -11,7 +11,7 @@
 #-----------------------------------------------------------------------------#
 
 #' @export
-tpq<- function(DSM,PEM, q, QD=NULL)
+minscore_PEM<- function(PEM,P=PEM, Q=1-PEM)
 {
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
@@ -26,30 +26,25 @@ tpq<- function(DSM,PEM, q, QD=NULL)
     )
   }
 
-  TPQ <- 0  # Total Project Quality
-  TPS <- 0  # Total Project Score (additive scores are assumed)
+  score=1
+  N=0
+  p=diag(P)
+  q=diag(Q)
+  pem=diag(PEM)
+  N=pracma::numel(pem)
+  pqmin=Rfast::rowMins(matrix(c(p,q),ncol=2),value=TRUE)
+  # for(i in 1:N) {
+  #if ((p[i]>0) & (p[i]<1))
+   # N=N+1
+  #if (pem[i]==1)
+   # score=score*p[i]
+  #if (pem[i]==0)
+   # score=score*q[i]
+  #if (pem[i]<1 & pem[i]>0)
+  # score=score*min(p[i],q[i])}
 
-  for (i in 1:ncol(DSM))
-  {
-    if (DSM[i,i]>0)
-    {TPS <- TPS+PEM[i,i]}
-    if (TPQ==0)
-    {TPQ=1}
+  if (N>0)           #The score of the project scenario is the geometric mean of maximum
+  score=prod(matrix(c(p[pem==1], q[pem==0], pqmin[pem>0 & pem<1])))^{1/N}
 
-    TPQ <- TPQ*(q[i]^PEM[i,i])
-  }
-  if (TPS>0)
-    TPQ <- maxscore_PEM(DSM,PEM,(pracma::ones(pracma::size(PEM,2))-PEM))*(TPQ^{1/TPS})
-  if (is.null(QD)){
-    output <- TPQ
-  }else{
-    ## CONT
-    pem <- matrix(diag(PEM))
-    dsm <- matrix(diag(DSM))
-    TPQ <- 0
-    if (sum(Rfast::rowMaxs(QD[pem>0,], value = TRUE))>0)
-    TPQ <- sum(q[dsm>0])/sum(Rfast::rowMaxs(QD[pem>0,], value = TRUE))
-    output <-TPQ
-  }
-  return(output)
+  return(score)
 }
