@@ -1,7 +1,7 @@
 Package: mfpp
 Type: Package
 Title: Matrix-based Flexible Project Planning
-Version: 0.0.3
+Version: 0.0.4
 Author: c(
     person("Zsolt","Tibor","Kosztyan",email="kzst@gtk.uni-pannon.hu", role = c("aut", "cre")),
     person("Aamir", "Sagir", role = "aut"))
@@ -18,4 +18,4 @@ Imports:
     pracma,
     nsga2R,
     Rfast
-RoxygenNote: 7.1.2
+RoxygenNote: 7.1.1

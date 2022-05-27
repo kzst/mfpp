@@ -43,7 +43,6 @@ paretores<- function(DSM,TD,RD){
   results<-nsga2R::nsga2R(fn=maxresfun,dim(RD)[1],dim(RD)[2],
                           lowerBounds = EST,upperBounds = LST)
   rd<-tail(results$objectives,n=1)
-
   colnames(rd)<-paste("R",1:ncol(rd),sep="_")
   rownames(rd)<-"TPR"
   SST<-t(as.matrix(tail(results$parameters,n=1)))

@@ -24,8 +24,14 @@ percent<- function(PDM,type=c("c","q","qd","qr","r","s","t"),w=2,Rs=2,ratio=1){
     )
   }
   Const<-list()
-  Const$w<-w
-  Const$Rs<-Rs
+  if ("PDM_list" %in% class(PDM)){
+    Const$w<-PDM$w
+    Const$Rs<-PDM$Rs
+    PDM<-PDM$PDM
+  }else{
+    Const$w<-w
+    Const$Rs<-Rs
+  }
   Const$ratio<-ratio
   if ("c" %in% type)
   {
@@ -164,7 +170,7 @@ percent<- function(PDM,type=c("c","q","qd","qr","r","s","t"),w=2,Rs=2,ratio=1){
     Const$Ct<-TPTmin+ratio*(TPTmax-TPTmin)
 
   }
-  class(Const)<-"PDMconst"
+  class(Const)<-"PDM_const"
   return(Const)
 }
 

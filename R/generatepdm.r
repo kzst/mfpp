@@ -10,8 +10,9 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
-generatepdm<- function(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE)
+generatepdm<- function(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
 {
+  output=list()
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
       "Package \"pracma\" must be installed to use this function.",
@@ -59,7 +60,9 @@ RD <- c()
 td[1:N,1:nTD] <- TD
 cd[1:N,1:nCD] <- CD
 rd[1:N,1:nRD] <- RD
-PDM <- cbind(pem,td,cd,rd)
+PDM <- cbind(pem,td,cd,rd)              #output<- list(PDM=PDM, w=w)
+output$PDM<- PDM
+output$w <- w
 } else {
   cf=cf+1
   PEM=phase3(pracma::triu((pracma::triu(pmin(pracma::ones(N)/pmax(pracma::repmat((1-cf):(N-cf),N,1)^(scale)-
@@ -98,6 +101,18 @@ PDM <- cbind(pem,td,cd,rd)
   qd[1:N,1:nQD]=QD
   rd[1:N,1:nRD]=RD
   PDM=cbind(pem,td,cd,qd,rd)
+  output$PDM<- PDM
+  output$w <- w
 }
-return(PDM)
+  class(PDM)<-"PDM_matrix"
+  if (lst==FALSE){
+    return(PDM)
+  }else{
+    output<-list()
+    output$PDM<-PDM
+    output$w<-w
+    output$Rs<-nR
+    class(output)<-"PDM_list"
+    return(output)
+  }
 }

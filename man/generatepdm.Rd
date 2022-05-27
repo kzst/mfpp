@@ -6,7 +6,7 @@
 \description{ Function to generate a PDM matrix for flexible project planning problems.
 }
 \usage{
-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE)
+generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,8 +19,9 @@ generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE)
   \item{w}{number of modes  (a numeric integer).}
   \item{nR}{number of resources (a numeric integer).}
    \item{nW}{number of possible extra tasks (a positive numeric integer).}
-    \item{scale}{Scale parameter, the default value is 1.4 (a numeric value).}
-   \item{QD}{(an N+nW by w matrix of quality parameters, the default is FALSE (a numeric logic matrix).}
+    \item{scale}{scale parameter, the default value is 1.4 (a numeric value).}
+   \item{QD}{(logic parameter, the default value is FALSE, which means, the quality domain is neglected.}
+   \item{lst}{(logic parameter, the default value is FALSE, which means, the output is a PDM matrix, while TRUE means the output is a PDM list including number of modes (w) and the number of resources (Rs).}
 }
 
 \value{
@@ -30,6 +31,8 @@ generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE)
   \item{CD}{ N by w matrix of cost demands (a numeric matrix).}
   \item{QD}{ N by w matrix of quality parameters (a numeric matrix).}
   \item{RD}{ N by w*nR matrix of resource demands (a numeric matrix).}
+  \item{w}{ Number of completion modes (scalar, if the output is PDM list (lst=TRUE)).}
+  \item{Rs}{ Number of resources (scalar, if the output is PDM list (lst=TRUE)).}
  %%  \item{comp2 }{Description of 'comp2'}
 %% ...
 }
@@ -62,16 +65,18 @@ mTD=3;mCD=4;mRD=3
 w=2;nR=2;nW=2
 scale=1.4  #(default value)
 
-QD= pracma::rand(N,w)
-
-#Define a 4 by 4 PEM matrix
-PEM =matrix (c(1,1,0,0,0,1,0,0,0,0,1,0,0,0,0,1),ncol=4, byrow=TRUE)
-
 # Generation of PDM matrix for TCTP a project scenario using MFPP package.
- generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE)
+generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4)
+
+# Generation of PDM list for TCTP a project scenario using MFPP package.
+generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=TRUE)
+
 
 # Generation of PDM matrix for TQCTP a project scenario using MFPP package.
- generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=TRUE)
+generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=TRUE)
+
+ # Generation of PDM list for TQCTP a project scenario using MFPP package.
+generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=TRUE,lst=TRUE)
 
 
 }
