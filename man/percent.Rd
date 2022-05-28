@@ -7,7 +7,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-percent(PDM,type=c("c","q","qd","qr","r","s","t"),w=2,Rs=2,ratio=1)
+percent(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{

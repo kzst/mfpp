@@ -10,7 +10,7 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
-truncpdm<- function(x){
+is.flexible<- function(x){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
       "Package \"pracma\" must be installed to use this function.",
@@ -24,7 +24,7 @@ truncpdm<- function(x){
       PDM<-x
     }else{
       stop(
-        "truncpdm works only on matix, PDM_matrix, and PDM_list.",
+        "is.flexible works only on matix, PDM_matrix, and PDM_list.",
         call. = FALSE
       )
     }
@@ -34,29 +34,15 @@ truncpdm<- function(x){
   M<-dim(PDM)[2]
   if (min(N,M)>0)
   {
-    if (pracma::numel(which(diag(PDM)!=0,TRUE))>0){
-      if (N>M){
-        PDM<-PDM[(diag(PDM)!=0) * c(1:N),]
-      }else{
-        if (N<M){
-          PDM<-PDM[(diag(PDM)!=0) * c(1:N),c((diag(PDM)!=0) * c(1:N),c((N+1):M))]
-        }else{
-          PDM<-PDM[(diag(PDM)!=0) * c(1:N),(diag(PDM)!=0) * c(1:N)]
-        }
-      }
+    if (N>M){
+      return(FALSE) # Not a real PDM matrix
     }else{
-      PDM<-matrix(0,0,0)
-      class(PDM)<-"PDM_matrix"
+      PEM<-PDM[1:N,1:N]
+      if (pracma::numel(which(((PEM<1)&(PEM>0)),TRUE))>0){
+        return(TRUE)
+      }else{
+        return(FALSE)
+      }
     }
-  }else{
-    PDM<-matrix(0,0,0)
-    class(PDM)<-"PDM_matrix"
-  }
-  if ("PDM_list" %in% class(x)){
-    x$PDM<-PDM
-    output<-x
-    return(output)
-  }else{
-    return(PDM)
-  }
+  }else{return(FALSE)}
 }

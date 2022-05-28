@@ -2,6 +2,8 @@
 importFrom("stats", "na.omit")
 importFrom("utils", "tail")
 export(generatepdm)
+export(get.structures)
+export(is.flexible)
 export(maxscore_PEM)
 export(minscore_PEM)
 export(paretores)
