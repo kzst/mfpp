@@ -111,7 +111,11 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
       LST <- tpt(DSM,t)[["LST"]]
       TPRmax=t(matrix(pmax(tpr(EST,DSM,t,R),tpr(LST,DSM,t,R))))
       if (ratio==1.0){
-        CR=TPRmax}  else {
+        CR=TPRmax
+        colnames(CR)<-paste("R",1:ncol(CR),sep="_")
+        rownames(CR)<-"TPR"
+        Const$CR<-CR
+        }  else {
           #calculation of TPRmin
           TPRmin=paretores(dsm,T,r)$RD
           Const$CR=TPRmin+ratio*(TPRmax-TPRmin)}
@@ -144,7 +148,11 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
         LST <- tpt(DSM,t)[["LST"]]
         TPRmax=t(matrix(pmax(tpr(EST,DSM,t,R),tpr(LST,DSM,t,R))))
         if (ratio==1.0){
-          CR=TPRmax}  else {
+          CR=TPRmax
+          colnames(CR)<-paste("R",1:ncol(CR),sep="_")
+          rownames(CR)<-"TPR"
+          Const$CR<-CR
+          }  else {
             #calculation of TPRmin
             TPRmin=paretores(dsm,T,r)$RD
             Const$CR<-TPRmin+ratio*(TPRmax-TPRmin)}

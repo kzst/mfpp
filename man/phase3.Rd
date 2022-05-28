@@ -7,11 +7,11 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-phase3 (PDM,p=0.05, s=2.0)
+phase3 (x,p=0.05, s=2.0)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{PDM}{is a Project Domain Matrix (a numeric matrix), where PDM=[LD,TD, CD, {QD,RD}]. LD is an N by N upper triangular matrix of logic domain (a numeric matrix); TD is an N by w matrix of task durations (a numeric matrix); CD is an N by w matrix of cost demands (a numeric matrix); QD is an optinal N by w matrix of quality parameters (a numeric optional matrix); RD is an N by w*nR matrix of resource demands (a numeric optional matrix).}
+  \item{x}{is either a Project Domain Matrix (a numeric matrix), where PDM=[LD,TD, CD, {QD,RD}]. LD is an N by N upper triangular matrix of logic domain (a numeric matrix); TD is an N by w matrix of task durations (a numeric matrix); CD is an N by w matrix of cost demands (a numeric matrix); QD is an optinal N by w matrix of quality parameters (a numeric optional matrix); RD is an N by w*nR matrix of resource demands (a numeric optional matrix), or PDM list, which contain a PDM matrix, and the number of completion modes (w) and the number of resources.}
    \item{p}{ Probability factor for task selction (a numeric value between 0 and 1). The default value is p=0.05}
    \item{s}{ Scale factor: the ratio of the modification (a numeric integer). The default value is s=2.0}
 }
@@ -44,17 +44,22 @@ e-mail: kzst@gtk.uni-pannon.hu
 # logic domain, task duration, cost demans,
 # quality parameters (optional),  resource demand (optional) of a project.
 
-PDM=generatepdm(30,0.05,0,20,30,20,2,2,2,QD=TRUE)
+PDM=generatepdm(30,0.05,0,20,30,20,2,2,2,QD=TRUE,lst=TRUE)
 PDM
 
 # Define probability factor for task selection of a project.
-p=.05
+p=.10
 
 # Choose a scale factor for the ration of modification.
-s=2.0
+s=5.0
 
-# Simulate the effects of change of customer claims of a project scenario using MFPP package.
- phase3(PDM,p,s)
+# Simulate the effects of change of customer claims of a project scenario using MFPP package
+# with default values.
+ phase3(PDM)
+
+# Simulate the effects of change of customer claims of a project scenario using MFPP package
+# with specified values.
+ phase3(PDM$PDM,p,s)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
