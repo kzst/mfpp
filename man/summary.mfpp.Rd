@@ -8,8 +8,8 @@ Summary of PDM matrices, lists, constraints and sets.
 Print summary of PDM matrices, lists, constraints and sets
 }
 \usage{
-\method{summary}{mfpp}(object, digits =  getOption("digits"), w=NULL,
-                         Rs=NULL, ...)
+\method{summary}{mfpp}(object, digits =  getOption("digits"),w=getOption("w"),
+                         Rs=getOption("Rs"), ...)
 }
 
 %- maybe also 'usage' for other objects documented here.
