@@ -25,7 +25,7 @@ Print PDM constraints, matrices, lists, sets.
 
 %- maybe also 'usage' for other xs documented here.
 \arguments{
-  \item{x}{an x of class 'rbmcc'.}
+  \item{object}{an object of class 'PDM_const', 'PDM_matrix', 'PDM_list', 'Set_PDM_matrix', or 'Set_PDM_list'.}
   \item{digits}{the number of significant digits to use when \code{add.stats = TRUE}.}
   \item{w}{number of completion modes (positive integer)}
   \item{Rs}{number of resources (positive integer)}
