@@ -1,24 +1,35 @@
-\name{summary.mfpp}
-\alias{summary.mfpp}
+\name{summary.PDM_const}
+\alias{summary.PDM_const}
+\alias{summary.PDM_matrix}
+\alias{summary.PDM_list}
+\alias{summary.Set_PDM_matrix}
+\alias{summary.Set_PDM_list}
+
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Summary of PDM matrices, lists, constraints and sets.
-}
-\description{
-Print summary of PDM matrices, lists, constraints and sets
-}
-\usage{
-\method{summary}{mfpp}(object, digits =  getOption("digits"),w=getOption("w"),
-                         Rs=getOption("Rs"), ...)
+Print PDM constraints, matrices, lists, sets.
 }
 
-%- maybe also 'usage' for other objects documented here.
+\description{
+Print PDM constraints, matrices, lists, sets.
+}
+
+\usage{
+\method{summary}{PDM_const}(object, digits =  getOption("digits"), ...)
+\method{summary}{PDM_matrix}(object, digits =  getOption("digits"),w=getOption("w"),Rs=getOption("Rs"), ...)
+\method{summary}{PDM_list}(object, digits =  getOption("digits"), ...)
+\method{summary}{Set_PDM_matrix}(object, digits =  getOption("digits"),w=getOption("w"),Rs=getOption("Rs"), ...)
+\method{summary}{Set_PDM_list}(object, digits =  getOption("digits"), ...)
+
+}
+
+%- maybe also 'usage' for other xs documented here.
 \arguments{
-  \item{object}{an object of class 'rbmcc'.}
+  \item{x}{an x of class 'rbmcc'.}
   \item{digits}{the number of significant digits to use when \code{add.stats = TRUE}.}
   \item{w}{number of completion modes (positive integer)}
   \item{Rs}{number of resources (positive integer)}
-  \item{...}{additional arguments affecting the summary produced.}
+  \item{...}{additional arguments affecting the print produced.}
 }
 
 \references{
@@ -60,15 +71,15 @@ CONST<-percent(PDM)
 
 PDMs<-get.structures(PDM)
 
-# Summary of PDM constraint
+# print of PDM constraint
 
 summary(CONST)
 
-# Summary of PDM list
+# print of PDM list
 
 summary(PDM)
 
-# Summary of main structures of PDM matrices
+# print of main structures of PDM matrices
 
 summary(PDMs)
 }
