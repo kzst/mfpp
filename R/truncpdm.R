@@ -55,8 +55,10 @@ truncpdm<- function(x){
   if ("PDM_list" %in% class(x)){
     x$PDM<-PDM
     output<-x
+    class(output)<-"PDM_list"
     return(output)
   }else{
+    class(PDM)<-"PDM_matrix"
     return(PDM)
   }
 }

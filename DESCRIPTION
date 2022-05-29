@@ -17,5 +17,6 @@ Imports:
     Matrix,
     pracma,
     nsga2R,
+    igraph,
     Rfast
 RoxygenNote: 7.1.2

@@ -1,4 +1,4 @@
-\name{summary.PDM_const}
+\name{summary.mfpp}
 \alias{summary.PDM_const}
 \alias{summary.PDM_matrix}
 \alias{summary.PDM_list}
@@ -41,7 +41,7 @@ Zsolt T. Kosztyan*, Aamir Saghir
 e-mail: kzst@gtk.uni-pannon.hu
 }
 
-\seealso{\code{\link{generatepdm}},\code{\link{get.structures}}, \code{\link{percent}}.}
+\seealso{\code{\link{generatepdm}},\code{\link{get.structures}}, \code{\link{percent}},\code{\link{plot}}.}
 
 \examples{
 
