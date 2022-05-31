@@ -1,5 +1,9 @@
 \name{plot.mfpp}
 \alias{plot.PDM_matrix}
+\alias{plot.PDM_list}
+\alias{plot.Set_PDM_matrix}
+\alias{plot.Set_PDM_list}
+
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Plot function for Matrix-Based Flexible Project Planning
@@ -8,13 +12,26 @@ Plot function for Matrix-Based Flexible Project Planning
 Plot function for the Package of Matrix-Based Flexible Project Planning (mfpp)
 }
 \usage{
-\method{plot}{PDM_matrix}(x,w=getOption("w"),Rs=getOption("Rs"), ...)
+\method{plot}{PDM_matrix}(x,w=NULL,Rs=NULL,
+type=c("orig","max","min","maximin","minimax","most","const"),
+main=NULL,col=NULL,...)
+\method{plot}{PDM_list}(x,
+type=c("orig","max","min","maximin","minimax","most","const"),
+main=NULL,col=NULL, ...)
+\method{plot}{Set_PDM_matrix}(x,w=NULL,Rs=NULL,
+type=c("orig","max","min","maximin","minimax","most","const"),col=NULL, ...)
+\method{plot}{Set_PDM_list}(x,
+type=c("orig","max","min","maximin","minimax","most","const"),col=NULL, ...)
+
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{an object of class 'PDM_matrix'.}
+  \item{x}{an object of class 'PDM_matrix' or 'PDM_list'.}
   \item{w}{number of completion modes (positive integer)}
   \item{Rs}{number of resources (positive integer)}
+  \item{type}{set of plots, where (orig) means original, (min) minimal, (max) maximal, (maximin) maximin, (minimax) minimax structures are plotted, respectively, and as well as the minimal/maximal constraints (const)}
+  \item{main}{title of the plot of fixed structure}
+  \item{col}{color of barplot}
   \item{...}{other graphical parameters.}
 }
 
@@ -49,7 +66,7 @@ scale=1.4  #(default value)
 
 PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4)
 
-plot(PDM)
+plot(PDM,w,nR)
 }
 
 \concept{project management}

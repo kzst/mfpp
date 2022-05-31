@@ -11,7 +11,10 @@
 #-----------------------------------------------------------------------------#
 
 #' @export
-plot.PDM_matrix <- function(x,w=getOption("w"),Rs=getOption("Rs"),...){
+plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
+                type=c("orig","max","min","maximin","minimax","most","const"),
+                main=NULL,col=NULL,
+                ...){
   if ("PDM_matrix" %in% class(x)){
     if (!requireNamespace("igraph", quietly = TRUE)) {
       stop(
@@ -31,6 +34,7 @@ plot.PDM_matrix <- function(x,w=getOption("w"),Rs=getOption("Rs"),...){
         call. = FALSE
       )
     }
+    par(mfrow=c(1,1))
     PDM<-x
     class(PDM)<-"PDM_matrix"
     N<-pracma::size(PDM,1)
@@ -42,6 +46,7 @@ plot.PDM_matrix <- function(x,w=getOption("w"),Rs=getOption("Rs"),...){
       )
     }else{
       if (is.flexible(PDM)){
+        #par(mfrow=c(3,2))
         pdm<-truncpdm(PDM)
         n<-pracma::size(pdm,1)
         c<-which((diag(pdm)<1)&(diag(pdm)>0),TRUE)
@@ -55,28 +60,29 @@ plot.PDM_matrix <- function(x,w=getOption("w"),Rs=getOption("Rs"),...){
         if (pracma::numel(c)>0){
           igraph::V(g)[c]$color="yellow"
         }
-        plot(g,main="Original Logic Network",
-             layout=igraph::layout_as_tree,vertex.shape="square")
+        if ("orig" %in% type){
+          plot(g,main="Original Logic Network",
+               layout=igraph::layout_as_tree,vertex.shape="square",...)
 
-        legend(
-          "topleft",
-          legend = c("mandatory", "supplementary"),
-          pt.bg  = c("green", "yellow"),
-          pch    = 22,
-          cex    = 1,
-          bty    = "n",
-          title  = "Tasks"
-        )
-        legend(
-          "bottomleft",
-          legend = c("fixed", "flexible"),
-          col  = c("black", "grey"),
-          pch    = 45,
-          cex    = 1,
-          bty    = "n",
-          title  = "Dependencies"
-        )
-
+          legend(
+            "topleft",
+            legend = c("mandatory", "supplementary"),
+            pt.bg  = c("green", "yellow"),
+            pch    = 22,
+            cex    = 1,
+            bty    = "n",
+            title  = "Tasks"
+          )
+          legend(
+            "bottomleft",
+            legend = c("fixed", "flexible"),
+            col  = c("black", "grey"),
+            pch    = 45,
+            cex    = 1,
+            bty    = "n",
+            title  = "Dependencies"
+          )
+        }
         minPDM<-PDM
         minPDM[1:N,1:N]<-floor(minPDM[1:N,1:N])
         minPDM[(diag(minPDM)==0)*c(1:N),(diag(minPDM)==0)*c(1:N)]<-0
@@ -113,32 +119,31 @@ plot.PDM_matrix <- function(x,w=getOption("w"),Rs=getOption("Rs"),...){
         if (!is.null(w)) igraph::V(g)$weight<-Rfast::rowMins(minpdm[,(n+1):(n+w)])
         igraph::V(g)$color="green"
         if (!is.null(c)) igraph::V(g)[c]$color="red"
+        if ("min" %in% type){
+          if (!is.null(c)){
+            plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
+                 vertex.shape="square",vertex.label=paste("d",igraph::V(g)$weight,sep="="),...)
 
+            legend(
+              "topleft",
+              legend = c("critical", "non-critical"),
+              pt.bg  = c("red", "green"),
+              pch    = 22,
+              cex    = 1,
+              bty    = "n",
+              title  = "Tasks"
+            )
+          }else{
+            plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
+                 vertex.shape="square",...)
 
-        if (!is.null(c)){
-          plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
-               vertex.shape="square",vertex.label=paste("d",igraph::V(g)$weight,sep="="))
-
-          legend(
-            "topleft",
-            legend = c("critical", "non-critical"),
-            pt.bg  = c("red", "green"),
-            pch    = 22,
-            cex    = 1,
-            bty    = "n",
-            title  = "Tasks"
-          )
-        }else{
-          plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
-               vertex.shape="square")
-
+          }
         }
-
         maxpdm<-truncpdm(maxPDM)
         n<-pracma::size(maxpdm,1)
         m<-pracma::size(maxpdm,2)
         c<-NULL
-        if (!is.null(w)) { # Number of completion mode is specified
+        if (!is.null(w)){ # Number of completion mode is specified
           if (m>=(n+w)){ # There are a Task Domain
             TPT<-tpt(maxpdm[1:n,1:n],Rfast::rowMaxs(maxpdm[,(n+1):(n+w)]))
             c<-which(as.vector(TPT$EFT)==as.vector(TPT$LFT),TRUE)
@@ -150,45 +155,52 @@ plot.PDM_matrix <- function(x,w=getOption("w"),Rs=getOption("Rs"),...){
         igraph::V(g)$color="green"
         if (!is.null(c)) igraph::V(g)[c]$color="red"
 
+        if ("max" %in% type){
+          if (!is.null(c)){
+            plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
+                 vertex.shape="square",vertex.label=paste("d",
+                                                          igraph::V(g)$weight,sep="="),...)
 
-        if (!is.null(c)){
-          plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
-               vertex.shape="square",vertex.label=paste("d",
-                                                igraph::V(g)$weight,sep="="))
+            legend(
+              "topleft",
+              legend = c("critical", "non-critical"),
+              pt.bg  = c("red", "green"),
+              pch    = 22,
+              cex    = 1,
+              bty    = "n",
+              title  = "Tasks"
+            )
+          }else{
+            plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
+                 vertex.shape="square",...)
 
-          legend(
-            "topleft",
-            legend = c("critical", "non-critical"),
-            pt.bg  = c("red", "green"),
-            pch    = 22,
-            cex    = 1,
-            bty    = "n",
-            title  = "Tasks"
-          )
-        }else{
-          plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
-               vertex.shape="square")
-
+          }
         }
-
         minimaxpdm<-truncpdm(minimaxPDM)
         diag(minimaxpdm)<-0
         n<-pracma::size(minimaxpdm,1)
-        plot(igraph::graph.adjacency(minimaxpdm[1:n,1:n]),main="Minimax Structure",
-                     layout=igraph::layout_as_tree,vertex.shape="square",vertex.color="green")
-
+        if ("minimax" %in% type){
+          plot(igraph::graph.adjacency(minimaxpdm[1:n,1:n]),main="Minimax Structure",
+               layout=igraph::layout_as_tree,vertex.shape="square",vertex.color="green",...)
+        }
         maximinpdm<-truncpdm(maximinPDM)
         diag(maximinpdm)<-0
         n<-pracma::size(maximinpdm,1)
-        plot(igraph::graph.adjacency(maximinpdm[1:n,1:n]),main="Maximin Structure",
-                     layout=igraph::layout_as_tree,vertex.shape="square",vertex.color="green")
-
+        if ("maximin" %in% type){
+          plot(igraph::graph.adjacency(maximinpdm[1:n,1:n]),
+               main="Maximin Structure",
+               layout=igraph::layout_as_tree,
+               vertex.shape="square",vertex.color="green",...)
+        }
         mostpdm<-truncpdm(mostPDM)
         diag(mostpdm)<-0
         n<-pracma::size(mostpdm,1)
-        plot(igraph::graph.adjacency(mostpdm[1:n,1:n]),main="Most-likely/Most-desired Structure",
-                     layout=igraph::layout_as_tree,vertex.shape="square",vertex.color="green")
-
+        if ("most" %in% type){
+          plot(igraph::graph.adjacency(mostpdm[1:n,1:n]),
+               main="Most-likely/Most-desired Structure",
+               layout=igraph::layout_as_tree,
+               vertex.shape="square",vertex.color="green",...)
+        }
     }else{
         pdm<-truncpdm(PDM)
         c<-which((diag(pdm)<1)&(diag(pdm)>0),TRUE)
@@ -203,30 +215,136 @@ plot.PDM_matrix <- function(x,w=getOption("w"),Rs=getOption("Rs"),...){
         if (pracma::numel(c)>0){
           igraph::V(g)[c]$color="yellow"
         }
-        plot(g,main="Logic Network",
-                     layout=igraph::layout_as_tree,vertex.shape="square")
+        if ("orig" %in% type){
+          if (!is.null(main)){
+            plot(g,main=main,
+                 layout=igraph::layout_as_tree,vertex.shape="square",...)
+          }else{
+            plot(g,main="Logic Network",
+                 layout=igraph::layout_as_tree,vertex.shape="square",...)
+          }
 
-        legend(
-          "topleft",
-          legend = c("mandatory", "supplementary"),
-          pt.bg  = c("green", "yellow"),
-          pch    = 22,
-          cex    = 1,
-          bty    = "n",
-          title  = "Tasks"
-        )
-        legend(
-          "bottomleft",
-          legend = c("fixed", "flexible"),
-          pt.bg  = c("black", "red"),
-          pch    = 45,
-          cex    = 1,
-          bty    = "n",
-          title  = "Dependencies"
-        )
+
+
+        }
       }
-
     }
+    if ("const" %in% type){
+      type<-c("c","q","r","s","t")
+      if (is.null(w)||is.null(Rs)) type<-"s"
+      minCONST<-percent(PDM,type=type,w=w,Rs=Rs,ratio=0)
+      maxCONST<-percent(PDM,type=type,w=w,Rs=Rs,ratio=1.0)
+      n<-length(minCONST)-3
+      if (n>0){
+        par(mfrow=c(1,n))
+      }
+      if (!is.null(minCONST$Ct)&&!is.null(maxCONST$Ct))
+        barplot(cbind(minCONST$Ct,maxCONST$Ct),
+                names.arg = c("min_C_t","max_C_t"),
+                ylab = "TPT",main = "Duration constraints",
+                col=col)
+      if (!is.null(minCONST$Cc)&&!is.null(maxCONST$Cc))
+        barplot(cbind(minCONST$Cc,maxCONST$Cc),
+                names.arg = c("min_C_c","max_C_c"),
+                ylab = "TPC",main = "Cost constraints",
+                col=col)
+      if (!is.null(minCONST$Cq)&&!is.null(maxCONST$Cq))
+        barplot(cbind(minCONST$Cq,maxCONST$Cq),
+                names.arg = c("min_C_q","max_C_q"),
+                ylab = "TPQ",main = "Quality constraints",
+                col=col)
+      if (!is.null(minCONST$Cs)&&!is.null(maxCONST$Cs))
+        barplot(cbind(minCONST$Cs,maxCONST$Cs),
+                names.arg = c("min_C_s","max_C_s"),
+                ylab = "TPS",main = "Scope/score constraints",
+                col=col)
+      if (!is.null(minCONST$CR)&&!is.null(maxCONST$CR))
+        barplot(cbind(minCONST$CR,maxCONST$CR),
+                names.arg = c(paste("min",colnames(minCONST$CR),sep="_"),
+                              paste("max",colnames(maxCONST$CR),sep="_")),
+                ylab = "TPR",main = "Resource constraints",
+                col=col)
+    }
+  }else{
+    plot(x,...)
+  }
+}
+
+#' @export
+plot.PDM_list <- function(x,
+        type=c("orig","max","min","maximin","minimax","most","const"),
+        main=NULL,col=NULL,
+                            ...){
+  if ("PDM_list" %in% class(x)){
+    plot.PDM_matrix(x=x$PDM,w=x$w,Rs=x$Rs,
+                                type=type,main=main,col=col,
+                                ...)
+  }else{
+    plot(x,...)
+  }
+}
+
+
+plot.Set_PDM_matrix <- function(x,w=NULL,Rs=NULL,
+                            type=c("orig","max","min",
+                                   "maximin","minimax","most","const"),
+                            col=NULL,
+                            ...){
+  if ("Set_PDM_matrix" %in% class(x)){
+    if (!is.null(x$minstruct))
+      plot.PDM_matrix(x=x$minstruct,w=w,Rs=Rs,
+                      type=type,main="Minimal Structure",col=col,
+                      ...)
+    if (!is.null(x$maxstruct))
+      plot.PDM_matrix(x=x$maxstruct,w=w,Rs=Rs,
+                      type=type,main="Maximal Structure",col=col,
+                      ...)
+    if (!is.null(x$minimaxstruct))
+      plot.PDM_matrix(x=x$minimaxstruct,w=w,Rs=Rs,
+                      type=type,main="Minimax Structure",col=col,
+                      ...)
+    if (!is.null(x$maximinstruct))
+      plot.PDM_matrix(x=x$maximinstruct,w=w,Rs=Rs,
+                      type=type,main="Maximin Structure",col=col,
+                      ...)
+    if (!is.null(x$moststruct))
+      plot.PDM_matrix(x=x$moststruct,w=w,Rs=Rs,
+                      type=type,main="Most-likely/Most-desired Structure",
+                      col=col,
+                      ...)
+  }else{
+    plot(x,...)
+  }
+}
+
+plot.Set_PDM_list <- function(x,type=c("orig","max",
+                                       "min","maximin",
+                                       "minimax","most","const"),
+                              col=NULL,
+                                ...){
+  if ("Set_PDM_list" %in% class(x)){
+    if (!is.null(x$minstruct))
+      plot.PDM_list(x=x$minstruct,
+                      type=type,main="Minimal Structure",col=col,
+                      ...)
+    if (!is.null(x$maxstruct))
+      plot.PDM_list(x=x$maxstruct,
+                      type=type,main="Maximal Structure",col=col,
+                      ...)
+    if (!is.null(x$minimaxstruct))
+      plot.PDM_list(x=x$minimaxstruct,main="Minimax Structure",
+                    col=col,
+                      type=type,
+                      ...)
+    if (!is.null(x$maximinstruct))
+      plot.PDM_list(x=x$maximinstruct,
+                      type=type,main="Maximin Structure",col=col,
+                      ...)
+    if (!is.null(x$moststruct))
+      plot.PDM_list(x=x$moststruct,
+                      type=type,main="Most-likely/Most-desired Structure",
+                    col=col,
+                      ...)
   }else{
     plot(x,...)
   }
