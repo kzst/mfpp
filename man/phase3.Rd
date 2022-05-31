@@ -48,7 +48,7 @@ PDM=generatepdm(30,0.05,0,20,30,20,2,2,2,QD=TRUE,lst=TRUE)
 PDM
 
 # Define probability factor for task selection of a project.
-p=.10
+p=0.10
 
 # Choose a scale factor for the ration of modification.
 s=5.0

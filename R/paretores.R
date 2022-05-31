@@ -34,7 +34,7 @@ paretores<- function(DSM,TD,RD){
   DSM<-pracma::triu(round(DSM)) #DSM must be an upper triangular binary matrix
   T<-TD
   R<-RD
-  N=pracma::numel(TD)
+  N<-pracma::numel(TD)
   st<-tpt(DSM,TD)
   EST<-st$EST
   LST<-st$LST

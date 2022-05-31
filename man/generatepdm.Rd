@@ -20,7 +20,7 @@ generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
   \item{nR}{number of resources (a numeric integer).}
    \item{nW}{number of possible extra tasks (a positive numeric integer).}
     \item{scale}{scale parameter, the default value is 1.4 (a numeric value).}
-   \item{QD}{(logic parameter, the default value is FALSE, which means, the quality domain is neglected.}
+   \item{QD}{logic parameter, the default value is FALSE, which means, the quality domain is neglected.}
    \item{lst}{(logic parameter, the default value is FALSE, which means, the output is a PDM matrix, while TRUE means the output is a PDM list including number of modes (w) and the number of resources (Rs).}
 }
 

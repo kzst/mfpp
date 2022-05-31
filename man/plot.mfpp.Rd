@@ -8,11 +8,13 @@ Plot function for Matrix-Based Flexible Project Planning
 Plot function for the Package of Matrix-Based Flexible Project Planning (mfpp)
 }
 \usage{
-\method{plot}{PDM_matrix}(x, ...)
+\method{plot}{PDM_matrix}(x,w=getOption("w"),Rs=getOption("Rs"), ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{an object of class 'PDM_matrix'.}
+  \item{w}{number of completion modes (positive integer)}
+  \item{Rs}{number of resources (positive integer)}
   \item{...}{other graphical parameters.}
 }
 

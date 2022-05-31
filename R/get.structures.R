@@ -34,7 +34,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
   M<-dim(PDM)[2]
   if (N>M){
     stop(
-      "number of rows must be less or equal than the rows",
+      "number of rows must be less or equal than the columns",
       call. = FALSE
     )
   }else{

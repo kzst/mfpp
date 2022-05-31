@@ -1,6 +1,6 @@
 \name{tpq}
 \alias{tpq}
-\title{ Function to caclualte Total Project Quality for a project structure.
+\title{ Function to calcualte Total Project Quality for a project structure.
 %%  ~~function to do ... ~~
 }
 \description{ Calculate Total Project Quality of a project structure.

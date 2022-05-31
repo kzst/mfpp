@@ -39,28 +39,42 @@ tpt<- function(DSM,TD,SST=NULL)
   TD[matrix(diag(DSM)==0)*1]<-0 # The excluded task duration is irrelevant=>set to be 0
   TD<-matrix(TD)                # TD must  be column vector
   EFT<-EST+TD                   # EFTi=ESTi+Ti (i=1..N)
-  dsm<-Matrix::triu(DSM,1)
-  dsm[(matrix(diag(DSM)==0)*1),]<-0
-   for (i in 1: N)              # Forward pass
-  {
-    est<-pracma::arrayfun("*",as.matrix(dsm),EFT)
-    EST<-matrix(Rfast::colMaxs(est, value=TRUE)) #EST calculated step by step
-    EFT[i]<-EST[i]+TD[i]
-  }
+  DSM[(diag(DSM)==0)*(1:N),]<-0
+  DSM[,(diag(DSM)==0)*(1:N)]<-0
 
+  for (i in c(1:(N-1))){              # Forward pass
+    for (j in c((i+1):N)){
+      if (DSM[i,i]>0) {
+        if (DSM[j,j]>0) {
+          if (DSM[i,j]>0){
+            if (EST[j]<EFT[i]){
+              EST[j]<-EFT[i]
+              EFT[j]<-EST[j]+TD[j]
+            }
+          }
+        }
+      }
+    }
+  }
   TPT<- max(EFT)                 # TPT is the makespan of the longest path
   LFT<- pracma::repmat(TPT,N,1)  # LFTi=TPT (i=1..N)
   LST<- LFT-TD                   # LSTi=LFTi-TDi (i=1..N)
-  for (i in 1:N)                 # Backward pass
-  {
-    TPTDSM=t(pracma::arrayfun("*",t(as.matrix(dsm)),LST)) #Calculate LST
-    TPTDSM[is.nan(TPTDSM)*1]<- TPT    #Independent tasks' LFT = TPT
-    TPTDSM[!TPTDSM]<-TPT              #Independent tasks' LFT = TPT
-    LFT<-matrix(Rfast::rowMins(TPTDSM,value=TRUE))       #Calculate LFT
-    LST[i]<-LFT[i]-TD[i]              #LSTi=LFTi-TDi (i:=1..N)
+  for (i in (N:2)){              # Backward pass
+    for (j in ((i-1):1)){
+      if (DSM[i,i]>0) {
+        if (DSM[j,j]>0) {
+          if (DSM[j,i]>0){
+            if (LST[i]<LFT[j]){
+              LFT[j]<-LST[i]
+              LST[j]<-LFT[j]-TD[j]
+            }
+          }
+        }
+      }
+    }
   }
   if (is.null(SST)){
-  output <- list(TPT=TPT,EST=EST,EFT=EFT,LST=LST,LFT=LFT,SST=EST,SFT=EFT)
+    output <- list(TPT=TPT,EST=EST,EFT=EFT,LST=LST,LFT=LFT,SST=EST,SFT=EFT)
   }else{
     ## CONT
     N<-pracma::numel(TD)
