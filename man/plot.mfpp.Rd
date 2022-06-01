@@ -48,10 +48,10 @@ e-mail: kzst@gtk.uni-pannon.hu
 \seealso{\code{\link{summary}}, \code{\link{generatepdm}}, \code{\link{percent}}.}
 
 \examples{
-# Plot PDM matrix.
+# Print PDM matrices, lists, and sets.
 
 # Define number of modes, flexibility factor and connectivity factor of a project scenerio.
-N=4;ff=0.05;cf=0
+N=4;ff=0.3;cf=0
 
 # Define maximum value of time domain, Cost domain and Resourcces domain of a project scenerio.
 mTD=3;mCD=4;mRD=3
@@ -60,13 +60,30 @@ mTD=3;mCD=4;mRD=3
 # number of possible extra tasks, scale and quality domain of a project scenerio.
 
 w=2;nR=2;nW=2
-scale=1.4  #(default value)
+scale=1.6
 
 # Generation of PDM list for TCTP a project scenario using MFPP package.
 
-PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4)
+PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale,lst=TRUE)
 
-plot(PDM,w,nR)
+# Calculate main structures
+
+PDMs<-get.structures(PDM)
+
+# plot of PDM list (flexible project)
+
+plot(PDM)
+
+# plot of PDM list (fixed (most likely) project)
+
+PDM<-generatepdm(N,ff=0,cf,mTD,mCD,mRD,w,nR,nW,scale,lst=TRUE)
+
+plot(PDM,main="Fixed project structure",col="green")
+
+
+# print of main structures of PDM matrices, with red color bars
+
+plot(PDMs,col="red")
 }
 
 \concept{project management}
