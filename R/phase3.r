@@ -10,7 +10,7 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
-phase3<- function(x,p=0.05,s=2.0){
+phase3<- function(x,p=0.10,s=0.50){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
       "Package \"pracma\" must be installed to use this function.",
