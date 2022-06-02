@@ -4,14 +4,15 @@
 \alias{summary.PDM_list}
 \alias{summary.Set_PDM_matrix}
 \alias{summary.Set_PDM_list}
+\alias{summary.Collection_PDM}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Print PDM constraints, matrices, lists, sets.
+Print PDM constraints, matrices, lists, sets, collections.
 }
 
 \description{
-Print PDM constraints, matrices, lists, sets.
+Print PDM constraints, matrices, lists, sets, collections.
 }
 
 \usage{
@@ -20,7 +21,7 @@ Print PDM constraints, matrices, lists, sets.
 \method{summary}{PDM_list}(object, digits =  getOption("digits"), ...)
 \method{summary}{Set_PDM_matrix}(object, digits =  getOption("digits"),w=getOption("w"),Rs=getOption("Rs"), ...)
 \method{summary}{Set_PDM_list}(object, digits =  getOption("digits"), ...)
-
+\method{summary}{Collection_PDM}(object, digits =  getOption("digits"), ...)
 }
 
 %- maybe also 'usage' for other xs documented here.
@@ -82,6 +83,12 @@ summary(PDM)
 # print of main structures of PDM matrices
 
 summary(PDMs)
+
+# print of PDM collection
+data(Boctor)
+collection<-Boctor
+summary(collection)
+
 }
 
 

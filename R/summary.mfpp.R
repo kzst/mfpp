@@ -31,7 +31,8 @@ summary.PDM_const <- function(object, digits =  getOption("digits"), ...) {
 }
 
 #' @export
-summary.PDM_matrix <- function(object, digits =  getOption("digits"),w=getOption("w"),
+summary.PDM_matrix <- function(object, digits =  getOption("digits"),
+                               w=getOption("w"),
                                Rs=getOption("Rs"), ...) {
   if ("PDM_matrix" %in% class(object)){
     cat("\nsummary PDM matrix:\n")
@@ -77,7 +78,8 @@ summary.PDM_list <- function(object, digits =  getOption("digits"), ...) {
 }
 
 #' @export
-summary.Set_PDM_matrix <- function(object, digits =  getOption("digits"),w=getOption("w"),
+summary.Set_PDM_matrix <- function(object, digits =  getOption("digits"),
+                                   w=getOption("w"),
                                Rs=getOption("Rs"), ...) {
   if ("Set_PDM_matrix" %in% class(object)){
     cat("\nSummary of main structures:\n")
@@ -135,3 +137,18 @@ summary.Set_PDM_list <- function(object, digits =  getOption("digits"), ...) {
   }
 }
 
+#' @export
+summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
+  if ("Collection_PDM" %in% class(object)){
+    cat("\n\n\nSummary of PDM collection:\n")
+    cat("\nNumber of projects: ",length(object))
+    cat("\nList of projects: ")
+    for (i in (1:length(object))){
+      cat("\n Project name: ",names(object)[i])
+      cat(", w: ",as.numeric(object[[i]]$PDM_list$w))
+      cat(", Rs: ",as.numeric(object[[i]]$PDM_list$Rs))
+    }
+  }else{
+    summary(object,digits=digits,...)
+  }
+}
