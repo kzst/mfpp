@@ -121,19 +121,19 @@ plot(PDM,w=1,Rs=2)
 
 # Generate a flexible project network
 
-```{r,warning=FALSE,message=FALSE}
+```{r,fig.width=7,fig.height=5,warning=FALSE,message=FALSE}
 # Generation of PDM matrix for flexible project planning MFPP package.
 
 # Define number of modes, flexibility factor and connectivity factor of a project scenerio.
-N=4;ff=0.40;cf=0
+N=5;ff=0.30;cf=0
 
 # Define maximum value of time domain, Cost domain and Resourcces domain of a project scenerio.
 mTD=3;mCD=4;mRD=3
 
 # Define number of modes, number of resources,
-# number of possible extra tasks, scale and quality domain of a project scenerio.
+# number of possible extra tasks (nW), scale and quality domain of a project scenerio.
 
-w=2;nR=2;nW=2
+w=2;nR=2;nW=1
 scale=1.6  
 
 PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale,QD=TRUE,lst=TRUE)
@@ -148,10 +148,46 @@ plot(PDM) # Plot PDM structures
 ## Get most likely/most desired structure
 
 ```{r,warning=FALSE,message=FALSE}
-# Get most likely / most desired project structure matrix (PSM)
-PSM<-get.structures(PDM,type = "most")
-summary(PSM)
+# Get most likely / most desired project structure list (PSM_list)
+PSM_list<-get.structures(PDM,type = "most")$moststruct
+summary(PSM_list)
 ```
 
+## Calculate optimal schedules of completion modes
 
+```{r,warning=FALSE,message=FALSE,results='hide'}
 
+# Get PSM matrix
+# Drop excluded tasks, and their demands
+PSM<-round(truncpdm(PSM_list$PDM))
+
+w<-PSM_list$w # Get number of completion modes
+Rs<-PSM_list$Rs # Get number of resurces
+
+DSM<-PSM[,1:nrow(PSM)] # Get PSM matrix
+
+# Get time demands (time domain, TD)
+TD<-PSM[,paste("t",1:w,sep = "_")] 
+
+# Get resource demands (resource domain, RD)
+RD<-PSM[,tail(colnames(PSM),w*Rs)]
+
+# Calculate optimal schedules for both completion modes
+
+RES1<-paretores(DSM,TD[,1],RD[,1:Rs])
+RES2<-paretores(DSM,TD[,2],RD[,(Rs+1):(2*Rs)])
+```
+
+## Plot optimal schedules and resource graph of completion modes
+
+### Schedule of completion mode 1
+```{r,warning=FALSE,message=FALSE,fig.width=7,fig.height=5}
+plot(tpt(DSM,TD[,1],RES1$SST))
+kable(tpr(RES1$SST,DSM,TD[,1],RD[,1:Rs],res.graph=TRUE))
+```
+
+### Schedule of completion mode 2
+```{r,warning=FALSE,message=FALSE,fig.width=7,fig.height=5}
+plot(tpt(DSM,TD[,2],RES1$SST))
+kable(tpr(RES1$SST,DSM,TD[,2],RD[,(Rs+1):(2*Rs)],res.graph=TRUE))
+```

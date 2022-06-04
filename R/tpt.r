@@ -77,6 +77,9 @@ tpt<- function(DSM,TD,SST=NULL)
   colnames(EFT)<-"EFT"
   colnames(LST)<-"LST"
   colnames(LFT)<-"LFT"
+  for (i in 1:N)
+    if (LST[i]<EST[i])
+      LST[i]<-EST[i]
   if (!is.null(rownames(DSM))){
     rownames(EST)<-rownames(EFT)<-rownames(LST)<-rownames(LFT)<-rownames(DSM)
   }else{

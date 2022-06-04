@@ -44,15 +44,16 @@ paretores<- function(DSM,TD,RD){
   st<-tpt(DSM,TD)
   EST<-st$EST
   LST<-st$LST
+  SST<-EST
   maxresfun<-function(SST){tpr(as.matrix(SST)[1:pracma::numel(TD)],DSM,
                                TD,as.matrix(RD))}
   if (dim(RD)[2]>1){ # Multi-objective case
-  results<-nsga2R::nsga2R(fn=maxresfun,dim(RD)[1],dim(RD)[2],
-                          lowerBounds = EST,upperBounds = LST)
-  rd<-tail(results$objectives,n=1)
-  colnames(rd)<-paste("R",1:ncol(rd),sep="_")
-  rownames(rd)<-"TPR"
-  SST<-t(as.matrix(tail(results$parameters,n=1)))
+    results<-nsga2R::nsga2R(fn=maxresfun,dim(RD)[1],dim(RD)[2],
+                            lowerBounds = EST,upperBounds = LST)
+    rd<-tail(results$objectives,n=1)
+    colnames(rd)<-paste("R",1:ncol(rd),sep="_")
+    rownames(rd)<-"TPR"
+    SST<-t(as.matrix(tail(results$parameters,n=1)))
 
   }else{ # Single objective case
     results<-genalg::rbga(as.vector(EST),as.vector(LST),evalFunc=maxresfun)

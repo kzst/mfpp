@@ -31,6 +31,7 @@ tpr<- function(SST,DSM,TD,RD,res.graph=FALSE)
       call. = FALSE
     )
   }
+  SST[is.na(SST)]<-0
   N <-pracma::numel(SST)               #Number of tasks
   DSM <-round(pracma::triu(DSM))       #DSM must be an upper triangular binary matrix.
   DSM[(matrix(diag(DSM)==0)*1),]<-0    #Excluded task has no dependency
@@ -48,8 +49,10 @@ tpr<- function(SST,DSM,TD,RD,res.graph=FALSE)
         if (DSM[j,j]> 0)
           if (DSM[i,j]> 0)             #If there is a dependency between task i and task j.
             if (SST[j] < SFT[i])
-              SST[j]= SFT[i]
-      SFT[j]= SST[j]+TD[j]
+            {
+              SST[j]<- SFT[i]
+              SFT[j]<- SST[j]+TD[j]
+            }
     }
   }
   BP<- sort(matrix(union(SST,SFT)))    #Breakpoints, where the resource demands should be recalculated
