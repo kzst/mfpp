@@ -23,3 +23,12 @@ library(devtools)
 install_github("kzst/mfpp")
 library(mfpp)
 ```
+
+## Usage
+
+The vignette *A quick tour of mfpp* is also available with the command:
+
+``` r
+vignette("mfpp")
+```
+
