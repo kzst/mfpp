@@ -305,7 +305,7 @@ plot.PDM_list <- function(x,
   }
 }
 
-
+#' @export
 plot.Set_PDM_matrix <- function(x,w=NULL,Rs=NULL,
                                 type=c("orig","max","min",
                                        "maximin","minimax","most","const"),
@@ -338,6 +338,7 @@ plot.Set_PDM_matrix <- function(x,w=NULL,Rs=NULL,
   }
 }
 
+#' @export
 plot.Set_PDM_list <- function(x,type=c("orig","max",
                                        "min","maximin",
                                        "minimax","most","const"),

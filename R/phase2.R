@@ -9,7 +9,7 @@
 #                                                                             #
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
-
+#' @export
 phase2<- function(x,p=0.1,s=5.0){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
