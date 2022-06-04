@@ -7,7 +7,7 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-tpr (SST,DSM,TD, RD)
+tpr (SST,DSM,TD, RD,res.graph=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -15,6 +15,7 @@ tpr (SST,DSM,TD, RD)
   \item{DSM}{N by N binary upper triangular matrix of the logic domain (a numeric matrix).}
   \item{TD}{ N by 1 vector of task durations (a numeric vector).}
   \item{RD}{ N by nR matrix of resource demands (a numeric matrix).}
+  \item{res.graph}{Logic value of whether plot or not the resource graph}
 }
 
 \value{
@@ -58,6 +59,9 @@ RD <- rand(10,3)*5
 # Calculation of maximum resource demands of a project using MFPP package.
  tpr(SST,DSM,TD, RD)
 
+## Plot resources for SST
+
+tpr(SST,DSM,TD,RD,res.graph = TRUE)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

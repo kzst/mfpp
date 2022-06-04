@@ -1,0 +1,157 @@
+---
+title: "A quick tour of mfpp"
+author: "Zsolt T. Kosztyan, Aamir Saghir"
+date: "`r format(Sys.time(), '%d %b %Y')`"
+output: 
+  rmarkdown::html_vignette:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{A quick tour of mfpp}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Load necessary libraries
+
+```{r,warning=FALSE,message=FALSE}
+library(mfpp) # Matrix-based Flexible Project Planning
+library(knitr) # Apply graphical elements
+```
+
+# Build matrix-based projects and calculate their demands
+
+## Specify logic domain (LD), and time domain (TD)
+
+```{r,warning=FALSE,message=FALSE,fig.height=5,fig.width=7}
+# Calculatation of EST, EFT, LST and LFT times of activity of a project
+
+# Define a 3 by 3 upper triangular binary matrix (DSM) of logic domain (LD) of a project.
+
+# Specify the precendence of three tasks
+# Diagonal values indicates the priority of tasks
+# 1=the task is mandatory
+LD<-rbind(c(1,0,1), c(0,1,0), c(0,0,1))
+
+# Define a 3 by 1 vector of time durations of a project, where the durations are 3,4,5 respectively.
+TD<-c(3,4,5) 
+
+# Calculate project duration (total project time, TPT)
+TPT<-tpt(LD,TD) 
+
+kable(summary(TPT))
+
+# Specify initial scheduled start time, where the delay is 1 for the .
+SST <- c(1,1,0)
+
+# Including scheduled starts and finishes.
+
+TPT<-tpt(LD,TD,SST)
+
+# Print schedule table
+kable(summary(TPT))
+
+# Plot the scheduled Gantt chart
+plot(TPT,sched="S")
+```
+
+## Specify cost domain (CD), quality domain (QD), and resource domain (RD)
+
+```{r,warning=FALSE,message=FALSE,fig.height=5,fig.width=7}
+# Specify seed
+set.seed(6)
+# Specify the cost demands
+CD<-c(10,20,24)
+
+cat("\nTotal Project Cost (TPC): ",tpc(LD,CD))
+
+
+# Specify quality parameters
+q<-runif(3)
+
+# For fixed project plan the TPQ is the geometric mean of quality parameters
+
+cat("\nTotal Project Quality (TPC): ",tpq(LD,LD,q)) 
+
+# Calculate relative quality for the selected completion modes
+
+QD2<-cbind(q,runif(3)) # Generate two completion modes
+
+# Calculate relative quality considering the best choice
+
+cat("\nRelative TPQ: ",tpq(LD,LD,q,QD2)) 
+
+
+# Generate resource demands (RD)
+
+RD<-round(cbind(runif(3,min = 0,max=5),runif(3,min=0,max=5)))
+
+cat("\n\nTotal Project Resources (TPR)\n\n")
+
+tpr(TPT$SST,LD,TD,RD)
+ 
+## Plot resources for SST
+
+tpr(TPT$SST,LD,TD,RD,res.graph = TRUE)
+
+```
+
+## Calculate minimal resource demands while keeping project duration
+
+```{r,warning=FALSE,message=FALSE,fig.height=5,results='hide',fig.width=7}
+
+# Calculate (Pareto) optimal SST
+RES<-paretores(LD,TD,RD)
+
+# Plot resource graph
+tpr(RES$SST,LD,TD,RD,res.graph = TRUE)
+
+# Plot Gantt Chart
+plot(tpt(LD,TD,RES$SST),sched = "S")
+```
+
+## Specify a PDM matrix
+
+```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=5,retina=1}
+PDM<-cbind(LD,TD,CD,q,RD)
+class(PDM)<-"PDM_matrix"
+
+summary(PDM,w=1,Rs=2)
+plot(PDM,w=1,Rs=2)
+```
+
+# Generate a flexible project network
+
+```{r,warning=FALSE,message=FALSE}
+# Generation of PDM matrix for flexible project planning MFPP package.
+
+# Define number of modes, flexibility factor and connectivity factor of a project scenerio.
+N=4;ff=0.40;cf=0
+
+# Define maximum value of time domain, Cost domain and Resourcces domain of a project scenerio.
+mTD=3;mCD=4;mRD=3
+
+# Define number of modes, number of resources,
+# number of possible extra tasks, scale and quality domain of a project scenerio.
+
+w=2;nR=2;nW=2
+scale=1.6  
+
+PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale,QD=TRUE,lst=TRUE)
+
+summary(PDM) # Summary of PDM list
+```
+## Plot main structures of flexible project structures
+```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=5,retina=1}
+plot(PDM) # Plot PDM structures
+```
+
+## Get most likely/most desired structure
+
+```{r,warning=FALSE,message=FALSE}
+# Get most likely / most desired project structure matrix (PSM)
+PSM<-get.structures(PDM,type = "most")
+summary(PSM)
+```
+
+
+

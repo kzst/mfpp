@@ -27,6 +27,8 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
   if ("PDM_list" %in% class(PDM)){
     Const$w<-PDM$w
     Const$Rs<-PDM$Rs
+    w<-PDM$w
+    Rs<-PDM$Rs
     PDM<-PDM$PDM
   }else{
     Const$w<-w
@@ -42,12 +44,19 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
     #All uncertain tasks/dependencies will be excluded
 
     C <- Rfast::rowMaxs(PDM[,
-                            (pracma::size(PDM,1)+w+1):(pracma::size(PDM,1)+2*w)], value=TRUE)
+                    (pracma::size(PDM,1)+w+1):(pracma::size(PDM,1)+2*w)],
+                    value=TRUE)
     c <- Rfast::rowMins(PDM[,
-                            (pracma::size(PDM,1)+w+1):(pracma::size(PDM,1)+2*w)],value=TRUE)
+                    (pracma::size(PDM,1)+w+1):(pracma::size(PDM,1)+2*w)],
+                    value=TRUE)
     TPCmax<- C%*%DSMdiag
     TPCmin <- c%*%dsmdiag
-    Const$Cc <- as.numeric(TPCmin+ratio*(TPCmax-TPCmin))
+    if (TPCmax==TPCmin){
+      Const$Cc <- as.numeric(TPCmin)
+    }else{
+      Const$Cc <- as.numeric(TPCmin+ratio*(TPCmax-TPCmin))
+    }
+
 
   }
   if ("q" %in% type)
@@ -138,7 +147,8 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
             rmax <- na.omit(rmax)
             r <- cbind(r,rmin)
             R <- cbind(R,rmax)
-          }  else {
+          }
+        else {
             R <- rD
             r <- rD
           }
@@ -152,8 +162,8 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
           colnames(CR)<-paste("R",1:ncol(CR),sep="_")
           rownames(CR)<-"TPR"
           Const$CR<-CR
-          }  else {
-            #calculation of TPRmin
+        }  else {
+          #calculation of TPRmin
             TPRmin=paretores(dsm,T,r)$RD
             Const$CR<-TPRmin+ratio*(TPRmax-TPRmin)}
       }

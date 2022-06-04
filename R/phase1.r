@@ -17,6 +17,12 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
       call. = FALSE
     )
   }
+  if (!requireNamespace("Matrix", quietly = TRUE)) {
+    stop(
+      "Package \"Matrix\" must be installed to use this function.",
+      call. = FALSE
+    )
+  }
   if ("PDM_list" %in% class(x)){
     PDM<-x$PDM
   }else{

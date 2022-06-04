@@ -11,7 +11,7 @@
 #-----------------------------------------------------------------------------#
 
 #' @export
-tpr<- function(SST,DSM,TD,RD)
+tpr<- function(SST,DSM,TD,RD,res.graph=FALSE)
 {
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
@@ -62,5 +62,21 @@ tpr<- function(SST,DSM,TD,RD)
   H<-t(rMAX)
   colnames(H)<-paste("R",1:ncol(H),sep="_")
   rownames(H)<-"TPR"
+  if (res.graph==TRUE){
+    TPT<-tpt(DSM,TD,SST)$TPT
+    Width=as.vector(matrix(0,1,length(BP)))
+    if (length(BP)>1)
+      for (i in 2:length(BP)){
+        Width[i-1]<-BP[i]-BP[i-1]
+      }
+    Width[length(BP)]<-TPT-BP[length(BP)]
+    m<-pracma::size(RESFUNC,2)
+    par(mfrow=c(m,1))
+    for (i in c(1:m)){
+      barplot(RESFUNC[,i],width = Width,space = 0,col = "darkgreen",
+              beside =TRUE,border=NA,xlab="Duration",ylab=paste("R",i,sep="_"))
+      axis(side=1,at=c(0:TPT))
+    }
+  }
   return(H)
 }

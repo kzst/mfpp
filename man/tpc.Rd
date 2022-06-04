@@ -7,11 +7,11 @@
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
-tpc(DSM,C)
+tpc(DSM,CD)
 }
 \arguments{
   \item{DSM}{N by N Upper triangular binary matrix of logic domain (a numeric matrix).}
-  \item{C}{N by 1 vector of cost demands (a numeric vector).}
+  \item{CD}{N by 1 vector of cost demands (a numeric vector).}
 }
 
 \value{

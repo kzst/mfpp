@@ -3,6 +3,7 @@
 \alias{plot.PDM_list}
 \alias{plot.Set_PDM_matrix}
 \alias{plot.Set_PDM_list}
+\alias{plot.TPT}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -22,7 +23,8 @@ main=NULL,col=NULL, ...)
 type=c("orig","max","min","maximin","minimax","most","const"),col=NULL, ...)
 \method{plot}{Set_PDM_list}(x,
 type=c("orig","max","min","maximin","minimax","most","const"),col=NULL, ...)
-
+\method{plot}{TPT}(x,
+sched="E", ...)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -30,6 +32,7 @@ type=c("orig","max","min","maximin","minimax","most","const"),col=NULL, ...)
   \item{w}{number of completion modes (positive integer)}
   \item{Rs}{number of resources (positive integer)}
   \item{type}{set of plots, where (orig) means original, (min) minimal, (max) maximal, (maximin) maximin, (minimax) minimax structures are plotted, respectively, and as well as the minimal/maximal constraints (const)}
+  \item{sched}{character starts are calculated either "E" to early, or "L" to late, or "S" to scheduled start time}
   \item{main}{title of the plot of fixed structure}
   \item{col}{color of barplot}
   \item{...}{other graphical parameters.}
@@ -84,6 +87,31 @@ plot(PDM,main="Fixed project structure",col="green")
 # print of main structures of PDM matrices, with red color bars
 
 plot(PDMs,col="red")
+
+# get a PDM collection
+data(Boctor)
+collection<-Boctor
+summary(collection)
+
+# get the first project structure
+
+PDM<-collection[[1]]$PDM_list$PDM
+
+# get the logic domain
+
+LD<-PDM[1:nrow(PDM),1:nrow(PDM)]
+
+# get the time demands of the first completion mode
+
+TD<-PDM[1:nrow(PDM),nrow(PDM)+1]
+
+# calculate TPT
+
+TPT<-tpt(LD,TD)
+
+# plot the schedule
+
+plot(TPT)
 }
 
 \concept{project management}

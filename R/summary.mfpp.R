@@ -38,9 +38,14 @@ summary.PDM_matrix <- function(object, digits =  getOption("digits"),
     cat("\nsummary PDM matrix:\n")
     print(object,digits=digits)
     if ((!is.null(w))||(!is.null(Rs))){
-      maxCONST<-percent(object,type=c("c","q","qd","r","s","t"),w=w,Rs=Rs,
-                        ratio=1)
-      minCONST<-percent(object,type=c("c","q","qd","s","t"),w=w,Rs=Rs,
+      if (Rs>0){
+        maxCONST<-percent(object,type=c("c","q","r","s","t"),w=w,Rs=Rs,
+                          ratio=1)
+      }else{
+        maxCONST<-percent(object,type=c("c","q","s","t"),w=w,Rs=Rs,
+                          ratio=1)
+      }
+      minCONST<-percent(object,type=c("c","q","s","t"),w=w,Rs=Rs,
                         ratio=0)
       cat("\nMinimal constraints:\n")
       summary.PDM_const(minCONST,digits=digits)
@@ -148,6 +153,30 @@ summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
       cat(", w: ",as.numeric(object[[i]]$PDM_list$w))
       cat(", Rs: ",as.numeric(object[[i]]$PDM_list$Rs))
     }
+  }else{
+    summary(object,digits=digits,...)
+  }
+}
+
+#' @export
+summary.TPT <- function(object, digits =  getOption("digits"),...){
+  if ("TPT" %in% class(object)){
+    if (!requireNamespace("knitr", quietly = TRUE)) {
+      stop(
+        "Package \"knitr\" must be installed to use this function.",
+        call. = FALSE
+      )
+    }
+    cat("\n\n Table of schedule\n")
+    TPT<-object
+    if (is.null(rownames(TPT$EST))) rownames(TPT$EST)<-paste("a",1:nrow(TPT$EST),sep="_")
+    df<-data.frame(duration=TPT$EFT-TPT$EST,
+                   EST=TPT$EST,EFT=TPT$EFT,LST=TPT$LST,LFT=TPT$LFT,
+                   TF=TPT$LST-TPT$EST,SST=TPT$SST,SFT=TPT$SFT,
+                   SF=TPT$LST-TPT$SST,Crit=TPT$EST==TPT$LST)
+    colnames(df)<-c("Dur","EST","EFT","LST","LFT","TF","SST","SFT","SF","Is.Crit")
+    print(df,digits=digits)
+    return(df)
   }else{
     summary(object,digits=digits,...)
   }

@@ -5,6 +5,7 @@
 \alias{summary.Set_PDM_matrix}
 \alias{summary.Set_PDM_list}
 \alias{summary.Collection_PDM}
+\alias{summary.TPT}
 
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
@@ -22,6 +23,7 @@ Print PDM constraints, matrices, lists, sets, collections.
 \method{summary}{Set_PDM_matrix}(object, digits =  getOption("digits"),w=getOption("w"),Rs=getOption("Rs"), ...)
 \method{summary}{Set_PDM_list}(object, digits =  getOption("digits"), ...)
 \method{summary}{Collection_PDM}(object, digits =  getOption("digits"), ...)
+\method{summary}{TPT}(object, digits =  getOption("digits"), ...)
 }
 
 %- maybe also 'usage' for other xs documented here.
@@ -89,6 +91,27 @@ data(Boctor)
 collection<-Boctor
 summary(collection)
 
+# schedule table of the first completion mode of the first project structure
+
+# get the first project structure
+
+PDM<-collection[[1]]$PDM_list$PDM
+
+# get the logic domain
+
+LD<-PDM[1:nrow(PDM),1:nrow(PDM)]
+
+# get the time demands of the first completion mode
+
+TD<-PDM[1:nrow(PDM),nrow(PDM)+1]
+
+# calculate TPT
+
+TPT<-tpt(LD,TD)
+
+# print schedule table
+
+summary(TPT)
 }
 
 

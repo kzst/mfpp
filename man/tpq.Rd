@@ -54,9 +54,21 @@ DSM <- round(PEM)
 # Generation of a 10 by 1 vector of quality parameters of a project.
 q <- rand(10,1)
 
-# Calculation of total project quality using MFPP package.
+# For fixed project plan the TPQ is the geometric mean of quality parameters
+
+tpq(DSM,DSM,q)
+
+# For flexibility project plan the TPQ
+# is the weighted geometric mean of
+# quality parameters
+
 tpq(DSM,PEM, q)
 
+QD2<-cbind(q,rand(10,1)) # Generate two completion modes
+
+# Calculate relative quality considering the best choice
+
+tpq(DSM,PEM,q,QD2)
 
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the

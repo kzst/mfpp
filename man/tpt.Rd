@@ -41,28 +41,35 @@ e-mail: kzst@gtk.uni-pannon.hu
 \seealso{\code{\link{tpc}}, \code{\link{tpq}}, \code{\link{tpr}}, \code{\link{maxscore_PEM}}.}
 \examples{
 
-# Calculatation of EST, EFT, LST and LFT times of activity of a project using MFPP package.
+# Calculatation of EST, EFT, LST and LFT times of activity of a project
 
+# Define a 3 by 3 upper triangular binary matrix (DSM) of logic domain (LD) of a project.
 
-# Define a 3 by 3 upper triangular binary matrix (DSM) of logic domain of a project.
+# Specify sequence of three tasks
+# Diagonal values indicates the priority of tasks
+# 1=the task is mandatory
+LD<-rbind(c(1,1,0), c(0,1,1), c(0,0,1))
 
-DSM<- rbind(c(1,1,0), c(0,1,0), c(0,0,1))
+# Define a 3 by 1 vector of time durations of a project, where the durations are 3,4,5 respectively.
+TD<-c(3,4,5)
 
-# Define a 3 by 1 vector of time durations of a project.
-TD <- matrix(c(3,4,5))
+# Calculate project duration (total project time, TPT)
+TPT<-tpt(LD,TD)
 
-# Calculation of times activities using MFPP package.
-tpt(DSM,TD)
+summary(TPT)
 
-# Specify initial scheduled start time, where the delay is 1.
-SST <- matrix(c(1,1,1))
+# Specify initial scheduled start time, where the delay is 1 for the .
+SST <- c(1,0,0)
 
-# Calculation of times activities using MFPP package
-# (including scheduled starts and finishes).
+# Including scheduled starts and finishes.
 
-tpt(DSM,TD,SST)
+TPT<-tpt(LD,TD,SST)
 
+# Print schedule table
+summary(TPT)
 
+# Plot the scheduled Gantt chart
+plot(TPT,sched="S")
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory (show via RShowDoc("KEYWORDS")):

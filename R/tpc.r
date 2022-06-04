@@ -11,10 +11,10 @@
 #-----------------------------------------------------------------------------#
 
 #' @export
-tpc = function (DSM, C)
-{
-  TPC<-t(diag(ceiling(DSM)))%*%C
-  rownames(TPC)<-"TPC"
-  colnames(TPC)<-"TPC"
+tpc <- function(DSM,CD){
+  TPC<-0
+  for (i in 1:length(CD)){
+    TPC=TPC+as.numeric(DSM[i,i])*as.numeric(CD[i])
+  }
   return(as.numeric(TPC))
 }

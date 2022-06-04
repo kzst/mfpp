@@ -38,6 +38,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
     PDM<-x
     class(PDM)<-"PDM_matrix"
     N<-pracma::size(PDM,1)
+    if (is.null(rownames(PDM))) rownames(PDM)<-paste("a",1:N,sep="_")
     M<-pracma::size(PDM,2)
     if (N>M){
       stop(
@@ -62,7 +63,8 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         }
         if ("orig" %in% type){
           plot(g,main="Original Logic Network",
-               layout=igraph::layout_as_tree,vertex.shape="square",...)
+               layout=igraph::layout_as_tree,
+               vertex.shape="crectangle",vertex.label.dist=2.5,...)
 
           legend(
             "topleft",
@@ -122,7 +124,8 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         if ("min" %in% type){
           if (!is.null(c)){
             plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="square",vertex.label=paste("d",igraph::V(g)$weight,sep="="),...)
+                 vertex.shape="crectangle",vertex.label.dist=2.5,
+                 vertex.label=paste("d",igraph::V(g)$weight,sep="="),...)
 
             legend(
               "topleft",
@@ -135,7 +138,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
             )
           }else{
             plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="square",...)
+                 vertex.shape="crectangle",vertex.label.dist=2.5,...)
 
           }
         }
@@ -158,8 +161,9 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         if ("max" %in% type){
           if (!is.null(c)){
             plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="square",vertex.label=paste("d",
-                                                          igraph::V(g)$weight,sep="="),...)
+                 vertex.shape="crectangle",vertex.label.dist=2.5,
+                 vertex.label=paste("d",
+                        igraph::V(g)$weight,sep="="),...)
 
             legend(
               "topleft",
@@ -172,7 +176,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
             )
           }else{
             plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="square",...)
+                 vertex.shape="crectangle",vertex.label.dist=2.5,...)
 
           }
         }
@@ -181,7 +185,8 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         n<-pracma::size(minimaxpdm,1)
         if ("minimax" %in% type){
           plot(igraph::graph.adjacency(minimaxpdm[1:n,1:n]),main="Minimax Structure",
-               layout=igraph::layout_as_tree,vertex.shape="square",vertex.color="green",...)
+               layout=igraph::layout_as_tree,vertex.shape="crectangle",vertex.label.dist=2.5,
+               vertex.color="green",...)
         }
         maximinpdm<-truncpdm(maximinPDM)
         diag(maximinpdm)<-0
@@ -190,7 +195,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
           plot(igraph::graph.adjacency(maximinpdm[1:n,1:n]),
                main="Maximin Structure",
                layout=igraph::layout_as_tree,
-               vertex.shape="square",vertex.color="green",...)
+               vertex.shape="crectangle",vertex.color="green",vertex.label.dist=2.5,...)
         }
         mostpdm<-truncpdm(mostPDM)
         diag(mostpdm)<-0
@@ -199,9 +204,10 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
           plot(igraph::graph.adjacency(mostpdm[1:n,1:n]),
                main="Most-likely/Most-desired Structure",
                layout=igraph::layout_as_tree,
-               vertex.shape="square",vertex.color="green",...)
+               vertex.shape="crectangle",vertex.color="green",
+               vertex.label.dist=2.5,...)
         }
-    }else{
+    }else{ # For non flexible structures
         pdm<-truncpdm(PDM)
         c<-which((diag(pdm)<1)&(diag(pdm)>0),TRUE)
         diag(pdm)<-0
@@ -215,13 +221,17 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         if (pracma::numel(c)>0){
           igraph::V(g)[c]$color="yellow"
         }
+        if (is.null(rownames(PDM))) rownames(PDM)<-paste("a",1:nrow(PDM),sep="_")
+        igraph::V(g)$names<-rownames(PDM)
         if ("orig" %in% type){
           if (!is.null(main)){
             plot(g,main=main,
-                 layout=igraph::layout_as_tree,vertex.shape="square",...)
+                 layout=igraph::layout_as_tree,vertex.shape="crectangle",
+                 vertex.label=igraph::V(g)$names,vertex.label.dist=2.5,...)
           }else{
             plot(g,main="Logic Network",
-                 layout=igraph::layout_as_tree,vertex.shape="square",...)
+                 layout=igraph::layout_as_tree,vertex.label=igraph::V(g)$names,
+                 vertex.shape="crectangle",vertex.label.dist=2.5,...)
           }
 
 
@@ -231,7 +241,13 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
     }
     if ("const" %in% type){
       type<-c("c","q","r","s","t")
-      if (is.null(w)||is.null(Rs)) type<-"s"
+      if (is.null(w)||is.null(Rs)){
+        type<-"s"
+      }else{
+        if (Rs==0){
+          type<-c("c","q","s","t")
+        }
+      }
       minCONST<-percent(PDM,type=type,w=w,Rs=Rs,ratio=0)
       maxCONST<-percent(PDM,type=type,w=w,Rs=Rs,ratio=1.0)
       n<-length(minCONST)-3
@@ -345,6 +361,46 @@ plot.Set_PDM_list <- function(x,type=c("orig","max",
                       type=type,main="Most-likely/Most-desired Structure",
                     col=col,
                       ...)
+  }else{
+    plot(x,...)
+  }
+}
+
+#' @export
+plot.TPT <- function(x,sched="E",...){
+  if ("TPT" %in% class(x)){
+    if (!requireNamespace("ggplot2", quietly = TRUE)) {
+      stop(
+        "Package \"ggplot2\" must be installed to use this function.",
+        call. = FALSE
+      )
+    }
+    if (!requireNamespace("reshape2", quietly = TRUE)) {
+      stop(
+        "Package \"reshape2\" must be installed to use this function.",
+        call. = FALSE
+      )
+    }
+    ST<-as.matrix(x$EST)
+    FT<-as.matrix(x$EFT)
+    Crit<-as.matrix(x$EST==x$LST)
+    if ("L" %in% sched) {
+      ST<-as.matrix(x$LST)
+      FT<-as.matrix(x$LFT)
+    }
+    if ("S" %in% sched) {
+      ST<-as.matrix(x$SST)
+      FT<-as.matrix(x$SFT)
+    }
+    if (is.null(rownames(ST))) rownames(ST)<-paste("a",1:nrow(ST),sep="_")
+    value<-name<-is.critical<-start.date<-end.date<-NULL
+    df<-data.frame(name=factor(rownames(ST),levels=rownames(ST)),start.date=ST,end.date=FT,is.critical=Crit)
+    colnames(df)<-c("name","start.date","end.date","is.critical")
+    mdf<-reshape2::melt(df, measure.vars = c("start.date", "end.date"))
+    ggplot2::ggplot(mdf, ggplot2::aes(value, name, colour = is.critical)) +
+      ggplot2::geom_line(size = 6) +
+      ggplot2::xlab(NULL) +
+      ggplot2::ylab(NULL)
   }else{
     plot(x,...)
   }

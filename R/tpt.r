@@ -73,9 +73,19 @@ tpt<- function(DSM,TD,SST=NULL)
       }
     }
   }
+  colnames(EST)<-"EST"
+  colnames(EFT)<-"EFT"
+  colnames(LST)<-"LST"
+  colnames(LFT)<-"LFT"
+  if (!is.null(rownames(DSM))){
+    rownames(EST)<-rownames(EFT)<-rownames(LST)<-rownames(LFT)<-rownames(DSM)
+  }else{
+    rownames(EST)<-rownames(EFT)<-rownames(LST)<-rownames(LFT)<-rownames(DSM)<-paste("a",1:nrow(DSM),sep="_")
+  }
   if (is.null(SST)){
     output <- list(TPT=TPT,EST=EST,EFT=EFT,LST=LST,LFT=LFT,SST=EST,SFT=EFT)
   }else{
+    SST<-matrix(SST)
     ## CONT
     N<-pracma::numel(TD)
     TPT=0
@@ -98,6 +108,13 @@ tpt<- function(DSM,TD,SST=NULL)
         }
       }
       TPT<-max(SFT)
+      colnames(SST)<-"SST"
+      colnames(SFT)<-"SFT"
+      if (!is.null(rownames(DSM))){
+        rownames(SST)<-rownames(SFT)<-rownames(DSM)
+      }else{
+        rownames(SST)<-rownames(SFT)<-rownames(DSM)<-paste("a",1:nrow(DSM),sep="_")
+      }
     }
     output <- list(TPT=TPT,EST=EST,EFT=EFT,LST=LST,LFT=LFT,SST=SST,SFT=SFT)
   }
