@@ -4,7 +4,8 @@ author: "Zsolt T. Kosztyan, Aamir Saghir"
 date: "`r format(Sys.time(), '%d %b %Y')`"
 output: 
   rmarkdown::html_vignette:
-    toc: true
+    highlight: haddock
+    toc: yes
 vignette: >
   %\VignetteIndexEntry{A quick tour of mfpp}
   %\VignetteEngine{knitr::rmarkdown}
@@ -38,7 +39,7 @@ TD<-c(3,4,5)
 # Calculate project duration (total project time, TPT)
 TPT<-tpt(LD,TD) 
 
-kable(summary(TPT))
+summary(TPT)
 
 # Specify initial scheduled start time, where the delay is 1 for the .
 SST <- c(1,1,0)
@@ -48,7 +49,7 @@ SST <- c(1,1,0)
 TPT<-tpt(LD,TD,SST)
 
 # Print schedule table
-kable(summary(TPT))
+summary(TPT)
 
 # Plot the scheduled Gantt chart
 plot(TPT,sched="S")
@@ -191,3 +192,122 @@ kable(tpr(RES1$SST,DSM,TD[,1],RD[,1:Rs],res.graph=TRUE))
 plot(tpt(DSM,TD[,2],RES1$SST))
 kable(tpr(RES1$SST,DSM,TD[,2],RD[,(Rs+1):(2*Rs)],res.graph=TRUE))
 ```
+# Get a collection of projects
+
+```{r,warning=FALSE,message=FALSE}
+# Get the Boctor's simulation database 
+
+# Boctor, F. F. (1993). 
+# Heuristics for scheduling projects with resource restrictions and several resource-duration modes. 
+# The International Journal of Production Research, 
+# 31(11), 2547–2558, 
+# https://doi.org/10.1080/00207549308956882.
+
+data(Boctor)
+Collection<-Boctor
+
+summary(Collection)
+```
+
+## Get a project structure from the collection
+
+```{r,warning=FALSE,message=FALSE}
+I<-2 # I-th number of project
+
+PDM_list<-Collection[[I]]$PDM_list
+PDM<-PDM_list$PDM
+w<-PDM_list$w
+Rs<-PDM_list$Rs
+
+summary(PDM_list)
+```
+
+### Plot the structure of the selected project
+
+```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
+plot(PDM_list)
+```
+### Plot Gantt Charts by completion modes
+
+```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
+PSM<-PDM_list$PDM
+DSM<-PSM[,1:nrow(PSM)] # Get PSM matrix
+
+# Get time demands (time domain, TD)
+TD<-PSM[,paste("t",1:w,sep = "_")]
+
+# Plot 1st completion mode, scheduled by EST
+plot(tpt(DSM,TD[,1]))
+
+# Plot 2nd completion mode, scheduled by EST
+plot(tpt(DSM,TD[,2]))
+
+# Plot 3rd completion mode, scheduled by EST
+plot(tpt(DSM,TD[,3]))
+
+# Plot 4th completion mode, scheduled by EST
+plot(tpt(DSM,TD[,4]))
+```
+
+# Uncertainty analysis
+
+## Effects of uncertainty
+
+```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
+# Changes of demands followed by uniform distribution (default)
+PSM1<-phase1(PSM,a=-0.2,b=0.4) 
+
+# Changes of demands followed by beta distribution
+PSM1b<-phase1(PSM,a=-0.2,b=0.4,pdftype="beta")
+
+TD1<-PSM1[,paste("t",1:w,sep = "_")]
+TD1b<-PSM1b[,paste("t",1:w,sep = "_")]
+
+# Plot original 1st completion mode, scheduled by EST
+plot(tpt(DSM,TD[,1]))
+
+# Plot changed 1st completion mode, scheduled by EST
+plot(tpt(DSM,TD1[,1]))
+
+# Plot changed 1st completion mode, scheduled by EST
+plot(tpt(DSM,TD1b[,1]))
+```
+
+## Effects of shocks
+
+```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
+# Changes of demands followed by uniform distribution (default)
+# p: percentage of task selection
+# s: maximal scale effect
+
+PSM2<-phase2(PSM,p=0.2,s=10) 
+
+TD2<-PSM2[,paste("t",1:w,sep = "_")]
+
+# Plot original 1st completion mode, scheduled by EST
+plot(tpt(DSM,TD[,1]))
+
+# Plot changed 1st completion mode, scheduled by EST
+plot(tpt(DSM,TD2[,1]))
+```
+
+## Change of structure (making flexible)
+
+```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
+# Changes of demands followed by uniform distribution (default)
+# P: percentage of selection
+# S: maximal change effect
+
+PDMp<-phase3(PSM,0.1,0.5) # New possible dependencies
+PDMn<-phase3(PSM,0.1,-0.5) # Completion and dependencies will be flexible
+
+# Plot original structure
+plot(PSM,type = "orig",main="Original structure")
+
+# Plot PDM with more restrictions 
+plot(PDMp,type = "orig",main="PDM with more dependencies")
+
+# Plot PDM with less restrictions 
+plot(PDMn,type = "orig",main="PDM with less restrictions")
+```
+

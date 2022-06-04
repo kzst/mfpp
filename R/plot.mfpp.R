@@ -12,9 +12,9 @@
 
 #' @export
 plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
-                type=c("orig","max","min","maximin","minimax","most","const"),
-                main=NULL,col=NULL,
-                ...){
+                            type=c("orig","max","min","maximin","minimax","most","const"),
+                            main=NULL,col=NULL,
+                            ...){
   if ("PDM_matrix" %in% class(x)){
     if (!requireNamespace("igraph", quietly = TRUE)) {
       stop(
@@ -62,10 +62,15 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
           igraph::V(g)[c]$color="yellow"
         }
         if ("orig" %in% type){
-          plot(g,main="Original Logic Network",
-               layout=igraph::layout_as_tree,
-               vertex.shape="crectangle",vertex.label.dist=2.5,...)
-
+          if (!is.null(main)){
+            plot(g,main=main,
+                 layout=igraph::layout_as_tree,
+                 vertex.shape="crectangle",vertexlabel.dist=2.5,...)
+          }else{
+            plot(g,main="Original Logic Network",
+                 layout=igraph::layout_as_tree,
+                 vertex.shape="crectangle",vertexlabel.dist=2.5,...)
+          }
           legend(
             "topleft",
             legend = c("mandatory", "supplementary"),
@@ -124,7 +129,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         if ("min" %in% type){
           if (!is.null(c)){
             plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="crectangle",vertex.label.dist=2.5,
+                 vertex.shape="crectangle",vertexlabel.dist=2.5,
                  vertex.label=paste("d",igraph::V(g)$weight,sep="="),...)
 
             legend(
@@ -138,7 +143,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
             )
           }else{
             plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="crectangle",vertex.label.dist=2.5,...)
+                 vertex.shape="crectangle",vertexlabel.dist=2.5,...)
 
           }
         }
@@ -161,9 +166,9 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         if ("max" %in% type){
           if (!is.null(c)){
             plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="crectangle",vertex.label.dist=2.5,
+                 vertex.shape="crectangle",vertexlabel.dist=2.5,
                  vertex.label=paste("d",
-                        igraph::V(g)$weight,sep="="),...)
+                                    igraph::V(g)$weight,sep="="),...)
 
             legend(
               "topleft",
@@ -176,7 +181,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
             )
           }else{
             plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
-                 vertex.shape="crectangle",vertex.label.dist=2.5,...)
+                 vertex.shape="crectangle",vertexlabel.dist=2.5,...)
 
           }
         }
@@ -185,7 +190,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         n<-pracma::size(minimaxpdm,1)
         if ("minimax" %in% type){
           plot(igraph::graph.adjacency(minimaxpdm[1:n,1:n]),main="Minimax Structure",
-               layout=igraph::layout_as_tree,vertex.shape="crectangle",vertex.label.dist=2.5,
+               layout=igraph::layout_as_tree,vertex.shape="crectangle",vertexlabel.dist=2.5,
                vertex.color="green",...)
         }
         maximinpdm<-truncpdm(maximinPDM)
@@ -195,7 +200,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
           plot(igraph::graph.adjacency(maximinpdm[1:n,1:n]),
                main="Maximin Structure",
                layout=igraph::layout_as_tree,
-               vertex.shape="crectangle",vertex.color="green",vertex.label.dist=2.5,...)
+               vertex.shape="crectangle",vertex.color="green",vertexlabel.dist=2.5,...)
         }
         mostpdm<-truncpdm(mostPDM)
         diag(mostpdm)<-0
@@ -205,9 +210,9 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                main="Most-likely/Most-desired Structure",
                layout=igraph::layout_as_tree,
                vertex.shape="crectangle",vertex.color="green",
-               vertex.label.dist=2.5,...)
+               vertexlabel.dist=2.5,...)
         }
-    }else{ # For non flexible structures
+      }else{ # For non flexible structures
         pdm<-truncpdm(PDM)
         c<-which((diag(pdm)<1)&(diag(pdm)>0),TRUE)
         diag(pdm)<-0
@@ -227,11 +232,11 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
           if (!is.null(main)){
             plot(g,main=main,
                  layout=igraph::layout_as_tree,vertex.shape="crectangle",
-                 vertex.label=igraph::V(g)$names,vertex.label.dist=2.5,...)
+                 vertex.label=igraph::V(g)$names,vertexlabel.dist=2.5,...)
           }else{
             plot(g,main="Logic Network",
                  layout=igraph::layout_as_tree,vertex.label=igraph::V(g)$names,
-                 vertex.shape="crectangle",vertex.label.dist=2.5,...)
+                 vertex.shape="crectangle",vertexlabel.dist=2.5,...)
           }
 
 
@@ -288,13 +293,13 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
 
 #' @export
 plot.PDM_list <- function(x,
-        type=c("orig","max","min","maximin","minimax","most","const"),
-        main=NULL,col=NULL,
-                            ...){
+                          type=c("orig","max","min","maximin","minimax","most","const"),
+                          main=NULL,col=NULL,
+                          ...){
   if ("PDM_list" %in% class(x)){
     plot.PDM_matrix(x=x$PDM,w=x$w,Rs=x$Rs,
-                                type=type,main=main,col=col,
-                                ...)
+                    type=type,main=main,col=col,
+                    ...)
   }else{
     plot(x,...)
   }
@@ -302,10 +307,10 @@ plot.PDM_list <- function(x,
 
 
 plot.Set_PDM_matrix <- function(x,w=NULL,Rs=NULL,
-                            type=c("orig","max","min",
-                                   "maximin","minimax","most","const"),
-                            col=NULL,
-                            ...){
+                                type=c("orig","max","min",
+                                       "maximin","minimax","most","const"),
+                                col=NULL,
+                                ...){
   if ("Set_PDM_matrix" %in% class(x)){
     if (!is.null(x$minstruct))
       plot.PDM_matrix(x=x$minstruct,w=w,Rs=Rs,
@@ -337,30 +342,30 @@ plot.Set_PDM_list <- function(x,type=c("orig","max",
                                        "min","maximin",
                                        "minimax","most","const"),
                               col=NULL,
-                                ...){
+                              ...){
   if ("Set_PDM_list" %in% class(x)){
     if (!is.null(x$minstruct))
       plot.PDM_list(x=x$minstruct,
-                      type=type,main="Minimal Structure",col=col,
-                      ...)
+                    type=type,main="Minimal Structure",col=col,
+                    ...)
     if (!is.null(x$maxstruct))
       plot.PDM_list(x=x$maxstruct,
-                      type=type,main="Maximal Structure",col=col,
-                      ...)
+                    type=type,main="Maximal Structure",col=col,
+                    ...)
     if (!is.null(x$minimaxstruct))
       plot.PDM_list(x=x$minimaxstruct,main="Minimax Structure",
                     col=col,
-                      type=type,
-                      ...)
+                    type=type,
+                    ...)
     if (!is.null(x$maximinstruct))
       plot.PDM_list(x=x$maximinstruct,
-                      type=type,main="Maximin Structure",col=col,
-                      ...)
+                    type=type,main="Maximin Structure",col=col,
+                    ...)
     if (!is.null(x$moststruct))
       plot.PDM_list(x=x$moststruct,
-                      type=type,main="Most-likely/Most-desired Structure",
+                    type=type,main="Most-likely/Most-desired Structure",
                     col=col,
-                      ...)
+                    ...)
   }else{
     plot(x,...)
   }

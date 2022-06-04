@@ -148,14 +148,23 @@ summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
     cat("\n\n\nSummary of PDM collection:\n")
     cat("\nNumber of projects: ",length(object))
     cat("\nList of projects: ")
+    df<-data.frame(Project_name=names(object))
+    df$w<-1
+    df$Rs<-0
     for (i in (1:length(object))){
+      df[i,"w"]<-as.numeric(object[[i]]$PDM_list$w)
+      df[i,"Rs"]<-as.numeric(object[[i]]$PDM_list$Rs)
+
       cat("\n Project name: ",names(object)[i])
-      cat(", w: ",as.numeric(object[[i]]$PDM_list$w))
-      cat(", Rs: ",as.numeric(object[[i]]$PDM_list$Rs))
+      cat(", w: ",df[i,"w"])
+      cat(", Rs: ",df[i,"Rs"])
     }
+    # invisible(df)
+    return(invisible(df))
   }else{
     summary(object,digits=digits,...)
   }
+  invisible()
 }
 
 #' @export
@@ -175,9 +184,10 @@ summary.TPT <- function(object, digits =  getOption("digits"),...){
                    TF=TPT$LST-TPT$EST,SST=TPT$SST,SFT=TPT$SFT,
                    SF=TPT$LST-TPT$SST,Crit=TPT$EST==TPT$LST)
     colnames(df)<-c("Dur","EST","EFT","LST","LFT","TF","SST","SFT","SF","Is.Crit")
-    print(df,digits=digits)
-    return(df)
+    print.data.frame(df,digits=digits)
+    return(invisible(df))
   }else{
     summary(object,digits=digits,...)
   }
+  invisible(df)
 }
