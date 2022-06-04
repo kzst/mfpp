@@ -1,0 +1,29 @@
+title: mfpp
+
+url: https://github.com/kzst/mfpp
+
+template:
+  params:
+    bootswatch: sandstone
+
+navbar:
+  left:
+    - text: "Vignette"
+      href: articles/mfpp.html
+    - text: "Reference"
+      href: reference/index.html
+  right:
+    - icon: fa-github
+      href: https://github.com/kzst/mfpp
+
+figures:
+  dev: grDevices::png
+  dpi: 72
+  dev.args: []
+  fig.ext: png
+  fig.width: 7
+  fig.height: 6
+
+authors:
+  Luca Scrucca:
+    href: https://www.gtk.uni-pannon.hu/zsoltkosztyan
