@@ -1,3 +1,9 @@
+## ----setup, include = FALSE---------------------------------------------------
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
 ## ----warning=FALSE,message=FALSE----------------------------------------------
 library(mfpp) # Matrix-based Flexible Project Planning
 library(knitr) # Apply graphical elements
@@ -35,7 +41,7 @@ plot(TPT,sched="S")
 
 ## ----warning=FALSE,message=FALSE,fig.height=5,fig.width=7---------------------
 # Specify seed
-set.seed(6)
+set.seed(101)
 # Specify the cost demands
 CD<-c(10,20,24)
 

@@ -1,16 +1,24 @@
 ---
 title: "A quick tour of mfpp"
 author: "Zsolt T. Kosztyan, Aamir Saghir"
-date: "`r format(Sys.time(), '%d %b %Y')`"
+date: "15 June 2022"
 output: 
   rmarkdown::html_vignette:
     highlight: haddock
     toc: yes
+    css: "vignette.css"
 vignette: >
   %\VignetteIndexEntry{A quick tour of mfpp}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 # Load necessary libraries
 
@@ -59,7 +67,7 @@ plot(TPT,sched="S")
 
 ```{r,warning=FALSE,message=FALSE,fig.height=5,fig.width=7}
 # Specify seed
-set.seed(6)
+set.seed(101)
 # Specify the cost demands
 CD<-c(10,20,24)
 
