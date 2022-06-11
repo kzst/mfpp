@@ -115,21 +115,21 @@ of a PEM matrix)(a numeric matrix).</p></dd>
 <span class="r-in"><span class="co"># For fixed project plan the TPQ is the geometric mean of quality parameters</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">tpq</span><span class="op">(</span><span class="va">DSM</span>,<span class="va">DSM</span>,<span class="va">q</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3959824</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3555506</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># For flexibility project plan the TPQ</span></span>
 <span class="r-in"><span class="co"># is the weighted geometric mean of</span></span>
 <span class="r-in"><span class="co"># quality parameters</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">tpq</span><span class="op">(</span><span class="va">DSM</span>,<span class="va">PEM</span>, <span class="va">q</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.3329225</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.2838607</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="va">QD2</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">q</span>,<span class="fu"><a href="https://rdrr.io/pkg/pracma/man/rand.html" class="external-link">rand</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span> <span class="co"># Generate two completion modes</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Calculate relative quality considering the best choice</span></span>
 <span class="r-in"></span>
 <span class="r-in"><span class="fu">tpq</span><span class="op">(</span><span class="va">DSM</span>,<span class="va">PEM</span>,<span class="va">q</span>,<span class="va">QD2</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7820254</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] 0.7045045</span>
 <span class="r-in"></span>
 </code></pre></div>
     </div>

@@ -140,40 +140,40 @@
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generation of PDM matrix for TCTP a project scenario using MFPP package.</span></span>
 <span class="r-in"><span class="fu">generatepdm</span><span class="op">(</span><span class="va">N</span>,<span class="va">ff</span>,<span class="va">cf</span>,<span class="va">mTD</span>,<span class="va">mCD</span>,<span class="va">mRD</span>,<span class="va">w</span>,<span class="va">nR</span>,<span class="va">nW</span>,scale<span class="op">=</span><span class="fl">1.4</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1 a_2 a_3 a_4 a_5 a_6      t_1      t_2      c_1      c_2     r_1.1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1   1   0   0   0   0 1.990993 2.338500 1.654109 2.338500 2.5237790</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0   1   0   0   0   0 2.018266 2.145492 3.192695 2.145492 1.0743814</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0   0   1   0   0   0 1.783675 1.794145 2.964085 1.794145 0.6576255</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0   0   0   1   0   0 1.907259 2.233358 2.721787 2.233358 2.1641131</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0   0   0   0   0   0 0.000000 0.000000 0.000000 0.000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0   0   0   0   0   0 0.000000 0.000000 0.000000 0.000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>         r_2.1    r_1.2    r_2.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 2.7941619 1.174602 1.253061</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 1.2620350 1.334362 1.541647</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 0.6850393 1.640196 2.002033</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 2.4617603 0.928906 1.088019</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.0000000 0.000000 0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.0000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1 a_2 a_3       a_4 a_5 a_6      t_1      t_2      c_1      c_2    r_1.1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1   1   1 0.5786968   0   0 1.773846 2.073322 2.312919 2.073322 2.585960</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0   1   1 0.0000000   0   0 1.168166 1.218742 1.873279 1.218742 2.508919</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0   0   1 0.0000000   0   0 2.087536 2.219207 2.036184 2.219207 1.849117</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0   0   0 1.0000000   0   0 1.997415 2.259826 1.037526 2.259826 1.938765</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0   0   0 0.0000000   0   0 0.000000 0.000000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0   0   0 0.0000000   0   0 0.000000 0.000000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        r_2.1    r_1.2    r_2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 2.822416 1.270536 1.321176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 2.751529 1.102080 1.223861</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 2.071798 2.758620 2.775437</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 2.313242 1.728712 1.744898</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.000000 0.000000 0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PDM_matrix"</span>
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generation of PDM list for TCTP a project scenario using MFPP package.</span></span>
 <span class="r-in"><span class="fu">generatepdm</span><span class="op">(</span><span class="va">N</span>,<span class="va">ff</span>,<span class="va">cf</span>,<span class="va">mTD</span>,<span class="va">mCD</span>,<span class="va">mRD</span>,<span class="va">w</span>,<span class="va">nR</span>,<span class="va">nW</span>,scale<span class="op">=</span><span class="fl">1.4</span>,QD<span class="op">=</span><span class="cn">FALSE</span>,lst<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $PDM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1      a_2 a_3 a_4 a_5 a_6       t_1       t_2      c_1       c_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1 1.000000   1   1   0   0 0.8801624 1.0823671 3.305207 1.0823671</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0 0.763021   1   1   0   0 1.8273013 2.2047135 1.792882 2.2047135</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0 0.000000   1   0   0   0 0.6818233 0.7572406 3.183565 0.7572406</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0 0.000000   0   1   0   0 1.6750335 1.9270608 3.311882 1.9270608</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0 0.000000   0   0   0   0 0.0000000 0.0000000 0.000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0 0.000000   0   0   0   0 0.0000000 0.0000000 0.000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>        r_1.1    r_2.1    r_1.2    r_2.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 2.729700 2.890999 1.487899 1.654533</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 2.692006 2.913876 1.365785 1.459162</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 1.001128 1.067344 2.588829 2.639252</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 1.489531 1.645233 1.390364 1.589837</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.000000 0.000000 0.000000 0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.000000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1 a_2 a_3       a_4 a_5 a_6      t_1       t_2       c_1       c_2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1   1   0 1.0000000   0   0 0.502537 0.5232679 3.0598504 0.5232679</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0   1   1 1.0000000   0   0 1.222374 1.2603035 2.0297466 1.2603035</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0   0   1 0.7468798   0   0 2.374012 2.8543553 2.0385816 2.8543553</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0   0   0 1.0000000   0   0 1.258800 1.3382285 0.3997913 1.3382285</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0   0   0 0.0000000   0   0 0.000000 0.0000000 0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0   0   0 0.0000000   0   0 0.000000 0.0000000 0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>        r_1.1    r_2.1     r_1.2     r_2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 2.172816 2.390764 1.2005967 1.3107365</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 2.645513 2.661347 2.3273532 2.4752642</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 2.108060 2.139833 2.1692085 2.6956847</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 1.846287 1.980542 0.7552388 0.8051235</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.000000 0.000000 0.0000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.000000 0.000000 0.0000000 0.0000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PDM_matrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
@@ -189,40 +189,40 @@
 <span class="r-in"></span>
 <span class="r-in"><span class="co"># Generation of PDM matrix for TQCTP a project scenario using MFPP package.</span></span>
 <span class="r-in"><span class="fu">generatepdm</span><span class="op">(</span><span class="va">N</span>,<span class="va">ff</span>,<span class="va">cf</span>,<span class="va">mTD</span>,<span class="va">mCD</span>,<span class="va">mRD</span>,<span class="va">w</span>,<span class="va">nR</span>,<span class="va">nW</span>,scale<span class="op">=</span><span class="fl">1.4</span>,QD<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1 a_2 a_3 a_4 a_5 a_6      t_1      t_2      c_1      c_2       q_1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1   1   1   0   0   0 1.903714 2.087173 2.139437 2.572250 0.4733535</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0   1   0   1   0   0 1.939442 2.037752 1.482206 1.736177 0.8096448</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0   0   1   0   0   0 1.275475 1.455893 1.515380 1.835397 0.8520221</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0   0   0   1   0   0 2.808513 2.966237 3.465103 3.656942 0.5524044</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0   0   0   0   0   0 0.000000 0.000000 0.000000 0.000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0   0   0   0   0   0 0.000000 0.000000 0.000000 0.000000 0.0000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           q_2     r_1.1    r_2.1    r_1.2    r_2.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 0.5865089 0.9839857 1.124918 2.353605 2.577768</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 0.8261511 1.6281362 1.920774 1.534310 1.535477</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 0.9932237 2.3301365 2.561594 2.996951 2.997312</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 0.5792523 1.7050475 1.771525 1.560686 1.902016</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.0000000 0.0000000 0.000000 0.000000 0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.0000000 0.0000000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1 a_2 a_3 a_4 a_5 a_6       t_1       t_2      c_1      c_2       q_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1   1   0   0   0   0 2.6022399 2.7496097 2.837863 3.402147 0.4680102</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0   1   1   0   0   0 1.6896474 2.0700686 2.332253 2.863275 0.8724308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0   0   1   0   0   0 1.3009862 1.4426297 2.871396 3.384359 0.2069545</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0   0   0   1   0   0 0.7004161 0.8147311 2.559840 2.733139 0.3735886</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0   0   0   0   0   0 0.0000000 0.0000000 0.000000 0.000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0   0   0   0   0   0 0.0000000 0.0000000 0.000000 0.000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           q_2    r_1.1    r_2.1    r_1.2    r_2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 0.5718864 1.952187 2.055352 2.476510 2.539289</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 0.9229602 1.093993 1.310370 1.492320 1.622131</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 0.2405737 2.450013 2.511067 1.208741 1.507684</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 0.3900467 2.694439 2.900778 2.293984 2.656372</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.0000000 0.000000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.0000000 0.000000 0.000000 0.000000 0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PDM_matrix"</span>
 <span class="r-in"></span>
 <span class="r-in"> <span class="co"># Generation of PDM list for TQCTP a project scenario using MFPP package.</span></span>
 <span class="r-in"><span class="fu">generatepdm</span><span class="op">(</span><span class="va">N</span>,<span class="va">ff</span>,<span class="va">cf</span>,<span class="va">mTD</span>,<span class="va">mCD</span>,<span class="va">mRD</span>,<span class="va">w</span>,<span class="va">nR</span>,<span class="va">nW</span>,scale<span class="op">=</span><span class="fl">1.4</span>,QD<span class="op">=</span><span class="cn">TRUE</span>,lst<span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> $PDM</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1 a_2 a_3      a_4 a_5 a_6       t_1       t_2      c_1      c_2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1   1   1 0.000000   0   0 2.2860885 2.5245914 2.154689 2.186352</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0   1   1 0.000000   0   0 2.3146789 2.6497229 2.744831 3.199227</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0   0   1 1.000000   0   0 2.3546472 2.8386356 2.609094 3.215028</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0   0   0 0.886751   0   0 0.4500221 0.4843317 1.138608 1.307882</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0   0   0 0.000000   0   0 0.0000000 0.0000000 0.000000 0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0   0   0 0.000000   0   0 0.0000000 0.0000000 0.000000 0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>           q_1       q_2    r_1.1    r_2.1    r_1.2    r_2.2</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 0.6132550 0.7036443 1.500026 1.665480 2.733602 2.739192</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 0.6538493 0.7494496 2.182257 2.717330 1.302209 1.599848</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 0.3506894 0.3847488 1.557734 1.735416 2.527977 2.570974</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 0.7971010 0.9118566 2.060315 2.486904 2.264755 2.347899</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.0000000 0.0000000 0.000000 0.000000 0.000000 0.000000</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.0000000 0.0000000 0.000000 0.000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     a_1 a_2 a_3 a_4 a_5 a_6       t_1       t_2      c_1      c_2       q_1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1   1   1   1   0   0   0 1.1700696 1.2422413 2.064030 2.395695 0.9265003</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2   0   1   1   0   0   0 1.5991936 1.9663569 3.663325 3.724931 0.2550008</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3   0   0   1   0   0   0 0.8381345 0.9668456 3.718656 3.867084 0.1131722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4   0   0   0   1   0   0 1.8081251 1.9803302 2.354876 2.748003 0.2002977</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5   0   0   0   0   0   0 0.0000000 0.0000000 0.000000 0.000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6   0   0   0   0   0   0 0.0000000 0.0000000 0.000000 0.000000 0.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           q_2     r_1.1     r_2.1    r_1.2    r_2.2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_1 0.9474558 0.8479777 0.9511745 2.441724 2.467635</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_2 0.3123740 0.7394129 0.7615408 2.072537 2.121949</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_3 0.1135070 0.3980619 0.4521817 1.893006 2.042226</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_4 0.2387283 2.2866191 2.3818435 2.233000 2.505666</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_5 0.0000000 0.0000000 0.0000000 0.000000 0.000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> a_6 0.0000000 0.0000000 0.0000000 0.000000 0.000000</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> attr(,"class")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "PDM_matrix"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>

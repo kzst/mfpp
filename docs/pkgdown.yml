@@ -3,7 +3,7 @@ pkgdown: 2.0.3
 pkgdown_sha: ~
 articles:
   mfpp: mfpp.html
-last_built: 2022-06-09T07:06Z
+last_built: 2022-06-11T16:24Z
 urls:
   reference: https://github.com/kzst/mfpp/reference
   article: https://github.com/kzst/mfpp/articles

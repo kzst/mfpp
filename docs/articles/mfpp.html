@@ -78,6 +78,111 @@
 
     
     
+<style>
+body {
+text-align: justify}
+</style>
+<div class="section level2">
+<h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h2>
+<p>The package of <em>Matrix-based Flexible Project planning</em> (<strong>mfpp</strong>) models project structures for four types of project management approaches (PMas). The Table 1 summarizes the features of the project management structures.</p>
+<div align="center">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="table tg">
+<thead><tr>
+<th class="tg-baqh">
+</th>
+<th class="tg-baqh" colspan="3">
+<b>Features</b>
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="tg-c3ow">
+<b>Approaches</b>
+</td>
+<td class="tg-c3ow">
+<b>Project structure</b>
+</td>
+<td class="tg-c3ow">
+<b>New tasks</b>
+</td>
+<td class="tg-c3ow">
+<b>Multiple modes</b>
+</td>
+</tr>
+<tr>
+<td class="tg-c3ow">
+Traditional (TPMa)
+</td>
+<td class="tg-c3ow">
+Fixed
+</td>
+<td class="tg-c3ow">
+Not allowed
+</td>
+<td class="tg-c3ow">
+Handled
+</td>
+</tr>
+<tr>
+<td class="tg-c3ow">
+Agile (APMa)
+</td>
+<td class="tg-c3ow">
+Flexible
+</td>
+<td class="tg-c3ow">
+Not allowed
+</td>
+<td class="tg-c3ow">
+Not handled
+</td>
+</tr>
+<tr>
+<td class="tg-c3ow">
+Extreme (XPMa)
+</td>
+<td class="tg-c3ow">
+Flexible
+</td>
+<td class="tg-c3ow">
+Allowed
+</td>
+<td class="tg-c3ow">
+Not handled
+</td>
+</tr>
+<tr>
+<td class="tg-c3ow">
+Hybrid (HPMa)
+</td>
+<td class="tg-c3ow">
+Flexible
+</td>
+<td class="tg-c3ow">
+Allowed
+</td>
+<td class="tg-c3ow">
+Handled
+</td>
+</tr>
+</tbody>
+</table>
+<p align="left">
+<b>Table 1:</b> Comparison of various traditional and flexible project management approaches (PMas) (see Kosztyan, Szalkai, 2020)
+</p>
+</div>
+<p>Packages and programs only support traditional project management approaches, where both dependencies between tasks, and as well as task occurrences are fixed. Nevertheless, all packages, including the proposed <strong>mfpp</strong> package have to offer to plan and schedule these types of projects. This package is R version of MATLAB functions published by Kosztyan (2022).</p>
+</div>
 <div class="section level2">
 <h2 id="load-necessary-libraries">Load necessary libraries<a class="anchor" aria-label="anchor" href="#load-necessary-libraries"></a>
 </h2>
@@ -86,11 +191,14 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://yihui.org/knitr/" class="external-link">knitr</a></span><span class="op">)</span> <span class="co"># Apply graphical elements</span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="build-matrix-based-projects-and-calculate-their-demands">Build matrix-based projects and calculate their demands<a class="anchor" aria-label="anchor" href="#build-matrix-based-projects-and-calculate-their-demands"></a>
+<h2 id="build-fixed-matrix-based-projects-and-calculate-their-demands-to-support-tpma">Build fixed matrix-based projects and calculate their demands to support TPMa<a class="anchor" aria-label="anchor" href="#build-fixed-matrix-based-projects-and-calculate-their-demands-to-support-tpma"></a>
 </h2>
+<p>The logic domain (LD) specifies the structure of the project. LD is an <span class="math inline">\(N\)</span> by <span class="math inline">\(N\)</span> (sub)matrix, where <span class="math inline">\(N\)</span> is the number of tasks. Diagonal values represent task priorities of task completion, where 1 indicates mandatory, and a lower value indicates supplementary tasks. Out-diagonal values represent dependencies between tasks, where value 1 indicates fixed, but lower values indicate flexible dependencies between tasks. In the case of acyclic graphs, the LD can be reordered to the upper triangular matrix, which is assumed in this package.</p>
+<p>Time domain (TD) represents the time demands (i.e. duration) of tasks. TD is an <span class="math inline">\(N\)</span> by <span class="math inline">\(w\)</span> matrix, where the <span class="math inline">\(w\)</span> is the number of completion modes. This example specifies a binary logic plan, with one completion mode.</p>
 <div class="section level3">
 <h3 id="specify-logic-domain-ld-and-time-domain-td">Specify logic domain (LD), and time domain (TD)<a class="anchor" aria-label="anchor" href="#specify-logic-domain-ld-and-time-domain-td"></a>
 </h3>
+<p>TPMa allows only binary values in LD.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Calculatation of EST, EFT, LST and LFT times of activity of a project</span>
 
@@ -136,13 +244,15 @@
 <span class="co"># Plot the scheduled Gantt chart</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">TPT</span>,sched<span class="op">=</span><span class="st">"S"</span><span class="op">)</span></code></pre></div>
 <p><img src="mfpp_files/figure-html/unnamed-chunk-2-1.png" width="504"></p>
+<p>The function <em>tpt</em> project duration (total project time, TPT), calculates schedules of tasks, such as early start time (EST), early finish time (EFT), late start time (LST), late finish time (LFT), scheduled start time (SST), scheduled finish time (SFT). The plot function draws a Gantt chart, for the early, late, or scheduled start times.</p>
 </div>
 <div class="section level3">
 <h3 id="specify-cost-domain-cd-quality-domain-qd-and-resource-domain-rd">Specify cost domain (CD), quality domain (QD), and resource domain (RD)<a class="anchor" aria-label="anchor" href="#specify-cost-domain-cd-quality-domain-qd-and-resource-domain-rd"></a>
 </h3>
+<p>Both CD, and QD are <span class="math inline">\(N\)</span> by <span class="math inline">\(w\)</span> matrices. CD is mandatory, while QD is optional. RD is an optional <span class="math inline">\(N\)</span> by <span class="math inline">\(w \cdot r\)</span> matrix, where <span class="math inline">\(r\)</span> is the number of resources.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Specify seed</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">101</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html" class="external-link">set.seed</a></span><span class="op">(</span><span class="fl">6</span><span class="op">)</span>
 <span class="co"># Specify the cost demands</span>
 <span class="va">CD</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>,<span class="fl">20</span>,<span class="fl">24</span><span class="op">)</span>
 
@@ -158,7 +268,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\nTotal Project Quality (TPC): "</span>,<span class="fu"><a href="../reference/tpq.html">tpq</a></span><span class="op">(</span><span class="va">LD</span>,<span class="va">LD</span>,<span class="va">q</span><span class="op">)</span><span class="op">)</span> 
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Total Project Quality (TPC):  0.2262142</span>
+<span class="co">#&gt; Total Project Quality (TPC):  0.5316529</span>
 
 <span class="co"># Calculate relative quality for the selected completion modes</span>
 
@@ -168,7 +278,7 @@
 
 <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span><span class="st">"\nRelative TPQ: "</span>,<span class="fu"><a href="../reference/tpq.html">tpq</a></span><span class="op">(</span><span class="va">LD</span>,<span class="va">LD</span>,<span class="va">q</span>,<span class="va">QD2</span><span class="op">)</span><span class="op">)</span> 
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Relative TPQ:  0.6960711</span>
+<span class="co">#&gt; Relative TPQ:  0.7169994</span>
 
 
 <span class="co"># Generate resource demands (RD)</span>
@@ -182,18 +292,20 @@
 
 <span class="fu"><a href="../reference/tpr.html">tpr</a></span><span class="op">(</span><span class="va">TPT</span><span class="op">$</span><span class="va">SST</span>,<span class="va">LD</span>,<span class="va">TD</span>,<span class="va">RD</span><span class="op">)</span>
 <span class="co">#&gt;     R_1 R_2</span>
-<span class="co">#&gt; TPR   5   8</span>
+<span class="co">#&gt; TPR   9   8</span>
  
 <span class="co">## Plot resources for SST</span>
 
 <span class="fu"><a href="../reference/tpr.html">tpr</a></span><span class="op">(</span><span class="va">TPT</span><span class="op">$</span><span class="va">SST</span>,<span class="va">LD</span>,<span class="va">TD</span>,<span class="va">RD</span>,res.graph <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="mfpp_files/figure-html/unnamed-chunk-3-1.png" width="504"></p>
 <pre><code><span class="co">#&gt;     R_1 R_2</span>
-<span class="co">#&gt; TPR   5   8</span></code></pre>
+<span class="co">#&gt; TPR   9   8</span></code></pre>
+<p>The function <em>tpr</em> calculates maximal resource demands and can specify a resource graph.</p>
 </div>
 <div class="section level3">
 <h3 id="calculate-minimal-resource-demands-while-keeping-project-duration">Calculate minimal resource demands while keeping project duration<a class="anchor" aria-label="anchor" href="#calculate-minimal-resource-demands-while-keeping-project-duration"></a>
 </h3>
+<p>Minimizing resource allocation is a combinatorial (NP-hard) problem; therefore the meta-heuristic method is used to minimize the maximum resource demands. In this case, a non dominated sorting genetic algorithm II (NSGA-II) method is to minimize the maximum resource demands. In the case of multiple resources, a Pareto-optimal solution is found.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Calculate (Pareto) optimal SST</span>
@@ -211,6 +323,7 @@
 <div class="section level3">
 <h3 id="specify-a-pdm-matrix">Specify a PDM matrix<a class="anchor" aria-label="anchor" href="#specify-a-pdm-matrix"></a>
 </h3>
+<p>The set of domains, namely the set of LD, TD, and CD, and as well as optionally QD, and RD specifies the project domain matrix (PDM).</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">PDM</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/cbind.html" class="external-link">cbind</a></span><span class="op">(</span><span class="va">LD</span>,<span class="va">TD</span>,<span class="va">CD</span>,<span class="va">q</span>,<span class="va">RD</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">PDM</span><span class="op">)</span><span class="op">&lt;-</span><span class="st">"PDM_matrix"</span>
@@ -221,8 +334,9 @@
 </div>
 </div>
 <div class="section level2">
-<h2 id="generate-a-flexible-project-network">Generate a flexible project network<a class="anchor" aria-label="anchor" href="#generate-a-flexible-project-network"></a>
+<h2 id="generate-a-flexible-project-network-to-support-hpma">Generate a flexible project network to support HPMa<a class="anchor" aria-label="anchor" href="#generate-a-flexible-project-network-to-support-hpma"></a>
 </h2>
+<p>HPMa combines the features of TPMa (multiple completion modes), APMa (flexible project structure), and as well as XPMa (new, unplanned tasks).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Generation of PDM matrix for flexible project planning MFPP package.</span>
 
@@ -247,20 +361,20 @@
 <span class="co">#&gt; Number of completion modes (w):  2</span>
 <span class="co">#&gt; Number of resources (Rs):  2</span>
 <span class="co">#&gt; summary PDM matrix:</span>
-<span class="co">#&gt;     a_1 a_2       a_3       a_4 a_5 a_6      t_1      t_2      c_1      c_2</span>
-<span class="co">#&gt; a_1   1   1 1.0000000 0.0000000   1   0 1.325641 1.390820 3.099573 3.117227</span>
-<span class="co">#&gt; a_2   0   1 0.0000000 0.0000000   0   0 1.907257 2.312738 3.051681 3.074031</span>
-<span class="co">#&gt; a_3   0   0 0.7745647 0.6562439   0   0 2.913338 2.948522 3.118286 3.631448</span>
-<span class="co">#&gt; a_4   0   0 0.0000000 1.0000000   0   0 1.573676 1.595940 2.340810 2.814953</span>
-<span class="co">#&gt; a_5   0   0 0.0000000 0.0000000   1   0 2.690009 2.917700 1.961914 2.260633</span>
-<span class="co">#&gt; a_6   0   0 0.0000000 0.0000000   0   0 0.000000 0.000000 0.000000 0.000000</span>
-<span class="co">#&gt;           q_1       q_2     r_1.1     r_2.1     r_1.2     r_2.2</span>
-<span class="co">#&gt; a_1 0.8104291 0.9167239 1.5476370 1.7391579 0.7368156 0.8570888</span>
-<span class="co">#&gt; a_2 0.7540188 0.8565351 0.6218381 0.6430974 2.4206340 2.8968880</span>
-<span class="co">#&gt; a_3 0.9163238 0.9860325 1.0097986 1.2130259 1.7737364 2.0229662</span>
-<span class="co">#&gt; a_4 0.8015989 0.8092308 2.1839888 2.4561117 2.4492304 2.8328988</span>
-<span class="co">#&gt; a_5 0.5585430 0.6625355 0.5815396 0.6089928 0.8752679 0.8820362</span>
-<span class="co">#&gt; a_6 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span>
+<span class="co">#&gt;           a_1       a_2       a_3 a_4 a_5 a_6      t_1      t_2      c_1</span>
+<span class="co">#&gt; a_1 0.8996805 1.0000000 0.0000000   1   1   0 2.809700 2.844662 2.214662</span>
+<span class="co">#&gt; a_2 0.0000000 0.6023889 1.0000000   0   0   0 2.229386 2.752626 2.373684</span>
+<span class="co">#&gt; a_3 0.0000000 0.0000000 0.9282092   0   0   0 2.195172 2.218452 3.394187</span>
+<span class="co">#&gt; a_4 0.0000000 0.0000000 0.0000000   1   0   0 2.501854 2.647490 1.944377</span>
+<span class="co">#&gt; a_5 0.0000000 0.0000000 0.0000000   0   1   0 1.393354 1.673179 3.257293</span>
+<span class="co">#&gt; a_6 0.0000000 0.0000000 0.0000000   0   0   0 0.000000 0.000000 0.000000</span>
+<span class="co">#&gt;          c_2       q_1       q_2    r_1.1    r_2.1     r_1.2    r_2.2</span>
+<span class="co">#&gt; a_1 2.575008 0.5249795 0.5500175 1.646750 1.962195 0.7169741 0.772407</span>
+<span class="co">#&gt; a_2 2.692506 0.9053482 0.9614625 2.672756 2.982463 2.0825999 2.207661</span>
+<span class="co">#&gt; a_3 3.863461 0.7908406 0.8449759 2.765840 2.963731 2.3847546 2.613498</span>
+<span class="co">#&gt; a_4 2.390865 0.5620840 0.6546224 1.915394 2.377417 1.8365222 2.025842</span>
+<span class="co">#&gt; a_5 3.874045 0.4669808 0.5403975 1.938388 2.098193 2.5202051 2.828393</span>
+<span class="co">#&gt; a_6 0.000000 0.0000000 0.0000000 0.000000 0.000000 0.0000000 0.000000</span>
 <span class="co">#&gt; attr(,"class")</span>
 <span class="co">#&gt; [1] "PDM_matrix"</span>
 <span class="co">#&gt; </span>
@@ -268,25 +382,31 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Summary of the PDM constraints structure:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Time constraint (Ct):  2.913338</span>
-<span class="co">#&gt; Const constraint (Cc):  10.45398</span>
-<span class="co">#&gt; Score/scope constraint (Cs):  0.780136</span>
-<span class="co">#&gt; Quailty constraint (Cq):  0.5547524</span>
+<span class="co">#&gt; Time constraint (Ct):  2.501854</span>
+<span class="co">#&gt; Const constraint (Cc):  5.20167</span>
+<span class="co">#&gt; Score/scope constraint (Cs):  0.3768358</span>
+<span class="co">#&gt; Quailty constraint (Cq):  0.1257496</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maximal constraints:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Summary of the PDM constraints structure:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Time constraint (Ct):  4.544462</span>
-<span class="co">#&gt; Const constraint (Cc):  14.89829</span>
-<span class="co">#&gt; Score/scope constraint (Cs):  0.9583179</span>
-<span class="co">#&gt; Quailty constraint (Cq):  0.7976705</span>
+<span class="co">#&gt; Time constraint (Ct):  4.971078</span>
+<span class="co">#&gt; Const constraint (Cc):  15.39588</span>
+<span class="co">#&gt; Score/scope constraint (Cs):  0.8918022</span>
+<span class="co">#&gt; Quailty constraint (Cq):  0.5998342</span>
 <span class="co">#&gt; Resource constraint(s) (CR):</span>
 <span class="co">#&gt;          R_1      R_2</span>
-<span class="co">#&gt; TPR 4.921228 8.634789</span></code></pre></div>
+<span class="co">#&gt; TPR 7.458073 7.467733</span></code></pre></div>
+<p>PDM_matrix contains only the PDM matrix, while PDM_list also contains, the number of completion modes (w), and as well as number of resources (Rs).</p>
 <div class="section level3">
 <h3 id="plot-main-structures-of-flexible-project-structures">Plot main structures of flexible project structures<a class="anchor" aria-label="anchor" href="#plot-main-structures-of-flexible-project-structures"></a>
 </h3>
+<p><strong>Minimal structure:</strong> Contains only mandatory tasks and fixed dependencies. It provides the lowest quality / cost / time demands when the least quality / cost / shortest completion modes are specified for each task.</p>
+<p><strong>Maximal structure:</strong> Contains both mandatory and supplementary tasks and as well as both fixed and flexible dependencies. It provides the highest quality / greatest cost / time demands when the highest quality / greatest cost / longest completion modes are specified for each task.</p>
+<p><strong>Minimax structure:</strong> Contains only mandatory tasks, but both fixed and flexible dependencies. It can provide the lowest resource demands.</p>
+<p><strong>Maximin structure:</strong> Contains both mandatory and supplementary tasks, but only fixed dependencies. It can provide the greatest resource demands.</p>
+<p><strong>Most-likely structure:</strong> The round value of LD provides the most-likely structure.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">PDM</span><span class="op">)</span> <span class="co"># Plot PDM structures</span></code></pre></div>
 <p><img src="mfpp_files/figure-html/unnamed-chunk-7-1.png" width="504"><img src="mfpp_files/figure-html/unnamed-chunk-7-2.png" width="504"><img src="mfpp_files/figure-html/unnamed-chunk-7-3.png" width="504"><img src="mfpp_files/figure-html/unnamed-chunk-7-4.png" width="504"><img src="mfpp_files/figure-html/unnamed-chunk-7-5.png" width="504"><img src="mfpp_files/figure-html/unnamed-chunk-7-6.png" width="504"><img src="mfpp_files/figure-html/unnamed-chunk-7-7.png" width="504"></p>
@@ -294,6 +414,7 @@
 <div class="section level3">
 <h3 id="get-most-likelymost-desired-structure">Get most likely/most desired structure<a class="anchor" aria-label="anchor" href="#get-most-likelymost-desired-structure"></a>
 </h3>
+<p>If it is assumed, that depending on the context, the score values indicate the relative importance/probability of inclusion is the one minus the score values of exclusion, such occurrence/dependency has to be kept, where the score value is not less than 0.5.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get most likely / most desired project structure list (PSM_list)</span>
 <span class="va">PSM_list</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/get.structures.html">get.structures</a></span><span class="op">(</span><span class="va">PDM</span>,type <span class="op">=</span> <span class="st">"most"</span><span class="op">)</span><span class="op">$</span><span class="va">moststruct</span>
@@ -305,19 +426,19 @@
 <span class="co">#&gt; Number of resources (Rs):  2</span>
 <span class="co">#&gt; summary PDM matrix:</span>
 <span class="co">#&gt;     a_1 a_2 a_3 a_4 a_5 a_6      t_1      t_2      c_1      c_2       q_1</span>
-<span class="co">#&gt; a_1   1   1   1   0   1   0 1.325641 1.390820 3.099573 3.117227 0.8104291</span>
-<span class="co">#&gt; a_2   0   1   0   0   0   0 1.907257 2.312738 3.051681 3.074031 0.7540188</span>
-<span class="co">#&gt; a_3   0   0   1   1   0   0 2.913338 2.948522 3.118286 3.631448 0.9163238</span>
-<span class="co">#&gt; a_4   0   0   0   1   0   0 1.573676 1.595940 2.340810 2.814953 0.8015989</span>
-<span class="co">#&gt; a_5   0   0   0   0   1   0 2.690009 2.917700 1.961914 2.260633 0.5585430</span>
+<span class="co">#&gt; a_1   1   1   0   1   1   0 2.809700 2.844662 2.214662 2.575008 0.5249795</span>
+<span class="co">#&gt; a_2   0   1   1   0   0   0 2.229386 2.752626 2.373684 2.692506 0.9053482</span>
+<span class="co">#&gt; a_3   0   0   1   0   0   0 2.195172 2.218452 3.394187 3.863461 0.7908406</span>
+<span class="co">#&gt; a_4   0   0   0   1   0   0 2.501854 2.647490 1.944377 2.390865 0.5620840</span>
+<span class="co">#&gt; a_5   0   0   0   0   1   0 1.393354 1.673179 3.257293 3.874045 0.4669808</span>
 <span class="co">#&gt; a_6   0   0   0   0   0   0 0.000000 0.000000 0.000000 0.000000 0.0000000</span>
-<span class="co">#&gt;           q_2     r_1.1     r_2.1     r_1.2     r_2.2</span>
-<span class="co">#&gt; a_1 0.9167239 1.5476370 1.7391579 0.7368156 0.8570888</span>
-<span class="co">#&gt; a_2 0.8565351 0.6218381 0.6430974 2.4206340 2.8968880</span>
-<span class="co">#&gt; a_3 0.9860325 1.0097986 1.2130259 1.7737364 2.0229662</span>
-<span class="co">#&gt; a_4 0.8092308 2.1839888 2.4561117 2.4492304 2.8328988</span>
-<span class="co">#&gt; a_5 0.6625355 0.5815396 0.6089928 0.8752679 0.8820362</span>
-<span class="co">#&gt; a_6 0.0000000 0.0000000 0.0000000 0.0000000 0.0000000</span>
+<span class="co">#&gt;           q_2    r_1.1    r_2.1     r_1.2    r_2.2</span>
+<span class="co">#&gt; a_1 0.5500175 1.646750 1.962195 0.7169741 0.772407</span>
+<span class="co">#&gt; a_2 0.9614625 2.672756 2.982463 2.0825999 2.207661</span>
+<span class="co">#&gt; a_3 0.8449759 2.765840 2.963731 2.3847546 2.613498</span>
+<span class="co">#&gt; a_4 0.6546224 1.915394 2.377417 1.8365222 2.025842</span>
+<span class="co">#&gt; a_5 0.5403975 1.938388 2.098193 2.5202051 2.828393</span>
+<span class="co">#&gt; a_6 0.0000000 0.000000 0.000000 0.0000000 0.000000</span>
 <span class="co">#&gt; attr(,"class")</span>
 <span class="co">#&gt; [1] "PDM_matrix"</span>
 <span class="co">#&gt; </span>
@@ -325,26 +446,27 @@
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Summary of the PDM constraints structure:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Time constraint (Ct):  4.487014</span>
-<span class="co">#&gt; Const constraint (Cc):  13.57226</span>
+<span class="co">#&gt; Time constraint (Ct):  4.424558</span>
+<span class="co">#&gt; Const constraint (Cc):  13.1842</span>
 <span class="co">#&gt; Score/scope constraint (Cs):  1</span>
-<span class="co">#&gt; Quailty constraint (Cq):  0.7582842</span>
+<span class="co">#&gt; Quailty constraint (Cq):  0.629259</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Maximal constraints:</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Summary of the PDM constraints structure:</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Time constraint (Ct):  4.544462</span>
-<span class="co">#&gt; Const constraint (Cc):  14.89829</span>
+<span class="co">#&gt; Time constraint (Ct):  4.971078</span>
+<span class="co">#&gt; Const constraint (Cc):  15.39588</span>
 <span class="co">#&gt; Score/scope constraint (Cs):  1</span>
-<span class="co">#&gt; Quailty constraint (Cq):  0.8387476</span>
+<span class="co">#&gt; Quailty constraint (Cq):  0.691467</span>
 <span class="co">#&gt; Resource constraint(s) (CR):</span>
 <span class="co">#&gt;          R_1      R_2</span>
-<span class="co">#&gt; TPR 3.708202 6.611823</span></code></pre></div>
+<span class="co">#&gt; TPR 7.458073 7.467733</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="calculate-optimal-schedules-of-completion-modes">Calculate optimal schedules of completion modes<a class="anchor" aria-label="anchor" href="#calculate-optimal-schedules-of-completion-modes"></a>
 </h3>
+<p>Optimal resource allocation can be calculated if completion modes are selected for each task.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R">
 <span class="co"># Get PSM matrix</span>
@@ -387,8 +509,8 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">TPR</td>
-<td align="right">3</td>
-<td align="right">3</td>
+<td align="right">7</td>
+<td align="right">7</td>
 </tr></tbody>
 </table>
 </div>
@@ -409,8 +531,8 @@
 </tr></thead>
 <tbody><tr class="odd">
 <td align="left">TPR</td>
-<td align="right">5</td>
-<td align="right">6</td>
+<td align="right">7</td>
+<td align="right">8</td>
 </tr></tbody>
 </table>
 </div>
@@ -419,6 +541,9 @@
 <div class="section level2">
 <h2 id="get-a-collection-of-projects">Get a collection of projects<a class="anchor" aria-label="anchor" href="#get-a-collection-of-projects"></a>
 </h2>
+<p>Two project database is included. The first one is Boctor’s (1993) databese, which contain 240 simulated projects. All of them contains 4 completion modes. It can be used to test algorithms for multi-mode resource-constrained project scheduling problem (MM-RC-PSP).</p>
+<p>The second database is provided by Batselier &amp; Vanhoucke (2015), which contains. 125 real projects. These projects contains only one completion mode, but it contains cost demands of tasks.</p>
+<p>This example uses Boctor’s database.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get the Boctor's simulation database </span>
 
@@ -1004,15 +1129,98 @@
 <span class="co"># Plot 4th completion mode, scheduled by EST</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/tpt.html">tpt</a></span><span class="op">(</span><span class="va">DSM</span>,<span class="va">TD</span><span class="op">[</span>,<span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="mfpp_files/figure-html/unnamed-chunk-15-4.png" width="504"></p>
+<p>In the case of project risk analysis, one of the most frequently used method is the sensitivity analysis. The sensitivity analysis in mfpp contains three phases.</p>
+<p>Phase 1: Effects of uncertainty Phase 2: Effects of shocks Phase 3: Structural changing</p>
+<p>These phases can be done in a sequential, or in a separate way.</p>
+<p>Phases follow the logic of Kosztyan et. al. (2020).</p>
 </div>
 </div>
 </div>
 <div class="section level2">
-<h2 id="uncertainty-analysis">Uncertainty analysis<a class="anchor" aria-label="anchor" href="#uncertainty-analysis"></a>
+<h2 id="sensitivity-analysis">Sensitivity analysis<a class="anchor" aria-label="anchor" href="#sensitivity-analysis"></a>
 </h2>
+<p>Table 2 shows that phase 1 and phase 2 vary demands, while phase 3 varies the project structure. The effect of phase 1 performs on the entire project, while phase 2 and phase 3 select demands or structural elements.</p>
+<div align="center">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-7btt{border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+</style>
+<table class="table tg">
+<thead><tr>
+<th class="tg-7btt">
+</th>
+<th class="tg-7btt" colspan="3">
+Changes
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td class="tg-7btt">
+Phases
+</td>
+<td class="tg-7btt">
+Demands
+</td>
+<td class="tg-7btt">
+Structure
+</td>
+<td class="tg-7btt">
+Selection
+</td>
+</tr>
+<tr>
+<td class="tg-c3ow">
+Phase 1
+</td>
+<td class="tg-c3ow">
+X
+</td>
+<td class="tg-c3ow">
+</td>
+<td class="tg-c3ow">
+</td>
+</tr>
+<tr>
+<td class="tg-c3ow">
+Phase 2
+</td>
+<td class="tg-c3ow">
+X
+</td>
+<td class="tg-c3ow">
+</td>
+<td class="tg-c3ow">
+X
+</td>
+</tr>
+<tr>
+<td class="tg-c3ow">
+Phase 3
+</td>
+<td class="tg-c3ow">
+</td>
+<td class="tg-c3ow">
+X
+</td>
+<td class="tg-c3ow">
+X
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Table 2:</strong> Effects of phases in sensitivity analysis</p>
 <div class="section level3">
 <h3 id="effects-of-uncertainty">Effects of uncertainty<a class="anchor" aria-label="anchor" href="#effects-of-uncertainty"></a>
 </h3>
+<p>These phases can be performed in a sequential, or in a separate way.</p>
+<p>The changed demands are generated by the interval between <span class="math inline">\([o+a,o+b]\)</span>, where <span class="math inline">\(o\)</span> is the original value. The random generator can follow uniform (=default), or beta distribution.</p>
+<p><strong>These changes will be performed for all kinds of demands for each task.</strong></p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Changes of demands followed by uniform distribution (default)</span>
 <span class="va">PSM1</span><span class="op">&lt;-</span><span class="fu"><a href="../reference/phase1.html">phase1</a></span><span class="op">(</span><span class="va">PSM</span>,a<span class="op">=</span><span class="op">-</span><span class="fl">0.2</span>,b<span class="op">=</span><span class="fl">0.4</span><span class="op">)</span> 
@@ -1036,10 +1244,12 @@
 <span class="co"># Plot changed 1st completion mode, scheduled by EST</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/tpt.html">tpt</a></span><span class="op">(</span><span class="va">DSM</span>,<span class="va">TD1b</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="mfpp_files/figure-html/unnamed-chunk-16-3.png" width="504"></p>
+<p>Phase 1 can be used to analyze of uncertainty of the estimation.</p>
 </div>
 <div class="section level3">
 <h3 id="effects-of-shocks">Effects of shocks<a class="anchor" aria-label="anchor" href="#effects-of-shocks"></a>
 </h3>
+<p>Phase 2 simulates the shock effects. Where <span class="math inline">\(p\)</span> percent of task demands can be increased up to <span class="math inline">\(s\)</span> times.</p>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Changes of demands followed by uniform distribution (default)</span>
 <span class="co"># p: percentage of task selection</span>
@@ -1057,10 +1267,12 @@
 <span class="co"># Plot changed 1st completion mode, scheduled by EST</span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fu"><a href="../reference/tpt.html">tpt</a></span><span class="op">(</span><span class="va">DSM</span>,<span class="va">TD2</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="mfpp_files/figure-html/unnamed-chunk-17-2.png" width="504"></p>
+<p>Phase 2 is worth to simulate the shock effect, where not all task demands are changed, but the changes are significant.</p>
 </div>
 <div class="section level3">
-<h3 id="change-of-structure-making-flexible">Change of structure (making flexible)<a class="anchor" aria-label="anchor" href="#change-of-structure-making-flexible"></a>
+<h3 id="structural-changes">Structural changes<a class="anchor" aria-label="anchor" href="#structural-changes"></a>
 </h3>
+<p>Phase 3 selects <span class="math inline">\(P\)</span> percent of nodes (i.e. tasks) or arcs (i.e. dependencies), where the score value can be changed up to the maximal change effect <span class="math inline">\(S\)</span>.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Changes of demands followed by uniform distribution (default)</span>
 <span class="co"># P: percentage of selection</span>
@@ -1082,6 +1294,18 @@
 <span class="co"># Plot PDM with less restrictions </span>
 <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="va">PDMn</span>,type <span class="op">=</span> <span class="st">"orig"</span>,main<span class="op">=</span><span class="st">"PDM with less restrictions"</span><span class="op">)</span></code></pre></div>
 <p><img src="mfpp_files/figure-html/unnamed-chunk-18-3.png" width="504"></p>
+<p>Phase 3 is worth simulating the changes in customers’ priorities and the technological changes. In the case of S&lt;0 the plan will be more flexible, while S&gt;0 increases priorities and can produce new dependencies.</p>
+</div>
+</div>
+<div class="section level2">
+<h2 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h2>
+<div align="left">
+<p>Batselier, J. &amp; Vanhoucke, M. (2015). Construction and evaluation framework for a real-life project database. International Journal of Project Management, 33(3), 697–710, <a href="https://doi.org/10.1016/j.ijproman" class="external-link uri">https://doi.org/10.1016/j.ijproman</a>.</p>
+<p>Boctor, F. F. (1993). Heuristics for scheduling projects with resource restrictions and several resource-duration modes. The international journal of production research, 31(11), 2547–2558, <a href="https://doi.org/10.1080/00207549308956882" class="external-link uri">https://doi.org/10.1080/00207549308956882</a>.</p>
+<p>Kosztyan, Z.T., Jakab, R., Novak, G. and Hegedus, C., 2020. Survive IT! Survival analysis of IT project planning approaches. Operations Research Perspectives, 7, p.100170, <a href="https://doi.org/10.1016/j.orp.2020.100170" class="external-link uri">https://doi.org/10.1016/j.orp.2020.100170</a></p>
+<p>Kosztyan, Z.T. and Szalkai, I., 2020. Multimode resource-constrained project scheduling in flexible projects. Journal of Global Optimization, 76(1), pp. 211-241, <a href="https://doi.org/10.1007/s10898-019-00832-8" class="external-link uri">https://doi.org/10.1007/s10898-019-00832-8</a></p>
+<p>Kosztyan, Z.T., 2022. MFPP: Matrix-based flexible project planning. SoftwareX, 17, p.100973, <a href="https://doi.org/10.1016/j.softx.2022.100973" class="external-link uri">https://doi.org/10.1016/j.softx.2022.100973</a></p>
 </div>
 </div>
   </div>

@@ -3,8 +3,7 @@
 \title{ Function to simulate the effects of the change of customer claims.
 %%  ~~function to do ... ~~
 }
-\description{ Simulating the effects of the changes of customer claims.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
+\description{ Phase 3 selects P percent of nodes (i.e. tasks) or arcs (i.e. dependencies), where the score value can be changed up to the maximal change effect S.
 }
 \usage{
 phase3 (x,p=0.10, s=0.50)

@@ -41,7 +41,7 @@ plot(TPT,sched="S")
 
 ## ----warning=FALSE,message=FALSE,fig.height=5,fig.width=7---------------------
 # Specify seed
-set.seed(101)
+set.seed(6)
 # Specify the cost demands
 CD<-c(10,20,24)
 
@@ -75,7 +75,6 @@ tpr(TPT$SST,LD,TD,RD)
 ## Plot resources for SST
 
 tpr(TPT$SST,LD,TD,RD,res.graph = TRUE)
-
 
 ## ----warning=FALSE,message=FALSE,fig.height=5,results='hide',fig.width=7------
 

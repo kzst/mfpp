@@ -13,12 +13,78 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+<style>
+body {
+text-align: justify}
+</style>
+
+
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
 ```
+
+# Introduction
+
+The package of *Matrix-based Flexible Project planning* (**mfpp**) models project structures for four types of project management approaches (PMas). The Table 1 summarizes the features of the project management structures.
+
+<div align="center">
+
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-baqh{text-align:center;vertical-align:top}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-baqh"></th>
+    <th class="tg-baqh" colspan="3"><b>Features</b></th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-c3ow"><b>Approaches</b></td>
+    <td class="tg-c3ow"><b>Project structure</b></td>
+    <td class="tg-c3ow"><b>New tasks</b></td>
+    <td class="tg-c3ow"><b>Multiple modes</b></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Traditional (TPMa)</td>
+    <td class="tg-c3ow">Fixed</td>
+    <td class="tg-c3ow">Not allowed</td>
+    <td class="tg-c3ow">Handled</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Agile (APMa)</td>
+    <td class="tg-c3ow">Flexible</td>
+    <td class="tg-c3ow">Not allowed</td>
+    <td class="tg-c3ow">Not handled</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Extreme (XPMa)</td>
+    <td class="tg-c3ow">Flexible</td>
+    <td class="tg-c3ow">Allowed</td>
+    <td class="tg-c3ow">Not handled</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Hybrid (HPMa)</td>
+    <td class="tg-c3ow">Flexible</td>
+    <td class="tg-c3ow">Allowed</td>
+    <td class="tg-c3ow">Handled</td>
+  </tr>
+</tbody>
+</table>
+<p align="left"><b>Table 1:</b> Comparison of various traditional and flexible project management approaches (PMas) (see Kosztyan, Szalkai, 2020)</p>
+</div>
+
+Packages and programs only support traditional project management approaches, where both dependencies between tasks, and as well as task occurrences are fixed. Nevertheless, all packages, including the proposed **mfpp** package have to offer to plan and schedule these types of projects. This package is R version of MATLAB functions published by Kosztyan (2022).
 
 # Load necessary libraries
 
@@ -27,9 +93,15 @@ library(mfpp) # Matrix-based Flexible Project Planning
 library(knitr) # Apply graphical elements
 ```
 
-# Build matrix-based projects and calculate their demands
+# Build fixed matrix-based projects and calculate their demands to support TPMa
+
+The logic domain (LD) specifies the structure of the project. LD is an $N$ by $N$ (sub)matrix, where $N$ is the number of tasks. Diagonal values represent task priorities of task completion, where 1 indicates mandatory, and a lower value indicates supplementary tasks. Out-diagonal values represent dependencies between tasks, where value 1 indicates fixed, but lower values indicate flexible dependencies between tasks. In the case of acyclic graphs, the LD can be reordered to the upper triangular matrix, which is assumed in this package.
+
+Time domain (TD) represents the time demands (i.e. duration) of tasks. TD is an $N$ by $w$ matrix, where the $w$ is the number of completion modes. This example specifies a binary logic plan, with one completion mode.
 
 ## Specify logic domain (LD), and time domain (TD)
+
+TPMa allows only binary values in LD.
 
 ```{r,warning=FALSE,message=FALSE,fig.height=5,fig.width=7}
 # Calculatation of EST, EFT, LST and LFT times of activity of a project
@@ -63,11 +135,15 @@ summary(TPT)
 plot(TPT,sched="S")
 ```
 
+The function *tpt* project duration (total project time, TPT), calculates schedules of tasks, such as early start time (EST), early finish time (EFT), late start time (LST), late finish time (LFT), scheduled start time (SST), scheduled finish time (SFT). The plot function draws a Gantt chart, for the early, late, or scheduled start times.
+
 ## Specify cost domain (CD), quality domain (QD), and resource domain (RD)
+
+Both CD, and QD are $N$ by $w$ matrices. CD is mandatory, while QD is optional. RD is an optional $N$ by $w \cdot r$ matrix, where $r$ is the number of resources.
 
 ```{r,warning=FALSE,message=FALSE,fig.height=5,fig.width=7}
 # Specify seed
-set.seed(101)
+set.seed(6)
 # Specify the cost demands
 CD<-c(10,20,24)
 
@@ -101,10 +177,13 @@ tpr(TPT$SST,LD,TD,RD)
 ## Plot resources for SST
 
 tpr(TPT$SST,LD,TD,RD,res.graph = TRUE)
-
 ```
 
+The function *tpr* calculates maximal resource demands and can specify a resource graph.
+
 ## Calculate minimal resource demands while keeping project duration
+
+Minimizing resource allocation is a combinatorial (NP-hard) problem; therefore the meta-heuristic method is used to minimize the maximum resource demands. In this case, a non dominated sorting genetic algorithm II (NSGA-II) method is to minimize the maximum resource demands. In the case of multiple resources, a Pareto-optimal solution is found.
 
 ```{r,warning=FALSE,message=FALSE,fig.height=5,results='hide',fig.width=7}
 
@@ -120,6 +199,8 @@ plot(tpt(LD,TD,RES$SST),sched = "S")
 
 ## Specify a PDM matrix
 
+The set of domains, namely the set of LD, TD, and CD, and as well as optionally QD, and RD specifies the project domain matrix (PDM).
+
 ```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=5,retina=1}
 PDM<-cbind(LD,TD,CD,q,RD)
 class(PDM)<-"PDM_matrix"
@@ -128,7 +209,9 @@ summary(PDM,w=1,Rs=2)
 plot(PDM,w=1,Rs=2)
 ```
 
-# Generate a flexible project network
+# Generate a flexible project network to support HPMa
+
+HPMa combines the features of TPMa (multiple completion modes), APMa (flexible project structure), and as well as XPMa (new, unplanned tasks).
 
 ```{r,fig.width=7,fig.height=5,warning=FALSE,message=FALSE}
 # Generation of PDM matrix for flexible project planning MFPP package.
@@ -149,12 +232,28 @@ PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale,QD=TRUE,lst=TRUE)
 
 summary(PDM) # Summary of PDM list
 ```
+
+PDM_matrix contains only the PDM matrix, while PDM_list also contains, the number of completion modes (w), and as well as number of resources (Rs).
+
 ## Plot main structures of flexible project structures
+
+**Minimal structure:** Contains only mandatory tasks and fixed dependencies. It provides the lowest quality / cost / time demands when the least quality / cost / shortest completion modes are specified for each task.
+
+**Maximal structure:** Contains both mandatory and supplementary tasks and as well as both fixed and flexible dependencies. It provides the highest quality / greatest cost / time demands when the highest quality / greatest cost / longest completion modes are specified for each task.
+
+**Minimax structure:** Contains only mandatory tasks, but both fixed and flexible dependencies. It can provide the lowest resource demands.
+
+**Maximin structure:** Contains both mandatory and supplementary tasks, but only fixed dependencies. It can provide the greatest resource demands.
+
+**Most-likely structure:** The round value of LD provides the most-likely structure.
+
 ```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=5,retina=1}
 plot(PDM) # Plot PDM structures
 ```
 
 ## Get most likely/most desired structure
+
+If it is assumed, that depending on the context, the score values indicate the relative importance/probability of inclusion is the one minus the score values of exclusion, such occurrence/dependency has to be kept, where the score value is not less than 0.5.
 
 ```{r,warning=FALSE,message=FALSE}
 # Get most likely / most desired project structure list (PSM_list)
@@ -163,6 +262,8 @@ summary(PSM_list)
 ```
 
 ## Calculate optimal schedules of completion modes
+
+Optimal resource allocation can be calculated if completion modes are selected for each task.
 
 ```{r,warning=FALSE,message=FALSE,results='hide'}
 
@@ -200,7 +301,14 @@ kable(tpr(RES1$SST,DSM,TD[,1],RD[,1:Rs],res.graph=TRUE))
 plot(tpt(DSM,TD[,2],RES1$SST))
 kable(tpr(RES1$SST,DSM,TD[,2],RD[,(Rs+1):(2*Rs)],res.graph=TRUE))
 ```
+
 # Get a collection of projects
+
+Two project database is included. The first one is Boctor's (1993)  databese, which contain 240 simulated projects. All of them contains 4 completion modes. It can be used to test algorithms for multi-mode resource-constrained project scheduling problem (MM-RC-PSP). 
+
+The second database is provided by Batselier & Vanhoucke (2015), which contains. 125 real projects. These projects contains only one completion mode, but it contains cost demands of tasks.
+
+This example uses Boctor's database.
 
 ```{r,warning=FALSE,message=FALSE}
 # Get the Boctor's simulation database 
@@ -257,9 +365,75 @@ plot(tpt(DSM,TD[,3]))
 plot(tpt(DSM,TD[,4]))
 ```
 
-# Uncertainty analysis
+In the case of project risk analysis, one of the most frequently used method is the sensitivity analysis. The sensitivity analysis in mfpp contains three phases. 
+
+Phase 1: Effects of uncertainty
+Phase 2: Effects of shocks
+Phase 3: Structural changing
+
+These phases can be done in a sequential, or in a separate way.
+
+Phases follow the logic of Kosztyan et. al. (2020).
+
+# Sensitivity analysis
+
+Table 2 shows that phase 1 and phase 2 vary demands, while phase 3 varies the project structure. The effect of phase 1 performs on the entire project, while phase 2 and phase 3 select demands or structural elements.
+
+<div align="center">
+<style type="text/css">
+.tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
+.tg td{background-color:#fff;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg th{background-color:#f0f0f0;border-color:#ccc;border-style:solid;border-width:1px;color:#333;
+  font-family:Arial, sans-serif;font-size:14px;font-weight:normal;overflow:hidden;padding:10px 5px;word-break:normal;}
+.tg .tg-c3ow{border-color:inherit;text-align:center;vertical-align:top}
+.tg .tg-7btt{border-color:inherit;font-weight:bold;text-align:center;vertical-align:top}
+</style>
+<table class="tg">
+<thead>
+  <tr>
+    <th class="tg-7btt"></th>
+    <th class="tg-7btt" colspan="3">Changes</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td class="tg-7btt">Phases</td>
+    <td class="tg-7btt">Demands</td>
+    <td class="tg-7btt">Structure</td>
+    <td class="tg-7btt">Selection</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Phase 1</td>
+    <td class="tg-c3ow">X</td>
+    <td class="tg-c3ow"></td>
+    <td class="tg-c3ow"></td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Phase 2</td>
+    <td class="tg-c3ow">X</td>
+    <td class="tg-c3ow"></td>
+    <td class="tg-c3ow">X</td>
+  </tr>
+  <tr>
+    <td class="tg-c3ow">Phase 3</td>
+    <td class="tg-c3ow"></td>
+    <td class="tg-c3ow">X</td>
+    <td class="tg-c3ow">X</td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+**Table 2:** Effects of phases in sensitivity analysis
 
 ## Effects of uncertainty
+
+These phases can be performed in a sequential, or in a separate way.
+
+The changed demands are generated by the interval between $[o+a,o+b]$, where $o$ is the original value. The random generator can follow uniform (=default), or beta distribution.
+
+**These changes will be performed for all kinds of demands for each task.**
 
 ```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
 # Changes of demands followed by uniform distribution (default)
@@ -281,7 +455,11 @@ plot(tpt(DSM,TD1[,1]))
 plot(tpt(DSM,TD1b[,1]))
 ```
 
+Phase 1 can be used to analyze of uncertainty of the estimation.
+
 ## Effects of shocks
+
+Phase 2 simulates the shock effects. Where $p$ percent of task demands can be increased up to $s$ times. 
 
 ```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
 # Changes of demands followed by uniform distribution (default)
@@ -299,7 +477,11 @@ plot(tpt(DSM,TD[,1]))
 plot(tpt(DSM,TD2[,1]))
 ```
 
-## Change of structure (making flexible)
+Phase 2 is worth to simulate the shock effect, where not all task demands are changed, but the changes are significant.
+
+## Structural changes
+
+Phase 3 selects $P$ percent of nodes (i.e. tasks) or arcs (i.e. dependencies), where the score value can be changed up to the maximal change effect $S$.
 
 ```{r,warning=FALSE,message=FALSE,results='hide',fig.width=7,fig.height=7}
 # Changes of demands followed by uniform distribution (default)
@@ -319,3 +501,20 @@ plot(PDMp,type = "orig",main="PDM with more dependencies")
 plot(PDMn,type = "orig",main="PDM with less restrictions")
 ```
 
+Phase 3 is worth simulating the changes in customers' priorities and the technological changes. In the case of S<0 the plan will be more flexible, while S>0 increases priorities and can produce new dependencies.
+
+# References
+
+<div align="left">
+
+Batselier, J. & Vanhoucke, M. (2015). Construction and evaluation framework for a real-life project database. International Journal of Project Management, 33(3), 697–710, https://doi.org/10.1016/j.ijproman.
+
+Boctor, F. F. (1993). Heuristics for scheduling projects with resource restrictions and several resource-duration modes. The international journal of production research, 31(11), 2547–2558, https://doi.org/10.1080/00207549308956882.
+
+Kosztyan, Z.T., Jakab, R., Novak, G. and Hegedus, C., 2020. Survive IT! Survival analysis of IT project planning approaches. Operations Research Perspectives, 7, p.100170, https://doi.org/10.1016/j.orp.2020.100170
+
+Kosztyan, Z.T. and Szalkai, I., 2020. Multimode resource-constrained project scheduling in flexible projects. Journal of Global Optimization, 76(1), pp. 211-241, https://doi.org/10.1007/s10898-019-00832-8
+
+Kosztyan, Z.T., 2022. MFPP: Matrix-based flexible project planning. SoftwareX, 17, p.100973, https://doi.org/10.1016/j.softx.2022.100973
+
+</div>

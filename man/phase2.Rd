@@ -3,7 +3,7 @@
 \title{ Function to simulate shock effects.
 %%  ~~function to do ... ~~
 }
-\description{ Simulating the shock effects of the changes of customer claims. Two steps of Monte-Carlo simulation is applied for selecting (1) and changing (2) task demands and the structures.
+\description{ Phase 2 simulates the shock effects. Where p percent of task demands can be increased up to s times.
 %%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
