@@ -85,7 +85,7 @@ text-align: justify}
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The package of <em>Matrix-based Flexible Project planning</em> (<strong>mfpp</strong>) models project structures for four types of project management approaches (PMas). The Table 1 summarizes the features of the project management structures.</p>
+<p><em>Matrix-based Flexible Project planning</em> (<strong>mfpp</strong>) is a new R package that models project structures for four types of project management approaches (PMas). Table 1 summarizes the features of the project management approaches:</p>
 <div align="center">
 <style type="text/css">
 .tg  {border-collapse:collapse;border-color:#ccc;border-spacing:0;}
@@ -181,7 +181,7 @@ Handled
 <b>Table 1:</b> Comparison of various traditional and flexible project management approaches (PMas) (see Kosztyan, Szalkai, 2020)
 </p>
 </div>
-<p>Packages and programs only support traditional project management approaches, where both dependencies between tasks, and as well as task occurrences are fixed. Nevertheless, all packages, including the proposed <strong>mfpp</strong> package have to offer to plan and schedule these types of projects. This package is R version of MATLAB functions published by Kosztyan (2022).</p>
+<p>Existing packages and programs only support traditional project management approaches, where both dependencies between tasks, and as well as task occurrences are fixed. Nevertheless, all packages, including the proposed <strong>mfpp</strong> package have to offer to plan and schedule these types of projects. This package is R version of MATLAB functions published by Kosztyan (2022).</p>
 </div>
 <div class="section level2">
 <h2 id="load-necessary-libraries">Load necessary libraries<a class="anchor" aria-label="anchor" href="#load-necessary-libraries"></a>
@@ -336,7 +336,7 @@ Handled
 <div class="section level2">
 <h2 id="generate-a-flexible-project-network-to-support-hpma">Generate a flexible project network to support HPMa<a class="anchor" aria-label="anchor" href="#generate-a-flexible-project-network-to-support-hpma"></a>
 </h2>
-<p>HPMa combines the features of TPMa (multiple completion modes), APMa (flexible project structure), and as well as XPMa (new, unplanned tasks).</p>
+<p>HPMa combines the features of TPMa (multiple completion modes), APMa (flexible project structure), and as well as XPMa (new unplanned tasks).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Generation of PDM matrix for flexible project planning MFPP package.</span>
 
@@ -541,7 +541,7 @@ Handled
 <div class="section level2">
 <h2 id="get-a-collection-of-projects">Get a collection of projects<a class="anchor" aria-label="anchor" href="#get-a-collection-of-projects"></a>
 </h2>
-<p>Two project database is included. The first one is Boctor’s (1993) databese, which contain 240 simulated projects. All of them contains 4 completion modes. It can be used to test algorithms for multi-mode resource-constrained project scheduling problem (MM-RC-PSP).</p>
+<p>Two project database are included in this package. The first one is Boctor’s (1993) databese, which contain 240 simulated projects. All of them contains 4 completion modes. It can be used to test algorithms for multi-mode resource-constrained project scheduling problem (MM-RC-PSP).</p>
 <p>The second database is provided by Batselier &amp; Vanhoucke (2015), which contains. 125 real projects. These projects contains only one completion mode, but it contains cost demands of tasks.</p>
 <p>This example uses Boctor’s database.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">

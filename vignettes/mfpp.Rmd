@@ -28,7 +28,7 @@ knitr::opts_chunk$set(
 
 # Introduction
 
-The package of *Matrix-based Flexible Project planning* (**mfpp**) models project structures for four types of project management approaches (PMas). The Table 1 summarizes the features of the project management structures.
+*Matrix-based Flexible Project planning* (**mfpp**) is a new R package that models project structures for four types of project management approaches (PMas). Table 1 summarizes the features of the project management approaches:
 
 <div align="center">
 
@@ -84,7 +84,7 @@ The package of *Matrix-based Flexible Project planning* (**mfpp**) models projec
 <p align="left"><b>Table 1:</b> Comparison of various traditional and flexible project management approaches (PMas) (see Kosztyan, Szalkai, 2020)</p>
 </div>
 
-Packages and programs only support traditional project management approaches, where both dependencies between tasks, and as well as task occurrences are fixed. Nevertheless, all packages, including the proposed **mfpp** package have to offer to plan and schedule these types of projects. This package is R version of MATLAB functions published by Kosztyan (2022).
+Existing packages and programs only support traditional project management approaches, where both dependencies between tasks, and as well as task occurrences are fixed. Nevertheless, all packages, including the proposed **mfpp** package have to offer to plan and schedule these types of projects. This package is R version of MATLAB functions published by Kosztyan (2022).
 
 # Load necessary libraries
 
@@ -211,7 +211,7 @@ plot(PDM,w=1,Rs=2)
 
 # Generate a flexible project network to support HPMa
 
-HPMa combines the features of TPMa (multiple completion modes), APMa (flexible project structure), and as well as XPMa (new, unplanned tasks).
+HPMa combines the features of TPMa (multiple completion modes), APMa (flexible project structure), and as well as XPMa (new unplanned tasks).
 
 ```{r,fig.width=7,fig.height=5,warning=FALSE,message=FALSE}
 # Generation of PDM matrix for flexible project planning MFPP package.
@@ -304,7 +304,7 @@ kable(tpr(RES1$SST,DSM,TD[,2],RD[,(Rs+1):(2*Rs)],res.graph=TRUE))
 
 # Get a collection of projects
 
-Two project database is included. The first one is Boctor's (1993)  databese, which contain 240 simulated projects. All of them contains 4 completion modes. It can be used to test algorithms for multi-mode resource-constrained project scheduling problem (MM-RC-PSP). 
+Two project database are included in this package. The first one is Boctor's (1993)  databese, which contain 240 simulated projects. All of them contains 4 completion modes. It can be used to test algorithms for multi-mode resource-constrained project scheduling problem (MM-RC-PSP). 
 
 The second database is provided by Batselier & Vanhoucke (2015), which contains. 125 real projects. These projects contains only one completion mode, but it contains cost demands of tasks.
 
