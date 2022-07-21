@@ -10,6 +10,7 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
+#' @importFrom utils tail
 
 paretores<- function(DSM,TD,RD){
   output=list()

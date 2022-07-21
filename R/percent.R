@@ -10,6 +10,7 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
+#' @importFrom stats na.omit
 percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(

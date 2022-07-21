@@ -10,6 +10,7 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
+#' @importFrom stats na.omit
 generatepdm<- function(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
 {
   output=list()

@@ -11,6 +11,9 @@
 #-----------------------------------------------------------------------------#
 
 #' @export
+#' @importFrom graphics par barplot axis legend
+#' @importFrom stats na.omit rbeta
+#' @importFrom utils tail
 tpr<- function(SST,DSM,TD,RD,res.graph=FALSE)
 {
   if (!requireNamespace("pracma", quietly = TRUE)) {

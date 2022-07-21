@@ -19,7 +19,7 @@ summary.PDM_const <- function(object, digits =  getOption("digits"), ...) {
                                  round(object$Cc,digits =digits))
     if (!is.null(object$Cs)) cat("\nScore/scope constraint (Cs): ",
                                  round(object$Cs,digits =digits))
-    if (!is.null(object$Cq)) cat("\nQuailty constraint (Cq): ",
+    if (!is.null(object$Cq)) cat("\nQuality constraint (Cq): ",
                                  round(object$Cq,digits =digits))
     if (!is.null(object$CR)) {
       cat("\nResource constraint(s) (CR):\n")

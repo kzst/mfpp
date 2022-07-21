@@ -11,6 +11,7 @@
 #-----------------------------------------------------------------------------#
 
 #' @export
+#' @importFrom graphics par legend barplot
 plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                             type=c("orig","max","min","maximin","minimax","most","const"),
                             main=NULL,col=NULL,

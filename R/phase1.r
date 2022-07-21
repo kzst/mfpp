@@ -10,6 +10,7 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
+#' @importFrom stats rbeta
 phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(

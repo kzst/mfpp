@@ -9,21 +9,21 @@ Maintainer: Zsolt T. Kosztyan <kzst@gtk.uni-pannon.hu>
 Description: Matrix-based Flexible Project Planning. Calculate demands.
 License: GPL (>= 2)
 Encoding: UTF-8
-LazyData: true
+LazyData: TRUE
 VignetteBuilder: knitr
 URL: https://github.com/kzst/mfpp
 Depends: 
     R (>= 3.10)
 Imports: 
-    Matrix,
     pracma,
     nsga2R,
     igraph,
     genalg,
     ggplot2,
     reshape2,
-    knitr,
     Rfast
 RoxygenNote: 7.2.0
 Suggests: 
-    rmarkdown
+    rmarkdown,
+    knitr,
+    Matrix
