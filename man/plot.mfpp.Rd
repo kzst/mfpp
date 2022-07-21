@@ -51,6 +51,7 @@ e-mail: kzst@gtk.uni-pannon.hu
 \seealso{\code{\link{summary}}, \code{\link{generatepdm}}, \code{\link{percent}}.}
 
 \examples{
+
 # Plot PDM lists.
 
 # Define number of modes, flexibility factor and connectivity factor of a project scenerio.
@@ -68,6 +69,8 @@ scale=1.6
 # Generation of PDM list for TCTP a project scenario using MFPP package.
 
 PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale,lst=TRUE)
+
+plot(PDM)
 }
 
 \concept{project management}
