@@ -51,7 +51,7 @@ e-mail: kzst@gtk.uni-pannon.hu
 \seealso{\code{\link{summary}}, \code{\link{generatepdm}}, \code{\link{percent}}.}
 
 \examples{
-# Print PDM matrices, lists, and sets.
+# Plot PDM lists.
 
 # Define number of modes, flexibility factor and connectivity factor of a project scenerio.
 N=4;ff=0.3;cf=0
@@ -68,50 +68,6 @@ scale=1.6
 # Generation of PDM list for TCTP a project scenario using MFPP package.
 
 PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale,lst=TRUE)
-
-# Calculate main structures
-
-PDMs<-get.structures(PDM)
-
-# plot of PDM list (flexible project)
-
-plot(PDM)
-
-# plot of PDM list (fixed (most likely) project)
-
-PDM<-generatepdm(N,ff=0,cf,mTD,mCD,mRD,w,nR,nW,scale,lst=TRUE)
-
-plot(PDM,main="Fixed project structure",col="green")
-
-
-# print of main structures of PDM matrices, with red color bars
-
-plot(PDMs,col="red")
-
-# get a PDM collection
-data(Boctor)
-collection<-Boctor
-summary(collection)
-
-# get the first project structure
-
-PDM<-collection[[1]]$PDM_list$PDM
-
-# get the logic domain
-
-LD<-PDM[1:nrow(PDM),1:nrow(PDM)]
-
-# get the time demands of the first completion mode
-
-TD<-PDM[1:nrow(PDM),nrow(PDM)+1]
-
-# calculate TPT
-
-TPT<-tpt(LD,TD)
-
-# plot the schedule
-
-plot(TPT)
 }
 
 \concept{project management}

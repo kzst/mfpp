@@ -50,7 +50,7 @@ e-mail: kzst@gtk.uni-pannon.hu
 ## Examples for verification
 w<-2 # Number of completion modes
 Rs<-2 # Number of resources
-ratio<-0.7 # Percentage 0-1
+ratio<-1.0 # Percentage 0-1
 
 # Specification of Logic Domain
 LD<-matrix(c(1,1,0,1,0,0,
