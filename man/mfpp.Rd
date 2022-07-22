@@ -2,10 +2,10 @@
 \alias{mfpp}
 \docType{package}
 
-\title{Matrix-based Flexible Project Planning}
+\title{Matrix-Based Flexible Project Planning}
 
 \description{
-Matrix-based Flexible Project Planning.
+Matrix-Based Flexible Project Planning. This package model, plan and schedule flexible, such as agile, extreme and hybrid project plans. The package contains project planning, scheduling and risk assessment functions.
 }
 
 \seealso{\code{\link{generatepdm}}, \code{\link{get.structures}}, \code{\link{is.flexible}}, \code{\link{percent}},\code{\link{phase1}},\code{\link{phase2}},\code{\link{phase3}},\code{\link{plot.PDM_matrix}},\code{\link{summary.PDM_matrix}}.}
