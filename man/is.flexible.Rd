@@ -1,20 +1,19 @@
 \name{is.flexible}
 \alias{is.flexible}
 \title{ Function to check the  flexibility of PDM matrix.
-%%  ~~function to do ... ~~
 }
 \description{ Checking flexibility of PDM matrix or a PDM list.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 is.flexible(x)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{N by M PDM matrix or a PDM list.}
 }
 
-
+\value{
+ \item{is.flexible}{Boolean output whether the project is flexible or not.}
+}
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
 }
@@ -22,10 +21,6 @@ Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX
 
 e-mail: kzst@gtk.uni-pannon.hu
 }
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{\code{\link{generatepdm}}.}
 \examples{
 
@@ -62,12 +57,4 @@ PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=TRUE)
 is.flexible(PDM)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

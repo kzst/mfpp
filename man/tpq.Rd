@@ -1,15 +1,12 @@
 \name{tpq}
 \alias{tpq}
 \title{ Function to calcualte Total Project Quality for a project structure.
-%%  ~~function to do ... ~~
 }
-\description{ Calculate Total Project Quality of a project structure.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\description{ Calculate Total Project Quality of a project structure.}
 \usage{
 tpq (DSM,PEM,q,QD=NULL)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{DSM}{N by N Upper triangular binary matrix of logic domain (a project structure
 of a PEM matrix)(a numeric matrix).}
@@ -20,21 +17,13 @@ of a PEM matrix)(a numeric matrix).}
 
 \value{
  \item{TPQ}{ Total Project Quality (a scalar).}
-
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
 }
 \author{ Zsolt T. Kosztyan, Aamir Saghir*
 
-e-mail: kzst@gtk.uni-pannon.hu
-%%  ~~who you are~~
-}
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+e-mail: kzst@gtk.uni-pannon.hu}
 
 \seealso{\code{\link{tpc}}, \code{\link{tpr}}, \code{\link{tpt}}, \code{\link{maxscore_PEM}}.}
 \examples{
@@ -71,12 +60,4 @@ QD2<-cbind(q,rand(10,1)) # Generate two completion modes
 tpq(DSM,PEM,q,QD2)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

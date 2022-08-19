@@ -1,15 +1,10 @@
 \name{tpr}
 \alias{tpr}
-\title{ Function to calculate maximum resource demands of a project.
-%%  ~~function to do ... ~~
-}
-\description{ Calculate maximum resource demands of a project scenario.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{ Function to calculate maximum resource demands of a project.}
+\description{ Calculate maximum resource demands of a project scenario.}
 \usage{
 tpr (SST,DSM,TD, RD,res.graph=FALSE)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
  \item{SST}{N by 1 vector of Scheduled Start Time (a numeric vector).}
   \item{DSM}{N by N binary upper triangular matrix of the logic domain (a numeric matrix).}
@@ -17,24 +12,15 @@ tpr (SST,DSM,TD, RD,res.graph=FALSE)
   \item{RD}{ N by nR matrix of resource demands (a numeric matrix).}
   \item{res.graph}{Logic value of whether plot or not the resource graph}
 }
-
 \value{
  \item{rMAX}{an nR by 1 vector of maximum resource demands (a scalar vector).}
-
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
 }
 \author{ Zsolt T. Kosztyan*, Aamir Saghir
 
-e-mail: kzst@gtk.uni-pannon.hu
-%%  ~~who you are~~
-}
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+e-mail: kzst@gtk.uni-pannon.hu}
 
 \seealso{\code{\link{tpc}}, \code{\link{tpq}}, \code{\link{tpt}}, \code{\link{maxscore_PEM}}.}
 \examples{
@@ -60,16 +46,6 @@ RD <- rand(10,3)*5
  tpr(SST,DSM,TD, RD)
 
 ## Plot resources for SST
-
 tpr(SST,DSM,TD,RD,res.graph = TRUE)
-
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

@@ -5,7 +5,6 @@
 \alias{plot.Set_PDM_list}
 \alias{plot.TPT}
 
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Plot function for Matrix-Based Flexible Project Planning
 }
@@ -26,7 +25,6 @@ type=c("orig","max","min","maximin","minimax","most","const"),col=NULL, ...)
 \method{plot}{TPT}(x,
 sched="E", ...)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{an object of class 'PDM_matrix' or 'PDM_list'.}
   \item{w}{number of completion modes (positive integer)}
@@ -37,6 +35,8 @@ sched="E", ...)
   \item{col}{color of barplot}
   \item{...}{other graphical parameters.}
 }
+
+\value{No return value, called for side effects}
 
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.

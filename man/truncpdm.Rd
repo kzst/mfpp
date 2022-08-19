@@ -1,15 +1,10 @@
 \name{truncpdm}
 \alias{truncpdm}
-\title{ Function to drop excluded tasks.
-%%  ~~function to do ... ~~
-}
-\description{ Drop excluded tasks, where the diagonal value is 0.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{ Function to drop excluded tasks.}
+\description{ Drop excluded tasks, where the diagonal value is 0.}
 \usage{
 truncpdm(x)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{N by M PDM matrix or a PDM list.}
 }
@@ -24,10 +19,6 @@ Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX
 
 e-mail: kzst@gtk.uni-pannon.hu
 }
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
 \seealso{\code{\link{generatepdm}}.}
 \examples{
 
@@ -60,12 +51,4 @@ PDM<-generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=TRUE)
 PDM<-truncpdm(PDM)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

@@ -1,15 +1,10 @@
 \name{tpt}
 \alias{tpt}
-\title{ Function to evaluate EST, EFT, LST and LFT times of activity of a project.
-%%  ~~function to do ... ~~
-}
-\description{ Calculate EST, EFT, LST and LFT times of activity of a project.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{ Function to evaluate EST, EFT, LST and LFT times of activity of a project.}
+\description{ Calculate EST, EFT, LST and LFT times of activity of a project.}
 \usage{
 tpt(DSM,TD,SST=NULL)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{DSM}{N by N Upper triangular binary matrix of logic domain (a numeric matrix).}
   \item{TD}{N by 1 vector of time duration (a numeric vector).}
@@ -24,8 +19,6 @@ tpt(DSM,TD,SST=NULL)
  \item{LFT}{ Latest Finish Time (a vector).}
  \item{SST}{ Scheduled Start Time (a vector).}
  \item{SFT}{ Scheduled Finish Time (a vector).}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
@@ -34,9 +27,6 @@ Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX
 
 e-mail: kzst@gtk.uni-pannon.hu
 }
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{tpc}}, \code{\link{tpq}}, \code{\link{tpr}}, \code{\link{maxscore_PEM}}.}
 \examples{
@@ -71,12 +61,5 @@ summary(TPT)
 # Plot the scheduled Gantt chart
 plot(TPT,sched="S")
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.
+

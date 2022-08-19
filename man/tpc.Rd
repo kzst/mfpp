@@ -1,11 +1,7 @@
 \name{tpc}
 \alias{tpc}
-\title{ Function of Cost demands of a project
-%%  ~~function to do ... ~~
-}
-\description{ Calculate cost demands of a project structure.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{ Function of Cost demands of a project.}
+\description{ Calculate cost demands of a project structure.}
 \usage{
 tpc(DSM,CD)
 }
@@ -15,22 +11,13 @@ tpc(DSM,CD)
 }
 
 \value{
- \item{TPC}{ Total Project Cost (a scalar).}
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
-}
+ \item{TPC}{ Total Project Cost (a scalar).}}
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
 }
 \author{ Zsolt T. Kosztyan*, Aamir Saghir
 
-e-mail: kzst@gtk.uni-pannon.hu
-%%  ~~who you are~~
-}
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
+e-mail: kzst@gtk.uni-pannon.hu}
 \seealso{\code{\link{tpc}}, \code{\link{tpt}}, \code{\link{tpq}}, \code{\link{tpr}}, \code{\link{maxscore_PEM}}.}
 \examples{
 
@@ -51,15 +38,6 @@ C<-rand(10,1)*30                 # Generate C vector (cost demands)
 # Calculation of total project cost using MFPP package.
 TPC<-tpc(DSM,C)                  # Calculate TPC
 
-
-
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
+
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

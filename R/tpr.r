@@ -77,6 +77,8 @@ tpr<- function(SST,DSM,TD,RD,res.graph=FALSE)
       }
     Width[length(BP)]<-TPT-BP[length(BP)]
     m<-pracma::size(RESFUNC,2)
+    oldpar<-par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     par(mfrow=c(m,1))
     for (i in c(1:m)){
       barplot(RESFUNC[,i],width = Width,space = 0,col = "darkgreen",

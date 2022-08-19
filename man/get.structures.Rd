@@ -1,15 +1,12 @@
 \name{get.structures}
 \alias{get.structures}
 \title{ Function to calculate minimal/maximal/most likely project structures.
-%%  ~~function to do ... ~~
 }
 \description{ Specify minimal, maximal, maximin, minimax, and most likely/most desired project structures.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
 }
 \usage{
 get.structures(x,type=c("min","max","minimax","maximin","most"))
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{N by M PDM matrix or a PDM list.}
   \item{type}{type of specified project structure. "min" is a minimal strucuture, where the time, cost demands, and as well as the quality parameters are minimal; "max" where the time, cost demands, and as well as the quality parameters are maximal; "minimax", where the cost and resource demands are minimal; "maximix", where the cost and resource demands are maxnimal; "most", where the total project score is maximal.}
@@ -25,9 +22,6 @@ Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX
 
 e-mail: kzst@gtk.uni-pannon.hu
 }
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{generatepdm}}.}
 \examples{
@@ -63,12 +57,4 @@ PDMs<-get.structures(PDM)
 PDMs
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

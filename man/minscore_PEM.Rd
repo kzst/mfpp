@@ -1,15 +1,10 @@
 \name{minscore_PEM}
 \alias{minscore_PEM}
-\title{ Function to calculate minimal score value of possible project scenarios
-%%  ~~function to do ... ~~
-}
-\description{ Calculate minimal score value (PMIN) of possible project scenarios
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{ Function to calculate minimal score value of possible project scenarios.}
+\description{ Calculate minimal score value (PMIN) of possible project scenarios.}
 \usage{
 minscore_PEM(PEM,P=PEM, Q=1-PEM)
 }
-%- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{PEM}{An N by N upper triangular adjacency matrix of logic network (a numeric matrix).}
   \item{P}{ N by N score matrix of task/dependency inclusion (a numeric matrix). The default P matrix is P=PEM}
@@ -18,21 +13,13 @@ minscore_PEM(PEM,P=PEM, Q=1-PEM)
 
 \value{
  \item{score}{minimal score value of a project (a numeric value).}
-
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
 }
 \author{ Zsolt T. Kosztyan*, Aamir Saghir
 
-e-mail: kzst@gtk.uni-pannon.hu
-%%  ~~who you are~~
-}
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+e-mail: kzst@gtk.uni-pannon.hu}
 
 \seealso{\code{\link{tpc}}, \code{\link{tpq}}, \code{\link{tpt}}, \code{\link{tpr}},\code{\link{maxscore_PEM}}, \code{\link{generatepdm}}, \code{\link{phase3}}, \code{\link{percent}}.}
 \examples{
@@ -54,14 +41,5 @@ Q=1-P
 # of a project scenario using MFPP package.
 
 minscore_PEM(PEM,P,Q)
-
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

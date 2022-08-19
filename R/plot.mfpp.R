@@ -35,6 +35,8 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         call. = FALSE
       )
     }
+    oldpar<-par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     par(mfrow=c(1,1))
     PDM<-x
     class(PDM)<-"PDM_matrix"
@@ -48,7 +50,6 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
       )
     }else{
       if (is.flexible(PDM)){
-        #par(mfrow=c(3,2))
         pdm<-truncpdm(PDM)
         n<-pracma::size(pdm,1)
         c<-which((diag(pdm)<1)&(diag(pdm)>0),TRUE)
@@ -258,6 +259,8 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
       maxCONST<-percent(PDM,type=type,w=w,Rs=Rs,ratio=1.0)
       n<-length(minCONST)-3
       if (n>0){
+        oldpar<-par(no.readonly = TRUE)
+        on.exit(par(oldpar))
         par(mfrow=c(1,n))
       }
       if (!is.null(minCONST$Ct)&&!is.null(maxCONST$Ct))

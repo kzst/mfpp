@@ -6,8 +6,6 @@
 \alias{summary.Set_PDM_list}
 \alias{summary.Collection_PDM}
 \alias{summary.TPT}
-
-%- Also NEED an '\alias' for EACH other topic documented here.
 \title{
 Print PDM constraints, matrices, lists, sets, collections.
 }
@@ -26,7 +24,6 @@ Print PDM constraints, matrices, lists, sets, collections.
 \method{summary}{TPT}(object, digits =  getOption("digits"), ...)
 }
 
-%- maybe also 'usage' for other xs documented here.
 \arguments{
   \item{object}{an object of class 'PDM_const', 'PDM_matrix', 'PDM_list', 'Set_PDM_matrix', or 'Set_PDM_list'.}
   \item{digits}{the number of significant digits to use when \code{add.stats = TRUE}.}
@@ -34,6 +31,8 @@ Print PDM constraints, matrices, lists, sets, collections.
   \item{Rs}{number of resources (positive integer)}
   \item{...}{additional arguments affecting the print produced.}
 }
+
+\value{No return value, called for side effects}
 
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
@@ -113,6 +112,5 @@ TPT<-tpt(LD,TD)
 
 summary(TPT)
 }
-
 
 \concept{project management}

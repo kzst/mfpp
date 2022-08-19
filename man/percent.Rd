@@ -1,15 +1,11 @@
 \name{percent}
 \alias{percent}
-\title{ Function to calculate desired project completion characteristic of a project structure.
-%%  ~~function to do ... ~~
-}
-\description{ Function to calculate project completion desired charcateristic type either cost, or quality and/or resources with or withoud quality parameters, or score ratio or time duration of a project scenario for the given ratio and completion modes.
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{ Function to calculate desired project completion characteristic of a project structure.}
+\description{ Function to calculate project completion desired charcateristic type either cost, or quality and/or resources with or withoud quality parameters, or score ratio or time duration of a project scenario for the given ratio and completion modes.}
 \usage{
 percent(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{PDM}{is a Project Domain Matrix (a numeric matrix), where PDM=[LD,TD, CD, {QD,RD}]. LD is an N by N upper triangular matrix of logic domain (a numeric matrix); TD is an N by w matrix of task durations (a numeric matrix); CD is an N by w matrix of cost demands (a numeric matrix); QD is an optinal N by w matrix of quality parameters (a numeric optional matrix); RD is an N by w*nR matrix of resource demands (a numeric optional matrix).}
   \item{type}{ Type to calculate the project completion characteristic either cost or quality with or without defined quality parameters, or resources with or without quality parameters, or minimum completion score or minimum task duration of a project scenario (a logical value).}
@@ -29,21 +25,13 @@ percent(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1)
   \item{CR}{Minimum resources for the completion when quality parameters are considered (a numeric value).}
    \item{Cs}{Minimum completion score ratio of a project (a numeric value).}
   \item{Ct}{Minimum task duration to project a project (a numeric value).}
-
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
 }
 \author{ Zsolt T. Kosztyan*, Aamir Saghir
 
-e-mail: kzst@gtk.uni-pannon.hu
-%%  ~~who you are~~
-}
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
+e-mail: kzst@gtk.uni-pannon.hu}
 
 \seealso{\code{\link{tpc}}, \code{\link{tpq}}, \code{\link{tpt}}, \code{\link{tpr}},\code{\link{maxscore_PEM}}, \code{\link{generatepdm}}.}
 \examples{
@@ -107,12 +95,4 @@ CONST<-percent(PDM,type=c("c","q","r","s","t"),w,Rs,ratio)
 CONST
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.

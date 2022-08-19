@@ -13,7 +13,7 @@
 
 ########## Generation of project domain matrix (PDM) for flexible project planning###############
 
-##### Function to generate a PDM #### 
+##### Function to generate a PDM ####
 generatepdm<- function(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
 {
   output=list()
@@ -29,7 +29,7 @@ generatepdm<- function(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
       call. = FALSE
     )
   }
-  
+
   if(missing(scale))
   {scale <- 1.4}
   if(!QD) {
@@ -73,7 +73,7 @@ generatepdm<- function(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
     cd[1:N,1:nCD] <- CD
     rd[1:N,1:nRD] <- RD
     PDM <- cbind(pem,td,cd,rd)
-    
+
     Rs<-nR
     rownames(PDM)<-paste("a",1:nrow(PDM),sep="_")
     if (Rs>0){
@@ -84,7 +84,7 @@ generatepdm<- function(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
       colnames(PDM)<-c(paste("a",1:nrow(PDM),sep='_'),
                        paste("t",1:w,sep='_'),paste("c",1:w,sep='_'))
     }
-    
+
     class(PDM)<-"PDM_matrix"
     output$PDM<- PDM
     output$w <- w
@@ -407,7 +407,7 @@ maxscore_PEM<- function(PEM,P=PEM, Q=1-PEM)
   return(score)
 }
 
-####Function to calculate minimal score value of possible project scenarios#### 
+####Function to calculate minimal score value of possible project scenarios####
 
 minscore_PEM<- function(PEM,P=PEM, Q=1-PEM)
 {
@@ -423,7 +423,7 @@ minscore_PEM<- function(PEM,P=PEM, Q=1-PEM)
       call. = FALSE
     )
   }
-  
+
   score=1
   N=0
   p=diag(P)
@@ -440,10 +440,10 @@ minscore_PEM<- function(PEM,P=PEM, Q=1-PEM)
   # score=score*q[i]
   #if (pem[i]<1 & pem[i]>0)
   # score=score*min(p[i],q[i])}
-  
+
   if (N>0)           #The score of the project scenario is the geometric mean of maximum
     score=prod(matrix(c(p[pem==1], q[pem==0], pqmin[pem>0 & pem<1])))^{1/N}
-  
+
   return(score)
 }
 
@@ -491,7 +491,7 @@ paretores<- function(DSM,TD,RD){
     colnames(rd)<-paste("R",1:ncol(rd),sep="_")
     rownames(rd)<-"TPR"
     SST<-t(as.matrix(tail(results$parameters,n=1)))
-    
+
   }else{ # Single objective case
     results<-genalg::rbga(as.vector(EST),as.vector(LST),evalFunc=maxresfun)
     rd<-as.matrix(tail(results$best,n=1))
@@ -536,10 +536,10 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
   {
     DSMdiag <- matrix(ceiling(diag(PDM[,1:pracma::size(PDM,1)])))
     #All uncertain tasks/dependencies will be included
-    
+
     dsmdiag <- matrix(floor(diag(PDM[,1:pracma::size(PDM,1)])))
     #All uncertain tasks/dependencies will be excluded
-    
+
     C <- Rfast::rowMaxs(PDM[,
                             (pracma::size(PDM,1)+w+1):(pracma::size(PDM,1)+2*w)],
                         value=TRUE)
@@ -553,8 +553,8 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
     }else{
       Const$Cc <- as.numeric(TPCmin+ratio*(TPCmax-TPCmin))
     }
-    
-    
+
+
   }
   if ("q" %in% type)
   {
@@ -625,7 +625,7 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
         #calculation of TPRmin
         TPRmin=paretores(dsm,T,r)$RD
         Const$CR=TPRmin+ratio*(TPRmax-TPRmin)}
-      
+
     }else{
       if (dim(PDM)[2]==dim(PDM)[1]+w*(2+Rs)) #There are no QD
       {
@@ -672,7 +672,7 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
     TPSmax=maxscore_PEM(PEM,PEM,(pracma::ones(pracma::size(PEM,1)))-PEM)
     TPSmin=minscore_PEM(PEM,PEM,(pracma::ones(pracma::size(PEM,1)))-PEM)
     Const$Cs<-TPSmin+ratio*(TPSmax-TPSmin)
-    
+
   }
   if ("t" %in% type)
   {
@@ -683,14 +683,14 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
     TPTmax=tpt(DSM,T)[[1]]
     TPTmin=tpt(dsm,t)[[1]]
     Const$Ct<-TPTmin+ratio*(TPTmax-TPTmin)
-    
+
   }
   class(Const)<-"PDM_const"
   return(Const)
 }
 
 ######### Sensitivity analysis of PDM #######################
- 
+
 #### Function to simulate estimation uncertainty####
 phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
   if (!requireNamespace("pracma", quietly = TRUE)) {
@@ -732,7 +732,7 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
             PDMout[i,j]=1                  # %Quality should not be greater than 1
         }
       }
-      
+
     }
   }else{
     if ("beta" %in% pdftype){
@@ -754,7 +754,7 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
               PDMout[i,j]=1                  # %Quality should not be greater than 1
           }
         }
-        
+
       }
     }else{
       warning("\n\nphase1 implemented only for 'uniform' and 'beta' distributions")
@@ -803,7 +803,7 @@ phase2<- function(x,p=0.1,s=5.0){
           PDMout[i,j]=1                  # %Quality should not be greater than 1
       }
     }
-    
+
   }
   class(PDMout)<-"PDM_matrix"
   if ("PDM_list" %in% class(x)){
@@ -841,7 +841,7 @@ phase3<- function(x,p=0.10,s=0.50){
   m<-dim(PDM)[2]
   PDMout=PDM
   PDMout[1:n,1:n]=pmax(pmin(pracma::ones(n),PDM[1:n,1:n]+s*pracma::triu(((pracma::rand(n)<p)*1)*pracma::rand(n))),pracma::zeros(n))
-  
+
   if (m>n){                #occurances is generated with probability value p
     Z=pracma::zeros(n,(m-n))
     PDMout[,(n+1):m]=PDMout[,(n+1):m]+((PDM[,(n+1):m]==Z)*1)*pracma::rand(n,m-n)*pracma::repmat(colMeans(PDM[diag(PDM)!=0,(n+1):m]),n,1)  #is generated then
@@ -892,6 +892,8 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         call. = FALSE
       )
     }
+    oldpar<-par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     par(mfrow=c(1,1))
     PDM<-x
     class(PDM)<-"PDM_matrix"
@@ -905,7 +907,6 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
       )
     }else{
       if (is.flexible(PDM)){
-        #par(mfrow=c(3,2))
         pdm<-truncpdm(PDM)
         n<-pracma::size(pdm,1)
         c<-which((diag(pdm)<1)&(diag(pdm)>0),TRUE)
@@ -968,7 +969,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         diag(minimaxPDM)<-diag(minPDM)
         minimaxPDM[(diag(minimaxPDM)==0)*c(1:N),(diag(minimaxPDM)==0)*c(1:N)]<-0
         class(minimaxPDM)<-"PDM_matrix"
-        
+
         minpdm<-truncpdm(minPDM)
         n<-pracma::size(minpdm,1)
         m<-pracma::size(minpdm,2)
@@ -989,7 +990,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
             plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
                  vertex.shape="crectangle",vertexlabel.dist=2.5,
                  vertex.label=paste("d",igraph::V(g)$weight,sep="="),...)
-            
+
             legend(
               "topleft",
               legend = c("critical", "non-critical"),
@@ -1002,7 +1003,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
           }else{
             plot(g,main="Minimal Structure",layout=igraph::layout_as_tree,
                  vertex.shape="crectangle",vertexlabel.dist=2.5,...)
-            
+
           }
         }
         maxpdm<-truncpdm(maxPDM)
@@ -1020,14 +1021,14 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         if (!is.null(w)) igraph::V(g)$weight<-Rfast::rowMaxs(maxpdm[,(n+1):(n+w)])
         igraph::V(g)$color="green"
         if (!is.null(c)) igraph::V(g)[c]$color="red"
-        
+
         if ("max" %in% type){
           if (!is.null(c)){
             plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
                  vertex.shape="crectangle",vertexlabel.dist=2.5,
                  vertex.label=paste("d",
                                     igraph::V(g)$weight,sep="="),...)
-            
+
             legend(
               "topleft",
               legend = c("critical", "non-critical"),
@@ -1040,7 +1041,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
           }else{
             plot(g,main="Maximal Structure",layout=igraph::layout_as_tree,
                  vertex.shape="crectangle",vertexlabel.dist=2.5,...)
-            
+
           }
         }
         minimaxpdm<-truncpdm(minimaxPDM)
@@ -1096,9 +1097,9 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                  layout=igraph::layout_as_tree,vertex.label=igraph::V(g)$names,
                  vertex.shape="crectangle",vertexlabel.dist=2.5,...)
           }
-          
-          
-          
+
+
+
         }
       }
     }
@@ -1115,6 +1116,8 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
       maxCONST<-percent(PDM,type=type,w=w,Rs=Rs,ratio=1.0)
       n<-length(minCONST)-3
       if (n>0){
+        oldpar<-par(no.readonly = TRUE)
+        on.exit(par(oldpar))
         par(mfrow=c(1,n))
       }
       if (!is.null(minCONST$Ct)&&!is.null(maxCONST$Ct))
@@ -1415,7 +1418,7 @@ summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
     for (i in (1:length(object))){
       df[i,"w"]<-as.numeric(object[[i]]$PDM_list$w)
       df[i,"Rs"]<-as.numeric(object[[i]]$PDM_list$Rs)
-      
+
       cat("\n Project name: ",names(object)[i])
       cat(", w: ",df[i,"w"])
       cat(", Rs: ",df[i,"Rs"])
@@ -1480,17 +1483,17 @@ tpq<- function(DSM,PEM, q, QD=NULL)
       call. = FALSE
     )
   }
-  
+
   TPQ <- 0  # Total Project Quality
   TPS <- 0  # Total Project Score (additive scores are assumed)
-  
+
   for (i in 1:ncol(DSM))
   {
     if (DSM[i,i]>0)
     {TPS <- TPS+PEM[i,i]}
     if (TPQ==0)
     {TPQ=1}
-    
+
     TPQ <- TPQ*(q[i]^PEM[i,i])
   }
   if (TPS>0)
@@ -1573,6 +1576,8 @@ tpr<- function(SST,DSM,TD,RD,res.graph=FALSE)
       }
     Width[length(BP)]<-TPT-BP[length(BP)]
     m<-pracma::size(RESFUNC,2)
+    oldpar<-par(no.readonly = TRUE)
+    on.exit(par(oldpar))
     par(mfrow=c(m,1))
     for (i in c(1:m)){
       barplot(RESFUNC[,i],width = Width,space = 0,col = "darkgreen",
@@ -1604,7 +1609,7 @@ tpt<- function(DSM,TD,SST=NULL)
       call. = FALSE
     )
   }
-  
+
   DSM<-round(DSM)
   #T<-Re(T)
   N<-pracma::numel(TD)
@@ -1614,7 +1619,7 @@ tpt<- function(DSM,TD,SST=NULL)
   EFT<-EST+TD                   # EFTi=ESTi+Ti (i=1..N)
   DSM[(diag(DSM)==0)*(1:N),]<-0
   DSM[,(diag(DSM)==0)*(1:N)]<-0
-  
+
   for (i in c(1:(N-1))){              # Forward pass
     for (j in c((i+1):N)){
       if (DSM[i,i]>0) {

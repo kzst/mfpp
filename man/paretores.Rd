@@ -1,15 +1,11 @@
 \name{paretores}
 \alias{paretores}
-\title{ Calculate Pareto-optimal resource allocation
-%%  ~~function to do ... ~~
-}
-\description{ Calculate Pareto-optimal resource allocation
-%%  ~~ A concise (1-5 lines) description of what the function does. ~~
-}
+\title{ Calculate Pareto-optimal resource allocation}
+\description{ Calculate Pareto-optimal resource allocation}
 \usage{
 paretores(DSM,TD,RD)
 }
-%- maybe also 'usage' for other objects documented here.
+
 \arguments{
   \item{DSM}{An N by N upper triangular adjacency matrix of logic network with fixed dependencies (a binary matrix).}
   \item{TD}{ N by 1 matrix of task durations (a numeric matrix)}
@@ -19,9 +15,6 @@ paretores(DSM,TD,RD)
 \value{
  \item{RD}{Pareto-optimal TPR (1 by r numeric vector)).}
  \item{SST}{Scheduled Start Time (N by N numeric matrix)).}
-
-%%  \item{comp2 }{Description of 'comp2'}
-%% ...
 }
 \references{
 Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX, 17, 100973.
@@ -29,11 +22,7 @@ Kosztyán, Z. T. (2022). MFPP: Matrix-based flexible project planning. SoftwareX
 \author{ Zsolt T. Kosztyan*, Aamir Saghir
 
 e-mail: kzst@gtk.uni-pannon.hu
-%%  ~~who you are~~
 }
-
-
-%% ~Make other sections like Warning with \section{Warning }{....} ~
 
 \seealso{\code{\link{tpr}}, \code{\link{percent}}.}
 \examples{
@@ -73,12 +62,4 @@ RES
 tpr(RES$SST,DSM,TD,RD)
 
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory (show via RShowDoc("KEYWORDS")):
-% \keyword{ ~kwd1 }
-% \keyword{ ~kwd2 }
-% Use only one keyword per line.
-% For non-standard keywords, use \concept instead of \keyword:
 \concept{project planning}
-% \concept{ ~cpt2 }
-% Use only one concept per line.
