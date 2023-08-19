@@ -1,8 +1,10 @@
-citHeader("To cite mfpp in publications use:")
-citEntry(
-    entry      = "article",
+bibentry(
+    header       = "To cite 'mfpp' in publications use:",
+    bibtype      = "article",
     title        = "mfpp: an R package for matrix-based project planning",
-    author       = personList(person(given="Zsolt T.", family="Kosztyan", email="kzst@gtk.uni-pannon.hu"),person(given="Aamir", family="Saghir")),
+    author       = c(    person("Zsolt T.", "Kosztyan", email="kosztyan.zsolt@gtk.uni-pannon.hu", role = c("aut", "cre")),
+    person("Aamir", "Saghir", email="aamirstat@yahoo.com", role = c("aut"))
+    ),
     journal      = "SoftwareX",
     year         = 2022,
     pages        = "Submitted",

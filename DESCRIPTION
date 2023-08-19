@@ -12,7 +12,7 @@ Encoding: UTF-8
 LazyData: TRUE
 URL: https://github.com/kzst/mfpp
 Depends: 
-    R (>= 3.10)
+    R (>= 4.00)
 Imports: 
     pracma,
     nsga2R,
@@ -21,7 +21,7 @@ Imports:
     ggplot2,
     reshape2,
     Rfast
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Suggests: 
     rmarkdown,
     knitr,
