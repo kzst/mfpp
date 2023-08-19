@@ -1,4 +1,5 @@
-\name{mfpp}
+\name{mfpp-package}
+\alias{mfpp-package}
 \alias{mfpp}
 \docType{package}
 
