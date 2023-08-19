@@ -3,7 +3,7 @@ Type: Package
 Title: 'Matrix-Based Flexible Project Planning'
 Version: 0.0.5
 Authors@R: c(
-    person("Zsolt T.","Kosztyan",email="kzst@gtk.uni-pannon.hu", role = c("aut", "cre")),
+    person("Zsolt T.","Kosztyan",email="kosztyan.zsolt@gtk.uni-pannon.hu", role = c("aut", "cre")),
     person("Aamir", "Sagir", role = "aut"))
 Maintainer: Zsolt T. Kosztyan <kosztyan.zsolt@gtk.uni-pannon.hu>
 Description: Matrix-Based Flexible Project Planning. This package models, plans, and schedules flexible, such as agile, extreme, and hybrid project plans. The package contains project planning, scheduling, and risk assessment functions. Kosztyan (2022) <doi:10.1016/j.softx.2022.100973>.
