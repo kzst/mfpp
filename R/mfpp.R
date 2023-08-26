@@ -1279,7 +1279,7 @@ summary.PDM_const <- function(object, digits =  getOption("digits"), ...) {
     cat("\nSummary of the PDM constraints structure:\n")
     if (!is.null(object$Ct)) cat("\nTime constraint (Ct): ",
                                  round(object$Ct,digits = digits))
-    if (!is.null(object$Cc)) cat("\nConst constraint (Cc): ",
+    if (!is.null(object$Cc)) cat("\nCost constraint (Cc): ",
                                  round(object$Cc,digits =digits))
     if (!is.null(object$Cs)) cat("\nScore/scope constraint (Cs): ",
                                  round(object$Cs,digits =digits))

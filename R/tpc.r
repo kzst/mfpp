@@ -12,9 +12,6 @@
 
 #' @export
 tpc <- function(DSM,CD){
-  TPC<-0
-  for (i in 1:length(CD)){
-    TPC=TPC+as.numeric(DSM[i,i])*as.numeric(CD[i])
-  }
+  TPC<-sum(ceiling(as.numeric(diag(DSM)))*as.numeric(CD))
   return(as.numeric(TPC))
 }

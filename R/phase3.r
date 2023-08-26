@@ -24,7 +24,7 @@ phase3<- function(x,p=0.10,s=0.50){
       PDM<-x
     }else{
       stop(
-        "truncpdm works only on matix, PDM_matrix, and PDM_list.",
+        "phase3 works only on matix, PDM_matrix, and PDM_list.",
         call. = FALSE
       )
     }
