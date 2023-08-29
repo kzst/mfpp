@@ -10,7 +10,7 @@
 # Last modified: May 2022                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
-phase3<- function(x,p=0.10,s=0.50){
+phase3<- function(x,p=0.10,s=0.50,nW=0){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
       "Package \"pracma\" must be installed to use this function.",
@@ -44,8 +44,9 @@ phase3<- function(x,p=0.10,s=0.50){
           PDMout[i,j]=1                  # %Quality should not be greater than 1
       }
     }
-    PDMout[diag(PDMout)==0,] <- 0          #Exluded task demands are also excluded
-    PDMout[1:n, (diag(PDMout)==0)*c(1:n)]<- 0       #Exluded task demands are also excluded
+    PDMout[1:(n-nW),(n+1):m] <- PDM[1:(n-nW),(n+1):m] # Write back for regular tasks
+    PDMout[diag(PDMout)==0,] <- 0        #Exluded task demands are also excluded
+    PDMout[1:n, (diag(PDMout)==0)*c(1:n)]<- 0 #Exluded task demands are also excluded
   }
   class(PDMout)<-"PDM_matrix"
   if ("PDM_list" %in% class(x)){

@@ -615,7 +615,7 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
       t <- matrix(Rfast::rowMins(PDM[,(pracma::size(PDM,1)+1):(pracma::size(PDM,1)+w)], value=TRUE))   #max R when min T
       EST <- tpt(DSM,t)[["EST"]]                                        #Optimization are within [EST,LST]
       LST <- tpt(DSM,t)[["LST"]]
-      TPRmax=t(matrix(pmax(tpr(EST,DSM,t,R),tpr(LST,DSM,t,R))))
+      TPRmax=t(matrix(pmax(tpr(EST,DSM,t,as.matrix(R)),tpr(LST,DSM,t,as.matrix(R)))))
       if (ratio==1.0){
         CR=TPRmax
         colnames(CR)<-paste("R",1:ncol(CR),sep="_")
@@ -623,7 +623,7 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
         Const$CR<-CR
       }  else {
         #calculation of TPRmin
-        TPRmin=paretores(dsm,T,r)$RD
+        TPRmin=paretores(dsm,T,as.matrix(r))$RD
         Const$CR=TPRmin+ratio*(TPRmax-TPRmin)}
 
     }else{
@@ -653,7 +653,7 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
         t <- matrix(Rfast::rowMins(PDM[,(pracma::size(PDM,1)+1):(pracma::size(PDM,1)+w)], value=TRUE))   #max R when min T
         EST <- tpt(DSM,t)[["EST"]]                                        #Optimization are within [EST,LST]
         LST <- tpt(DSM,t)[["LST"]]
-        TPRmax=t(matrix(pmax(tpr(EST,DSM,t,R),tpr(LST,DSM,t,R))))
+        TPRmax=t(matrix(pmax(tpr(EST,DSM,t,as.matrix(R)),tpr(LST,DSM,t,as.matrix(R)))))
         if (ratio==1.0){
           CR=TPRmax
           colnames(CR)<-paste("R",1:ncol(CR),sep="_")
@@ -661,7 +661,7 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
           Const$CR<-CR
         }  else {
           #calculation of TPRmin
-          TPRmin=paretores(dsm,T,r)$RD
+          TPRmin=paretores(dsm,T,as.matrix(r))$RD
           Const$CR<-TPRmin+ratio*(TPRmax-TPRmin)}
       }
     }
@@ -817,7 +817,7 @@ phase2<- function(x,p=0.1,s=5.0){
 }
 
 ####Function to simulate the effects of the change of customer claims####
-phase3<- function(x,p=0.10,s=0.50){
+phase3<- function(x,p=0.10,s=0.50,nW=0){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
       "Package \"pracma\" must be installed to use this function.",
@@ -831,7 +831,7 @@ phase3<- function(x,p=0.10,s=0.50){
       PDM<-x
     }else{
       stop(
-        "truncpdm works only on matix, PDM_matrix, and PDM_list.",
+        "phase3 works only on matix, PDM_matrix, and PDM_list.",
         call. = FALSE
       )
     }
@@ -851,8 +851,9 @@ phase3<- function(x,p=0.10,s=0.50){
           PDMout[i,j]=1                  # %Quality should not be greater than 1
       }
     }
-    PDMout[diag(PDMout)==0,] <- 0          #Exluded task demands are also excluded
-    PDMout[1:n, (diag(PDMout)==0)*c(1:n)]<- 0       #Exluded task demands are also excluded
+    PDMout[1:(n-nW),(n+1):m] <- PDM[1:(n-nW),(n+1):m] # Write back for regular tasks
+    PDMout[diag(PDMout)==0,] <- 0        #Exluded task demands are also excluded
+    PDMout[1:n, (diag(PDMout)==0)*c(1:n)]<- 0 #Exluded task demands are also excluded
   }
   class(PDMout)<-"PDM_matrix"
   if ("PDM_list" %in% class(x)){

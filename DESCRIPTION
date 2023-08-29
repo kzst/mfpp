@@ -1,7 +1,7 @@
 Package: mfpp
 Type: Package
 Title: 'Matrix-Based Flexible Project Planning'
-Version: 0.0.5
+Version: 0.0.6
 Authors@R: c(
     person("Zsolt T.","Kosztyan",email="kosztyan.zsolt@gtk.uni-pannon.hu", role = c("aut", "cre")),
     person("Aamir", "Sagir", role = "aut"))
