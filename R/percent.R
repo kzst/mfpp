@@ -5,12 +5,11 @@
 #  Written by: Zsolt T. Kosztyan, Aamir Saghir                                #
 #              Department of Quantitative Methods                             #
 #              University of Pannonia, Hungary                                #
-#              kzst@gtk.uni-pannon.hu                                         #
+#              kosztyan.zsolt@gtk.uni-pannon.hu                               #
 #                                                                             #
-# Last modified: May 2022                                                     #
+# Last modified: June 2024                                                    #
 #-----------------------------------------------------------------------------#
 #' @export
-#' @importFrom stats na.omit
 percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
@@ -106,9 +105,9 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
       if (w > 1)
         for (i in seq(1,pracma::size(rD,2),w)) {
           rmin <- matrix(Rfast::colMins(t(rD[,i:(i+w-1)]),value=TRUE))
-          rmin <- na.omit(rmin)
+          rmin <- stats::na.omit(rmin)
           rmax <- matrix(Rfast::colMaxs(t(rD[,i:(i+w-1)]),value=TRUE))
-          rmax <- na.omit(rmax)
+          rmax <- stats::na.omit(rmax)
           r <- cbind(r,rmin)
           R <- cbind(R,rmax)
         }  else {
@@ -143,9 +142,9 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
         if (w > 1)
           for (i in seq(1,pracma::size(rD,2),w)) {
             rmin <- matrix(Rfast::colMins(t(rD[,i:(i+w-1)]),value=TRUE))
-            rmin <- na.omit(rmin)
+            rmin <- stats::na.omit(rmin)
             rmax <- matrix(Rfast::colMaxs(t(rD[,i:(i+w-1)]),value=TRUE))
-            rmax <- na.omit(rmax)
+            rmax <- stats::na.omit(rmax)
             r <- cbind(r,rmin)
             R <- cbind(R,rmax)
           }

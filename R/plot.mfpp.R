@@ -5,18 +5,17 @@
 #  Written by: Zsolt T. Kosztyan, Aamir Saghir                                #
 #              Department of Quantitative Methods                             #
 #              University of Pannonia, Hungary                                #
-#              kzst@gtk.uni-pannon.hu                                         #
+#              kosztyan.zsolt@gtk.uni-pannon.hu                               #
 #                                                                             #
-# Last modified: May 2022                                                     #
+# Last modified: June 2024                                                    #
 #-----------------------------------------------------------------------------#
 
 #' @export
-#' @importFrom graphics par legend barplot
 plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                             type=c("orig","max","min","maximin","minimax","most","const"),
                             main=NULL,col=NULL,
                             ...){
-  if ("PDM_matrix" %in% class(x)){
+  if (methods::is(x,"PDM_matrix")){
     if (!requireNamespace("igraph", quietly = TRUE)) {
       stop(
         "Package \"igraph\" must be installed to use this function.",
@@ -35,9 +34,9 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         call. = FALSE
       )
     }
-    oldpar<-par(no.readonly = TRUE)
-    on.exit(par(oldpar))
-    par(mfrow=c(1,1))
+    oldpar<-graphics::par(no.readonly = TRUE)
+    on.exit(graphics::par(oldpar))
+    graphics::par(mfrow=c(1,1))
     PDM<-x
     class(PDM)<-"PDM_matrix"
     N<-pracma::size(PDM,1)
@@ -73,7 +72,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                  layout=igraph::layout_as_tree,
                  vertex.shape="crectangle",vertexlabel.dist=2.5,...)
           }
-          legend(
+          graphics::legend(
             "topleft",
             legend = c("mandatory", "supplementary"),
             pt.bg  = c("green", "yellow"),
@@ -82,7 +81,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
             bty    = "n",
             title  = "Tasks"
           )
-          legend(
+          graphics::legend(
             "bottomleft",
             legend = c("fixed", "flexible"),
             col  = c("black", "grey"),
@@ -134,7 +133,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                  vertex.shape="crectangle",vertexlabel.dist=2.5,
                  vertex.label=paste("d",igraph::V(g)$weight,sep="="),...)
 
-            legend(
+            graphics::legend(
               "topleft",
               legend = c("critical", "non-critical"),
               pt.bg  = c("red", "green"),
@@ -172,7 +171,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                  vertex.label=paste("d",
                                     igraph::V(g)$weight,sep="="),...)
 
-            legend(
+            graphics::legend(
               "topleft",
               legend = c("critical", "non-critical"),
               pt.bg  = c("red", "green"),
@@ -259,32 +258,32 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
       maxCONST<-percent(PDM,type=type,w=w,Rs=Rs,ratio=1.0)
       n<-length(minCONST)-3
       if (n>0){
-        oldpar<-par(no.readonly = TRUE)
-        on.exit(par(oldpar))
-        par(mfrow=c(1,n))
+        oldpar<-graphics::par(no.readonly = TRUE)
+        on.exit(graphics::par(oldpar))
+        graphics::par(mfrow=c(1,n))
       }
       if (!is.null(minCONST$Ct)&&!is.null(maxCONST$Ct))
-        barplot(cbind(minCONST$Ct,maxCONST$Ct),
+        graphics::barplot(cbind(minCONST$Ct,maxCONST$Ct),
                 names.arg = c("min_C_t","max_C_t"),
                 ylab = "TPT",main = "Duration constraints",
                 col=col)
       if (!is.null(minCONST$Cc)&&!is.null(maxCONST$Cc))
-        barplot(cbind(minCONST$Cc,maxCONST$Cc),
+        graphics::barplot(cbind(minCONST$Cc,maxCONST$Cc),
                 names.arg = c("min_C_c","max_C_c"),
                 ylab = "TPC",main = "Cost constraints",
                 col=col)
       if (!is.null(minCONST$Cq)&&!is.null(maxCONST$Cq))
-        barplot(cbind(minCONST$Cq,maxCONST$Cq),
+        graphics::barplot(cbind(minCONST$Cq,maxCONST$Cq),
                 names.arg = c("min_C_q","max_C_q"),
                 ylab = "TPQ",main = "Quality constraints",
                 col=col)
       if (!is.null(minCONST$Cs)&&!is.null(maxCONST$Cs))
-        barplot(cbind(minCONST$Cs,maxCONST$Cs),
+        graphics::barplot(cbind(minCONST$Cs,maxCONST$Cs),
                 names.arg = c("min_C_s","max_C_s"),
                 ylab = "TPS",main = "Scope/score constraints",
                 col=col)
       if (!is.null(minCONST$CR)&&!is.null(maxCONST$CR))
-        barplot(cbind(minCONST$CR,maxCONST$CR),
+        graphics::barplot(cbind(minCONST$CR,maxCONST$CR),
                 names.arg = c(paste("min",colnames(minCONST$CR),sep="_"),
                               paste("max",colnames(maxCONST$CR),sep="_")),
                 ylab = "TPR",main = "Resource constraints",
@@ -300,7 +299,7 @@ plot.PDM_list <- function(x,
                           type=c("orig","max","min","maximin","minimax","most","const"),
                           main=NULL,col=NULL,
                           ...){
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     plot.PDM_matrix(x=x$PDM,w=x$w,Rs=x$Rs,
                     type=type,main=main,col=col,
                     ...)
@@ -315,7 +314,7 @@ plot.Set_PDM_matrix <- function(x,w=NULL,Rs=NULL,
                                        "maximin","minimax","most","const"),
                                 col=NULL,
                                 ...){
-  if ("Set_PDM_matrix" %in% class(x)){
+  if (methods::is(x,"Set_PDM_matrix")){
     if (!is.null(x$minstruct))
       plot.PDM_matrix(x=x$minstruct,w=w,Rs=Rs,
                       type=type,main="Minimal Structure",col=col,
@@ -348,7 +347,7 @@ plot.Set_PDM_list <- function(x,type=c("orig","max",
                                        "minimax","most","const"),
                               col=NULL,
                               ...){
-  if ("Set_PDM_list" %in% class(x)){
+  if (methods::is(x,"Set_PDM_list")){
     if (!is.null(x$minstruct))
       plot.PDM_list(x=x$minstruct,
                     type=type,main="Minimal Structure",col=col,
@@ -378,7 +377,7 @@ plot.Set_PDM_list <- function(x,type=c("orig","max",
 
 #' @export
 plot.TPT <- function(x,sched="E",...){
-  if ("TPT" %in% class(x)){
+  if (methods::is(x,"TPT")){
     if (!requireNamespace("ggplot2", quietly = TRUE)) {
       stop(
         "Package \"ggplot2\" must be installed to use this function.",

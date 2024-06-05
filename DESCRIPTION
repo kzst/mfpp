@@ -21,6 +21,8 @@ Imports:
     ggplot2,
     reshape2,
     methods,
+    graphics,
+    stats,
     Rfast
 RoxygenNote: 7.2.3
 Suggests: 

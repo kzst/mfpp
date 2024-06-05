@@ -11,7 +11,7 @@
 #-----------------------------------------------------------------------------#
 #' @export
 summary.PDM_const <- function(object, digits =  getOption("digits"), ...) {
-  if ("PDM_const" %in% class(object)){
+  if (methods::is(object,"PDM_const")){
     cat("\nSummary of the PDM constraints structure:\n")
     if (!is.null(object$Ct)) cat("\nTime constraint (Ct): ",
                                  round(object$Ct,digits = digits))
@@ -34,7 +34,7 @@ summary.PDM_const <- function(object, digits =  getOption("digits"), ...) {
 summary.PDM_matrix <- function(object, digits =  getOption("digits"),
                                w=getOption("w"),
                                Rs=getOption("Rs"), ...) {
-  if ("PDM_matrix" %in% class(object)){
+  if (methods::is(object,"PDM_matrix")){
     cat("\nsummary PDM matrix:\n")
     print(object,digits=digits)
     if ((!is.null(w))||(!is.null(Rs))){
@@ -70,7 +70,7 @@ summary.PDM_matrix <- function(object, digits =  getOption("digits"),
 
 #' @export
 summary.PDM_list <- function(object, digits =  getOption("digits"), ...) {
-  if ("PDM_list" %in% class(object)){
+  if (methods::is(object,"PDM_list")){
     cat("\nsummary PDM list:\n")
     if (!is.null(object$w)) cat("\nNumber of completion modes (w): ",
                                 object$w)
@@ -86,7 +86,7 @@ summary.PDM_list <- function(object, digits =  getOption("digits"), ...) {
 summary.Set_PDM_matrix <- function(object, digits =  getOption("digits"),
                                    w=getOption("w"),
                                Rs=getOption("Rs"), ...) {
-  if ("Set_PDM_matrix" %in% class(object)){
+  if (methods::is(object,"Set_PDM_matrix")){
     cat("\nSummary of main structures:\n")
     if (!is.null(object$minstruct)) {
       cat("\n\n\nSummary of minimal structure:\n")
@@ -115,7 +115,7 @@ summary.Set_PDM_matrix <- function(object, digits =  getOption("digits"),
 
 #' @export
 summary.Set_PDM_list <- function(object, digits =  getOption("digits"), ...) {
-  if ("Set_PDM_list" %in% class(object)){
+  if (methods::is(object,"Set_PDM_list")){
     cat("\nSummary of main structures:\n")
     if (!is.null(object$minstruct)) {
       cat("\n\n\nSummary of minimal structure:\n")
@@ -144,7 +144,7 @@ summary.Set_PDM_list <- function(object, digits =  getOption("digits"), ...) {
 
 #' @export
 summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
-  if ("Collection_PDM" %in% class(object)){
+  if (methods::is(object,"Collection_PDM")){
     cat("\n\n\nSummary of PDM collection:\n")
     cat("\nNumber of projects: ",length(object))
     cat("\nList of projects: ")
@@ -169,7 +169,7 @@ summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
 
 #' @export
 summary.TPT <- function(object, digits =  getOption("digits"),...){
-  if ("TPT" %in% class(object)){
+  if (methods::is(object,"TPT")){
     if (!requireNamespace("knitr", quietly = TRUE)) {
       stop(
         "Package \"knitr\" must be installed to use this function.",

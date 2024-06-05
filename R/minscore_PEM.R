@@ -5,9 +5,9 @@
 #  Written by: Zsolt T. Kosztyan, Aamir Saghir                                #
 #              Department of Quantitative Methods                             #
 #              University of Pannonia, Hungary                                #
-#              kzst@gtk.uni-pannon.hu                                         #
+#              kosztyan.zsolt@gtk.uni-pannon.hu                               #
 #                                                                             #
-# Last modified: May 2022                                                     #
+# Last modified: June 2024                                                    #
 #-----------------------------------------------------------------------------#
 
 #' @export

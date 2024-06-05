@@ -1,13 +1,13 @@
 #-----------------------------------------------------------------------------#
 #                                                                             #
 #  MATRIX-BASED FLEXIBLE PROJECT PLANNING                                     #
-#                bbn                                                             #
+#                                                                             #
 #  Written by: Zsolt T. Kosztyan, Aamir Saghir                                #
 #              Department of Quantitative Methods                             #
 #              University of Pannonia, Hungary                                #
-#              kzst@gtk.uni-pannon.hu                                         #
+#              kosztyan.zsolt@gtk.uni-pannon.hu                               #
 #                                                                             #
-# Last modified: May 2022                                                     #
+# Last modified: June 2024                                                    #
 #-----------------------------------------------------------------------------#
 #' @export
 truncpdm<- function(x){
@@ -52,7 +52,7 @@ truncpdm<- function(x){
     PDM<-matrix(0,0,0)
     class(PDM)<-"PDM_matrix"
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     x$PDM<-PDM
     output<-x
     class(output)<-"PDM_list"

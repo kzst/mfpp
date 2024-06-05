@@ -5,12 +5,11 @@
 #  Written by: Zsolt T. Kosztyan, Aamir Saghir                                #
 #              Department of Quantitative Methods                             #
 #              University of Pannonia, Hungary                                #
-#              kzst@gtk.uni-pannon.hu                                         #
+#              kosztyan.zsolt@gtk.uni-pannon.hu                               #
 #                                                                             #
-# Last modified: May 2022                                                     #
+# Last modified: June 2024                                                    #
 #-----------------------------------------------------------------------------#
 #' @export
-#' @importFrom stats rbeta
 phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
   if (!requireNamespace("pracma", quietly = TRUE)) {
     stop(
@@ -24,10 +23,10 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -66,7 +65,7 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
       beta <- 6*(r2-1)/(r2-r1)
       M <- b-a
       if (m>n){
-        PDMout[,(n+1):m]=PDMout[,(n+1):m]+(M*matrix(rbeta(n*(m-n), alpha, beta), ncol=(m-n))+a)*PDM[,(n+1):m]
+        PDMout[,(n+1):m]=PDMout[,(n+1):m]+(M*matrix(stats::rbeta(n*(m-n), alpha, beta), ncol=(m-n))+a)*PDM[,(n+1):m]
         for (i in 1:n){                   #demands will be similar to the other demands
           for (j in ((n+1):m)){
             if ((PDM[i,j]>0) && (PDM[i,j]<=1) && (PDMout[i,j]>1))
@@ -80,7 +79,7 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
     }
   }
   class(PDMout)<-"PDM_matrix"
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     x$PDM<-PDMout
     output<-x
     class(output)<-"PDM_list"
