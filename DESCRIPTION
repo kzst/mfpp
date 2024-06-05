@@ -1,7 +1,7 @@
 Package: mfpp
 Type: Package
 Title: 'Matrix-Based Flexible Project Planning'
-Version: 0.0.6
+Version: 0.0.7
 Authors@R: c(
     person("Zsolt T.","Kosztyan",email="kosztyan.zsolt@gtk.uni-pannon.hu", role = c("aut", "cre")),
     person("Aamir", "Sagir", role = "aut"))
@@ -20,6 +20,7 @@ Imports:
     genalg,
     ggplot2,
     reshape2,
+    methods,
     Rfast
 RoxygenNote: 7.2.3
 Suggests: 

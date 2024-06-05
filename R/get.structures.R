@@ -7,7 +7,7 @@
 #              University of Pannonia, Hungary                                #
 #              kzst@gtk.uni-pannon.hu                                         #
 #                                                                             #
-# Last modified: May 2022                                                     #
+# Last modified: June 2024                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
 get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
@@ -17,10 +17,10 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -62,7 +62,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("min" %in% type){ # Calculate minimal structure
       minstruct<-list()
       minstruct$PDM<-minPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         minstruct$w<-x$w
         minstruct$Rs<-x$Rs
         class(minstruct)<-"PDM_list"
@@ -74,7 +74,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("max" %in% type){ # Calculate maximal structure
       maxstruct<-list()
       maxstruct$PDM<-maxPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         maxstruct$w<-x$w
         maxstruct$Rs<-x$Rs
         class(maxstruct)<-"PDM_list"
@@ -86,7 +86,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("most" %in% type){ # Calculate desired structure
       moststruct<-list()
       moststruct$PDM<-mostPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         moststruct$w<-x$w
         moststruct$Rs<-x$Rs
         class(moststruct)<-"PDM_list"
@@ -98,7 +98,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("minimax" %in% type){ # Calculate minimax structure
       minimaxstruct<-list()
       minimaxstruct$PDM<-minimaxPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         minimaxstruct$w<-x$w
         minimaxstruct$Rs<-x$Rs
         class(minimaxstruct)<-"PDM_list"
@@ -110,7 +110,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("maximin" %in% type){ # Calculate maximin structure
       maximinstruct<-list()
       maximinstruct$PDM<-maximinPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         maximinstruct$w<-x$w
         maximinstruct$Rs<-x$Rs
         class(maximinstruct)<-"PDM_list"
@@ -119,7 +119,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
         output$maximinstruct<-maximinPDM
       }
     }
-    if ("PDM_list" %in% class(x)){
+    if (methods::is(x,"PDM_list")){
       class(output)<-"Set_PDM_list"
     }else{
       class(output)<-"Set_PDM_matrix"

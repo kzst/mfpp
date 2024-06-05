@@ -24,13 +24,13 @@ generatepdm(N,ff,cf,mTD,mCD,mRD,w,nR,nW,scale=1.4,QD=FALSE,lst=FALSE)
 }
 
 \value{
-  \item{PDM}{[PEM,TD, CD, {QD,RD}] is a Project Domain Matrix (a numeric matrix), where;}
+  \item{PDM}{[PEM,TD, CD, <QD,RD>] is a Project Domain Matrix (a numeric matrix), where;}
   \item{PEM}{An N by N upper triangular matrix of logic domain (a numeric matrix).}
-  \item{TD}{ N by w matrix of task durations (a numeric matrix).}
-  \item{CD}{ N by w matrix of cost demands (a numeric matrix).}
-  \item{QD}{ N by w matrix of quality parameters (a numeric matrix).}
-  \item{RD}{ N by w*nR matrix of resource demands (a numeric matrix).}
-  \item{w}{ Number of completion modes (scalar, if the output is PDM list (lst=TRUE)).}
+  \item{TD}{N by w matrix of task durations (a numeric matrix).}
+  \item{CD}{N by w matrix of cost demands (a numeric matrix).}
+  \item{QD}{N by w matrix of quality parameters (a numeric matrix, optional).}
+  \item{RD}{ N by w*nR matrix of resource demands (a numeric matrix, optional).}
+  \item{w}{Number of completion modes (scalar, if the output is PDM list (lst=TRUE)).}
   \item{Rs}{ Number of resources (scalar, if the output is PDM list (lst=TRUE)).}
 }
 \references{

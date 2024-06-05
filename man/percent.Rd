@@ -7,7 +7,7 @@ percent(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1)
 }
 
 \arguments{
-  \item{PDM}{is a Project Domain Matrix (a numeric matrix), where PDM=[LD,TD, CD, {QD,RD}]. LD is an N by N upper triangular matrix of logic domain (a numeric matrix); TD is an N by w matrix of task durations (a numeric matrix); CD is an N by w matrix of cost demands (a numeric matrix); QD is an optinal N by w matrix of quality parameters (a numeric optional matrix); RD is an N by w*nR matrix of resource demands (a numeric optional matrix).}
+  \item{PDM}{is a Project Domain Matrix (a numeric matrix), where PDM=[LD,TD, CD, <QD,RD>]. LD is an N by N upper triangular matrix of logic domain (a numeric matrix); TD is an N by w matrix of task durations (a numeric matrix); CD is an N by w matrix of cost demands (a numeric matrix); QD is an optinal N by w matrix of quality parameters (a numeric optional matrix); RD is an N by w*nR matrix of resource demands (a numeric optional matrix).}
   \item{type}{ Type to calculate the project completion characteristic either cost or quality with or without defined quality parameters, or resources with or without quality parameters, or minimum completion score or minimum task duration of a project scenario (a logical value).}
    \item{w}{ Number of completion modes (a numeric integer).}
    \item{Rs}{ Number of resources (a numeric integer).}

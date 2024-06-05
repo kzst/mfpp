@@ -7,7 +7,7 @@
 #              University of Pannonia, Hungary                                #
 #              kzst@gtk.uni-pannon.hu                                         #
 #                                                                             #
-# Last modified: May 2022                                                     #
+# Last modified: June 2024                                                     #
 #-----------------------------------------------------------------------------#
 #' @export
 is.flexible<- function(x){
@@ -17,10 +17,10 @@ is.flexible<- function(x){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(

@@ -6,7 +6,7 @@
 phase3 (x,p=0.10, s=0.50, nW=0)
 }
 \arguments{
-  \item{x}{is either a Project Domain Matrix (a numeric matrix), where PDM=[LD,TD, CD, {QD,RD}]. LD is an N by N upper triangular matrix of logic domain (a numeric matrix); TD is an N by w matrix of task durations (a numeric matrix); CD is an N by w matrix of cost demands (a numeric matrix); QD is an optinal N by w matrix of quality parameters (a numeric optional matrix); RD is an N by w*nR matrix of resource demands (a numeric optional matrix), or PDM list, which contain a PDM matrix, and the number of completion modes (w) and the number of resources.}
+  \item{x}{is either a Project Domain Matrix (a numeric matrix), where PDM=[LD,TD, CD, <QD,RD>]. LD is an N by N upper triangular matrix of logic domain (a numeric matrix); TD is an N by w matrix of task durations (a numeric matrix); CD is an N by w matrix of cost demands (a numeric matrix); QD is an optinal N by w matrix of quality parameters (a numeric optional matrix); RD is an N by w*nR matrix of resource demands (a numeric optional matrix), or PDM list, which contain a PDM matrix, and the number of completion modes (w) and the number of resources.}
    \item{p}{ Probability of structural change (default value is p=0.10).}
    \item{s}{ Increase/decrease ratio of priorities (default value is s=0.50).}
    \item{nW}{ Number of unplanned tasks (default value is nW=0).}

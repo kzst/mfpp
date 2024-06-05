@@ -7,7 +7,7 @@
 #              University of Pannonia, Hungary                                #
 #              kzst@gtk.uni-pannon.hu                                         #
 #                                                                             #
-# Last modified: May 2022
+# Last modified: June 2024
 # For reproducible results of papers
 #----------------------------------------------------------------------------
 
@@ -173,10 +173,10 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -218,7 +218,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("min" %in% type){ # Calculate minimal structure
       minstruct<-list()
       minstruct$PDM<-minPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         minstruct$w<-x$w
         minstruct$Rs<-x$Rs
         class(minstruct)<-"PDM_list"
@@ -230,7 +230,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("max" %in% type){ # Calculate maximal structure
       maxstruct<-list()
       maxstruct$PDM<-maxPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         maxstruct$w<-x$w
         maxstruct$Rs<-x$Rs
         class(maxstruct)<-"PDM_list"
@@ -242,7 +242,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("most" %in% type){ # Calculate desired structure
       moststruct<-list()
       moststruct$PDM<-mostPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         moststruct$w<-x$w
         moststruct$Rs<-x$Rs
         class(moststruct)<-"PDM_list"
@@ -254,7 +254,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("minimax" %in% type){ # Calculate minimax structure
       minimaxstruct<-list()
       minimaxstruct$PDM<-minimaxPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         minimaxstruct$w<-x$w
         minimaxstruct$Rs<-x$Rs
         class(minimaxstruct)<-"PDM_list"
@@ -266,7 +266,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
     if ("maximin" %in% type){ # Calculate maximin structure
       maximinstruct<-list()
       maximinstruct$PDM<-maximinPDM
-      if ("PDM_list" %in% class(x)){
+      if (methods::is(x,"PDM_list")){
         maximinstruct$w<-x$w
         maximinstruct$Rs<-x$Rs
         class(maximinstruct)<-"PDM_list"
@@ -275,7 +275,7 @@ get.structures<- function(x,type=c("min","max","minimax","maximin","most")){
         output$maximinstruct<-maximinPDM
       }
     }
-    if ("PDM_list" %in% class(x)){
+    if (methods::is(x,"PDM_list")){
       class(output)<-"Set_PDM_list"
     }else{
       class(output)<-"Set_PDM_matrix"
@@ -293,10 +293,10 @@ is.flexible<- function(x){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -331,10 +331,10 @@ truncpdm<- function(x){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -366,7 +366,7 @@ truncpdm<- function(x){
     PDM<-matrix(0,0,0)
     class(PDM)<-"PDM_matrix"
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     x$PDM<-PDM
     output<-x
     class(output)<-"PDM_list"
@@ -521,7 +521,7 @@ percent<- function(PDM,type=c("c","q","qd","r","s","t"),w=2,Rs=2,ratio=1){
     )
   }
   Const<-list()
-  if ("PDM_list" %in% class(PDM)){
+  if (methods::is(PDM,"PDM_list")){
     Const$w<-PDM$w
     Const$Rs<-PDM$Rs
     w<-PDM$w
@@ -705,10 +705,10 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -761,7 +761,7 @@ phase1<- function(x,a=-0.1,b=0.30,pdftype="uniform"){
     }
   }
   class(PDMout)<-"PDM_matrix"
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     x$PDM<-PDMout
     output<-x
     class(output)<-"PDM_list"
@@ -779,10 +779,10 @@ phase2<- function(x,p=0.1,s=5.0){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -806,7 +806,7 @@ phase2<- function(x,p=0.1,s=5.0){
 
   }
   class(PDMout)<-"PDM_matrix"
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     x$PDM<-PDMout
     output<-x
     class(output)<-"PDM_list"
@@ -824,10 +824,10 @@ phase3<- function(x,p=0.10,s=0.50,nW=0){
       call. = FALSE
     )
   }
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     PDM<-x$PDM
   }else{
-    if (("PDM_matrix" %in% class(x))||("matrix" %in% class(x))||("array" %in% class(x))||("data.frame" %in% class(x))){
+    if ((methods::is(x,"PDM_matrix"))||(methods::is(x,"matrix"))||(methods::is(x,"array"))||(methods::is(x,"data.frame"))){
       PDM<-x
     }else{
       stop(
@@ -856,7 +856,7 @@ phase3<- function(x,p=0.10,s=0.50,nW=0){
     PDMout[1:n, (diag(PDMout)==0)*c(1:n)]<- 0 #Exluded task demands are also excluded
   }
   class(PDMout)<-"PDM_matrix"
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     x$PDM<-PDMout
     output<-x
     class(output)<-"PDM_list"
@@ -874,7 +874,7 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
                             type=c("orig","max","min","maximin","minimax","most","const"),
                             main=NULL,col=NULL,
                             ...){
-  if ("PDM_matrix" %in% class(x)){
+  if (methods::is(x,"PDM_matrix")){
     if (!requireNamespace("igraph", quietly = TRUE)) {
       stop(
         "Package \"igraph\" must be installed to use this function.",
@@ -1158,7 +1158,7 @@ plot.PDM_list <- function(x,
                           type=c("orig","max","min","maximin","minimax","most","const"),
                           main=NULL,col=NULL,
                           ...){
-  if ("PDM_list" %in% class(x)){
+  if (methods::is(x,"PDM_list")){
     plot.PDM_matrix(x=x$PDM,w=x$w,Rs=x$Rs,
                     type=type,main=main,col=col,
                     ...)
@@ -1173,7 +1173,7 @@ plot.Set_PDM_matrix <- function(x,w=NULL,Rs=NULL,
                                        "maximin","minimax","most","const"),
                                 col=NULL,
                                 ...){
-  if ("Set_PDM_matrix" %in% class(x)){
+  if (methods::is(x,"Set_PDM_matrix")){
     if (!is.null(x$minstruct))
       plot.PDM_matrix(x=x$minstruct,w=w,Rs=Rs,
                       type=type,main="Minimal Structure",col=col,
@@ -1206,7 +1206,7 @@ plot.Set_PDM_list <- function(x,type=c("orig","max",
                                        "minimax","most","const"),
                               col=NULL,
                               ...){
-  if ("Set_PDM_list" %in% class(x)){
+  if (methods::is(x,"Set_PDM_list")){
     if (!is.null(x$minstruct))
       plot.PDM_list(x=x$minstruct,
                     type=type,main="Minimal Structure",col=col,
@@ -1236,7 +1236,7 @@ plot.Set_PDM_list <- function(x,type=c("orig","max",
 
 #' @export
 plot.TPT <- function(x,sched="E",...){
-  if ("TPT" %in% class(x)){
+  if (methods::is(x,"TPT")){
     if (!requireNamespace("ggplot2", quietly = TRUE)) {
       stop(
         "Package \"ggplot2\" must be installed to use this function.",
@@ -1276,7 +1276,7 @@ plot.TPT <- function(x,sched="E",...){
 
 ####Summary function to print PDM constraints, matrices, lists, sets, collections####
 summary.PDM_const <- function(object, digits =  getOption("digits"), ...) {
-  if ("PDM_const" %in% class(object)){
+  if (methods::is(object,"PDM_const")){
     cat("\nSummary of the PDM constraints structure:\n")
     if (!is.null(object$Ct)) cat("\nTime constraint (Ct): ",
                                  round(object$Ct,digits = digits))
@@ -1299,7 +1299,7 @@ summary.PDM_const <- function(object, digits =  getOption("digits"), ...) {
 summary.PDM_matrix <- function(object, digits =  getOption("digits"),
                                w=getOption("w"),
                                Rs=getOption("Rs"), ...) {
-  if ("PDM_matrix" %in% class(object)){
+  if (methods::is(object,"PDM_matrix")){
     cat("\nsummary PDM matrix:\n")
     print(object,digits=digits)
     if ((!is.null(w))||(!is.null(Rs))){
@@ -1335,7 +1335,7 @@ summary.PDM_matrix <- function(object, digits =  getOption("digits"),
 
 #' @export
 summary.PDM_list <- function(object, digits =  getOption("digits"), ...) {
-  if ("PDM_list" %in% class(object)){
+  if (methods::is(object,"PDM_list")){
     cat("\nsummary PDM list:\n")
     if (!is.null(object$w)) cat("\nNumber of completion modes (w): ",
                                 object$w)
@@ -1351,7 +1351,7 @@ summary.PDM_list <- function(object, digits =  getOption("digits"), ...) {
 summary.Set_PDM_matrix <- function(object, digits =  getOption("digits"),
                                    w=getOption("w"),
                                    Rs=getOption("Rs"), ...) {
-  if ("Set_PDM_matrix" %in% class(object)){
+  if (methods::is(object,"Set_PDM_matrix")){
     cat("\nSummary of main structures:\n")
     if (!is.null(object$minstruct)) {
       cat("\n\n\nSummary of minimal structure:\n")
@@ -1380,7 +1380,7 @@ summary.Set_PDM_matrix <- function(object, digits =  getOption("digits"),
 
 #' @export
 summary.Set_PDM_list <- function(object, digits =  getOption("digits"), ...) {
-  if ("Set_PDM_list" %in% class(object)){
+  if (methods::is(object,"Set_PDM_list")){
     cat("\nSummary of main structures:\n")
     if (!is.null(object$minstruct)) {
       cat("\n\n\nSummary of minimal structure:\n")
@@ -1409,7 +1409,7 @@ summary.Set_PDM_list <- function(object, digits =  getOption("digits"), ...) {
 
 #' @export
 summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
-  if ("Collection_PDM" %in% class(object)){
+  if (methods::is(object,"Collection_PDM")){
     cat("\n\n\nSummary of PDM collection:\n")
     cat("\nNumber of projects: ",length(object))
     cat("\nList of projects: ")
@@ -1434,7 +1434,7 @@ summary.Collection_PDM <- function(object, digits =  getOption("digits"), ...) {
 
 #' @export
 summary.TPT <- function(object, digits =  getOption("digits"),...){
-  if ("TPT" %in% class(object)){
+  if (methods::is(object,"TPT")){
     if (!requireNamespace("knitr", quietly = TRUE)) {
       stop(
         "Package \"knitr\" must be installed to use this function.",

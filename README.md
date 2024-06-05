@@ -24,9 +24,6 @@ install_github("kzst/mfpp")
 library(mfpp)
 ```
 
-Quick tour for package **mfpp**
+## Acknowledgement
 
-
-```{r}
-vignette("mfpp")
-```
+This work has been implemented by the TKP2021-NVA-10 project with the support provided by the Ministry of Culture and Innovation of Hungary from the National Research, Development and Innovation Fund, financed under the 2021 Thematic Excellence Programme funding scheme.
