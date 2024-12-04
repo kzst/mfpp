@@ -118,13 +118,16 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         c<-NULL
         if (!is.null(w)) { # Number of completion mode is specified
           if (m>=(n+w)){ # There are a Task Domain
-            TPT<-tpt(minpdm[1:n,1:n],Rfast::rowMins(minpdm[,(n+1):(n+w)]))
+            TPT<-tpt(minpdm[1:n,1:n],
+                     Rfast::rowMins(matrix(minpdm[,(n+1):(n+w)],ncol=w),
+                                    value=TRUE))
             c<-which(as.vector(TPT$EFT)==as.vector(TPT$LFT),TRUE)
           }
         }
         diag(minpdm)<-0
         g<-igraph::graph.adjacency(minpdm[1:n,1:n],weighted=TRUE)
-        if (!is.null(w)) igraph::V(g)$weight<-Rfast::rowMins(minpdm[,(n+1):(n+w)])
+        if (!is.null(w)) igraph::V(g)$weight<-Rfast::rowMins(matrix(
+          minpdm[,(n+1):(n+w)],ncol=w),value=TRUE)
         igraph::V(g)$color="green"
         if (!is.null(c)) igraph::V(g)[c]$color="red"
         if ("min" %in% type){
@@ -154,13 +157,15 @@ plot.PDM_matrix <- function(x,w=NULL,Rs=NULL,
         c<-NULL
         if (!is.null(w)){ # Number of completion mode is specified
           if (m>=(n+w)){ # There are a Task Domain
-            TPT<-tpt(maxpdm[1:n,1:n],Rfast::rowMaxs(maxpdm[,(n+1):(n+w)]))
+            TPT<-tpt(maxpdm[1:n,1:n],Rfast::rowMaxs(
+              matrix(maxpdm[,(n+1):(n+w)],ncol=w),value=TRUE))
             c<-which(as.vector(TPT$EFT)==as.vector(TPT$LFT),TRUE)
           }
         }
         diag(maxpdm)<-0
         g<-igraph::graph.adjacency(maxpdm[1:n,1:n],weighted=TRUE)
-        if (!is.null(w)) igraph::V(g)$weight<-Rfast::rowMaxs(maxpdm[,(n+1):(n+w)])
+        if (!is.null(w)) igraph::V(g)$weight<-Rfast::rowMaxs(
+          matrix(maxpdm[,(n+1):(n+w)],ncol=w),value=TRUE)
         igraph::V(g)$color="green"
         if (!is.null(c)) igraph::V(g)[c]$color="red"
 
